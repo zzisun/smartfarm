@@ -1,6 +1,6 @@
 venv/
 .idea/
-
+.static_root/
 # Default ignored files
 /shelf/
 /workspace.xml
