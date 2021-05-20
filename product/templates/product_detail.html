@@ -9,7 +9,13 @@
                 <h5 class = "card-title">{{product.name}}</h5>
             </div>
             <ul class = "list-group list-group-flush">
-                 <li class = "list-group-item">
+                <li class = "list-group-item">카테고리 : {{ product.category }} </li>
+                <li class = "list-group-item">상품 가격 : {{ product.price | intcomma }} 원</li>
+                <li class = "list-group-item">남은 수량 : {{ product.stock}}</li>
+                <li class = "list-group-item">등록 날짜 : {{ product.registered_date|date:'Y-m-d H:i'}}</li>
+                <li class = "list-group-item"><img src="{{product.image.url}}" width="200"><br></li>
+                <li class = "list-group-item">{{ product.description|safe }} </li>
+                <li class = "list-group-item">
                     <form method = "POST" action = "/order/create/">
                         {% csrf_token %}
                         {% for field in form %}
@@ -28,11 +34,6 @@
                         <button type = "submit" class = "btn btn-primary">주문</button>
                     </form>
                 </li>
-                <li class = "list-group-item">상품 가격 : {{ product.price | intcomma }} 원</li>
-                <li class = "list-group-item">남은 수량 : {{ product.stock}}</li>
-                <li class = "list-group-item">등록 날짜 : {{ product.registered_date|date:'Y-m-d H:i'}}</li>
-                <li class = "list-group-item"><img src="{{product.image.url}}" width="200"><br></li>
-                <li class = "list-group-item">{{ product.description|safe }} </li>
             </ul>
         </div>
     </div>
