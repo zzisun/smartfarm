@@ -14,6 +14,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import UserSerializer
 
+def signIn(request):
+    return render(request, "users/templates/sign_in1.html")
+
 def home(request):
     return render(request, 'home.html', {'user' : request.session.get('user')})
 
