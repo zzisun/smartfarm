@@ -14,8 +14,8 @@ from .form import OrderForm
 @method_decorator(login_required, name = 'dispatch')
 class OrderCreate(FormView):
     form_class = OrderForm
-    success_url = '/product'
-
+    success_url = '/order/complete'
+    template_name = 'order_complete.html'
     def form_valid(self, form):
         with transaction.atomic():
             prod = Product.objects.get(pk=form.data.get('product'))
