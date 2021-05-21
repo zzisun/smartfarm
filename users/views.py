@@ -1,10 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
 from users.models import Users
 from .form import RegisterForm, LoginForm
 from django.views.generic.edit import FormView
@@ -14,11 +9,15 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import UserSerializer
 
-def signIn(request):
-    return render(request, "users/templates/sign_in1.html")
-
 def home(request):
-    return render(request, 'home.html', {'user' : request.session.get('user')})
+    return render(request, "users/sign_in1.html")
+def signIn(request):
+    return render(request, "users/sign_in2.html")
+def signUp(request):
+    return render(request, "users/sign_up1.html")
+
+# def home(request):
+#     return render(request, 'home.html', {'user' : request.session.get('user')})
 
 
 class RegisterView(FormView):
