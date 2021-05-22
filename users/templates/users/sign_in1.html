@@ -1,8 +1,6 @@
 
 <!DOCTYPE html>
 {% load static %}
-    {% load socialaccount %}
-    {% providers_media_js %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +19,7 @@
         <div class="bottom_box">
             <a href='/signin' class="btn">Sign in</a>
             <p class="line_txt Roboto">Or Connect Through</p>
-            <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn_sns bm20">
+            <a href="#" class="btn_sns bm20">
                 <img src="{% static 'images/ic_face.png' %}" alt="facebook icon" class="rm10">
                 <span>Connect with Facebook</span>
             </a>

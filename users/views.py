@@ -15,6 +15,15 @@ def signIn(request):
     return render(request, "users/sign_in2.html")
 def signUp(request):
     return render(request, "users/sign_up1.html")
+def resetPassword(request):
+    return render(request, "users/sign_in3.html")   
+def createPassword(request):
+    return render(request, "users/sign_in5.html")
+def verifyAccount(request):
+    return render(request, "users/sign_up2.html")
+def success(request):
+    return render(request, "users/sign_up3.html")
+  
 
 # def home(request):
 #     return render(request, 'home.html', {'user' : request.session.get('user')})
