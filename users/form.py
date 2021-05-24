@@ -1,7 +1,15 @@
 from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.db import models
+from django.forms import fields
 from .models import Users
 from django.contrib.auth.hashers import check_password
 
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['firstname','lastname','username', 'email']
 
 class RegisterForm(forms.Form):
     email = forms.EmailField(

@@ -178,29 +178,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# SOCIALACCOUNT_PROVIDERS = {
-
-#     'facebook':
-#     {
-#         'SCOPE': ['email', 'publish_stream'],
-#         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-#         'METHOD': 'oauth2',
-#         'LOCALE_FUNC': 'path.to.callable',
-#         'VERIFIED_EMAIL': False
-#     }, 
-#     'google': {
-#         # For each OAuth based provider, either add a ``SocialApp``
-#         # (``socialaccount`` app) containing the required client
-#         # credentials, or list them here:
-#         'APP': {
-#             'client_id': '123',
-#             'secret': '456',
-#             'key': ''
-#         }
-#     }
-# }
 
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/mypage"
 ACCOUNT_AUTHENTICATED_LOGOUT_REDIRECTS = True
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"
