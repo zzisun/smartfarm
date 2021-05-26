@@ -3,7 +3,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from users.models import Users
-from .form import RegisterForm, LoginForm
+from .form import CreateUserForm, RegisterForm, LoginForm
 from django.views.generic.edit import FormView
 from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
@@ -31,11 +31,11 @@ def mypage(request):
     return render(request, "users/status.html")
 
 def registerPage(request):
-    form = UserCreationForm()
+    form = CreateUserForm()
     # template_name = 'users/sign_up1.html'
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid:
             form.save()
             
