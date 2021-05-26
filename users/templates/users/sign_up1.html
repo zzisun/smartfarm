@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load socialaccount %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -59,11 +60,11 @@
         </form>
         <div class="bottom_box tx_c">
             <p class="line_txt Roboto">Or Connect Through</p>
-            <a href="#" class="btn_sns bm10">
+            <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn_sns bm10">
                 <img src="{%static 'images/ic_face.png' %}" alt="facebook icon" class="rm10">
                 <span>Connect with Facebook</span>
             </a>
-            <a href="#" class="btn_sns">
+            <a href="{% provider_login_url 'google' %}" class="btn_sns">
                 <img src="{%static 'images/ic_google.png' %}" alt="google icon" class="rm10">
                 <span>Connect with Google</span>
             </a>
