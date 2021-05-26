@@ -32,6 +32,7 @@ def mypage(request):
 
 def registerPage(request):
     form = UserCreationForm()
+    # template_name = 'users/sign_up1.html'
 
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -39,7 +40,7 @@ def registerPage(request):
             form.save()
             
     context = {'form':form}
-    return render(request, 'users/sign_in1.html', context)
+    return render(request, 'users/sign_up1.html', context)
 
 
 class RegisterView(FormView):

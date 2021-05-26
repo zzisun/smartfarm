@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import check_password
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['firstname','lastname','username', 'email']
+        fields = ['username', 'email']
 
 class RegisterForm(forms.Form):
     email = forms.EmailField(
