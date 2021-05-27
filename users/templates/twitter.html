@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter Share</title>
+</head>
+<body>
+    <a href="https://twitter.com/intent/tweet?button_hashtag=krishian_1_0_0&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-size="large"
+   data-text="Is there any problem here?" data-lang="en" data-show-count="false">Tweet #krishian_1_0_0</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <div>
+        {% for tweet in tweet_info %}
+            user name : {{ tweet.user_name }}
+            <br>
+            content : {{ tweet.text }}
+            <br>
+            <br>
+            {% if tweet.image %}
+                {% for image in tweet.image %}
+                    <img src="{{ image }}" />
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+</body>
+</html>

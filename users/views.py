@@ -21,6 +21,7 @@ from rest_framework.views import APIView
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 import requests
+from .tweepy import tweet_scrap
 
 def home(request):
     return render(request, 'home.html', {'user' : request.session.get('user')})
@@ -112,7 +113,7 @@ class TwitterCallbackEndpoint(APIView):
             user_id = res_split[2].split("=")[1] if len(res_split) > 2 else None
             user_name = res_split[3].split("=")[1] if len(res_split) > 3 else None
             # store oauth_token, oauth_secret, user_id, user_name
-            redirect_url = "http://127.0.0.1:8000/product/"
+            redirect_url = "http://127.0.0.1:8000/share/twitter/"
             return HttpResponseRedirect(redirect_url)
         except ConnectionError:
             return HttpResponse(
@@ -123,3 +124,10 @@ class TwitterCallbackEndpoint(APIView):
             return HttpResponse(
                 "<html><body>Something went wrong.Try again.</body></html>", status=403
             )
+
+def TwitterShare(request):
+    tweet_info = tweet_scrap()
+    content = {
+        "tweet_info": tweet_info,
+    }
+    return render(request, 'twitter.html', content)

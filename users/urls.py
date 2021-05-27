@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from users.views import home
-from users.views import LoginView, RegisterView, userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEndpoint
+from users.views import LoginView, RegisterView, userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEndpoint, TwitterShare
 urlpatterns = [
     path('', home),
     path('login/', LoginView.as_view(), name='LoginView'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('userlist/',userAPI),
     path("auth/twitter/redirect/", TwitterAuthRedirectEndpoint.as_view(), name="twitter-login-redirect"),
     path("callback/twitter/", TwitterCallbackEndpoint.as_view(), name="twitter-login-callback"),
+    path("share/twitter/", TwitterShare, name="twitter-share")
 ]
