@@ -3,7 +3,7 @@ import tweepy as tw
 import pandas as pd
 from django.conf import settings
 
-def tweet_scrap():
+def tweet_scrap(search_words):
     consumer_key = settings.TWITTER_API_KEY
     consumer_secret = settings.TWITTER_API_SECRET_KEY
     access_token = settings.TWITTER_ACCESS_TOKEN
@@ -13,11 +13,9 @@ def tweet_scrap():
     auth.set_access_token(access_token, access_token_secret)
     api = tw.API(auth, wait_on_rate_limit=True)
 
-    search_words = ["#krishian_1_0_0"]
     tweets = tw.Cursor(api.search,
                        q=search_words,
-                       lang="en",
-                       include_entities=True).items(10)
+                       include_entities=True).items(100)
 
     tweet_info_list = []
     for tweet in tweets:

@@ -126,8 +126,12 @@ class TwitterCallbackEndpoint(APIView):
             )
 
 def TwitterShare(request):
-    tweet_info = tweet_scrap()
+    search_words = ["#krishian_1_0_0"]
+    tweet_info = tweet_scrap(search_words)
+    data_text = "3,5,7,10,0.5,0.80,1.20,1.60,1.40,5.6,5.8,6,18,12,65,75,50,70,5,10,400,21,5 "
+
     content = {
         "tweet_info": tweet_info,
+        "data_text": data_text,
     }
     return render(request, 'twitter.html', content)
