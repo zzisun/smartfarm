@@ -24,25 +24,26 @@
         <h2 class="title tm95 re_tm20">Welcome back !</h2>
         <p class="sub_title">Please sign in to continue</p>
         <form action="" method="POST">
+            {% csrf_token %}
             <ul class="form_ul tm80">
                 <li>
                     <p class="input_tit">User name</p>
                     <div class="input_box">
-                        <input type="text" name="username" placeholder="">
+                        <input type="text" name="username" placeholder="Email Address" value="{{ form.username.value|default_if_none:'' }}">
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Password</p>
                     <div class="input_box">
-                        <input type="password" name="password" placeholder="">
+                        <input type="password" name="password" placeholder="" value="{{ form.password.value|default_if_none:'' }}">
                     </div>
                 </li>
             </ul>
             <div class="tx_r tm18">
-                <a href="#" class="txt_14 txt_green Roboto txt_medium">forget password?</a>
+                <a href="/resetPassword" class="txt_14 txt_green Roboto txt_medium">forget password?</a>
             </div>
         </form>
-        <a href="#" class="btn tm118 re_tm10">Sign in</a>
+        <a href="#" class="btn tm118 re_tm10" type="submit">Sign in</a>
     </div>
 </body>
 </html>

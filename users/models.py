@@ -3,7 +3,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class Users(models.Model):
-    email = models.CharField(verbose_name="email", max_length = 128, unique=True)
+    username = None
+    email = models.EmailField(verbose_name="email", max_length = 128, unique=True)
     first_name = models.CharField(verbose_name="first name", max_length=30, blank=True)
     last_name = models.CharField(verbose_name="last name", max_length=30, blank=True)
     password = models.CharField(max_length = 100, verbose_name = "password" )
@@ -11,6 +12,9 @@ class Users(models.Model):
     date_joined = models.DateTimeField(verbose_name='date joined', default=datetime.now)
     level = models.CharField(verbose_name="level", max_length=8,
     choices = (('admin', 'admin'), ('user', 'user')))
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
