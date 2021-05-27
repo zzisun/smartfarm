@@ -18,20 +18,39 @@
                 <li class = "list-group-item">
                     <form method = "POST" action = "/order/create/">
                         {% csrf_token %}
-                        {% for field in form %}
+                        {% for field in orderform %}
                         <div class = "form-group">
                             {% ifnotequal field.name 'product' %}
                             <label for = "{{field.id_for_label}}">{{field.label}}</label>
                             {% endifnotequal %}
                             <input type = "{{field.field.widget.input_type}}" class = "form-control" id = "{{field.id_for_label}}"
-                            placeholder="{{field.label}}" name = "{{field.name}}"
-                            value = "{% ifequal field.name 'product' %} {{product.id}} {% endifequal %}">
+                            placeholder="{{field.label}}" name = "{{field.name}}" min="1"
+                            value = "{% ifequal field.name 'product' %} {{product.id}} {% endifequal %} ">
                         </div>
                         {% if field.errors %}
                         <span style = "color:red">{{field.errors}}</span>
                         {% endif %}
                         {% endfor %}
                         <button type = "submit" class = "btn btn-primary">주문</button>
+                    </form>
+                </li>
+                <li class = "list-group-item">
+                    <form method = "POST" action = "/order/addcart/" >
+                        {% csrf_token %}
+                        {% for field in cartform %}
+                        <div class = "form-group">
+                            {% ifnotequal field.name 'product' %}
+                            <label for = "{{field.id_for_label}}">{{field.label}}</label>
+                            {% endifnotequal %}
+                            <input type = "{{field.field.widget.input_type}}" class = "form-control" id = "{{field.id_for_label}}"
+                            placeholder="{{field.label}}" name = "{{field.name}}" min="1"
+                            value = "{% ifequal field.name 'product' %} {{product.id}} {% endifequal %} ">
+                        </div>
+                        {% if field.errors %}
+                        <span style = "color:red">{{field.errors}}</span>
+                        {% endif %}
+                        {% endfor %}
+                        <button type = "submit" class = "btn btn-primary">장바구니 담기</button>
                     </form>
                 </li>
             </ul>

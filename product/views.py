@@ -4,7 +4,8 @@ from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView
 
-from order.form import OrderForm
+from order.form import OrderForm, CartForm
+from users.models import Users
 from product.models import Product, Category
 from .form import RegisterForm
 from django.views.generic.edit import FormView
@@ -14,6 +15,10 @@ from users.decorators import admin_required
 class ProductListView(ListView):
     template_name = 'product_list.html'
     model = Product
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users'] = Users.objects.get(email=self.request.session.get('user'))
+        return context
 
 @method_decorator(admin_required, name = 'dispatch')
 class ProductRegister(FormView):
@@ -32,6 +37,8 @@ class ProductRegister(FormView):
         product.save()
         return super().form_valid(form)
 
+
+
 class ProductDetailView(DetailView):
     template_name = "product_detail.html"
     queryset = Product.objects.all()
@@ -39,5 +46,7 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = OrderForm(self.request)
+        context['orderform'] = OrderForm(self.request)
+        context['cartform'] = CartForm(self.request)
+        context['user'] = Users.objects.get(email=self.request.session.get('user'))
         return context

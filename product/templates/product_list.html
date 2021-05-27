@@ -4,7 +4,9 @@
 <div class = "row mt-5">
     <div class = "col-12">
         <h1>상품 목록</h1>
-        <h2><a href="{% url 'orderlist' %}">주문 목록</a></h2>
+
+        <h2><a href="{% url 'order_list' pk=users.pk %}">주문 목록</a></h2>
+        <h2><a href="{% url 'cartlist' pk=users.pk %}">장바구니</a></h2>
         <table class = "table table-dark">
             <thead class = "thead thead-dark">
                 <td scope = "col">카테고리</td>
