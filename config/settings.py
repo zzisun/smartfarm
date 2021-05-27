@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'users',
     'order',
     'rest_framework',
+    # add twitter
+    'twitter',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +64,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "twitter", "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

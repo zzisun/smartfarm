@@ -23,6 +23,7 @@ urlpatterns = [
     path('product/', include('product.urls')),
     path('', include('users.urls')),
     path('order/', include('order.urls')),
+    path('twitter/', include('twitter.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

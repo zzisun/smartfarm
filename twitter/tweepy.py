@@ -1,6 +1,5 @@
 import os
 import tweepy as tw
-import pandas as pd
 from django.conf import settings
 
 def tweet_scrap(search_words):
@@ -18,8 +17,11 @@ def tweet_scrap(search_words):
                        include_entities=True).items(100)
 
     tweet_info_list = []
+    id_cnt = 0
     for tweet in tweets:
+        id_cnt += 1
         tweet_info = {}
+        tweet_info["id"] = id_cnt
         tweet_info["text"] = tweet.text
         tweet_info["user_name"] = tweet.user.screen_name
         print(tweet.text, tweet.user.screen_name)
