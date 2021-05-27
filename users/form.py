@@ -7,24 +7,19 @@ from .models import Users
 from django.contrib.auth.hashers import check_password
 
 class CreateUserForm(UserCreationForm):
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     class_update_fields = ['first_name', 'last_name', 'mobile_number','email', 'password']
-    #     for field_name in class_update_fields:
-    #          self.fields[field_name].widget.attrs.update({
-    #             'class': 'form-control'
-    #         })
-    email = forms.EmailField(label="Email address")
+    email = forms.EmailField(label="Email address", required=True)
+    mobile_number = forms.CharField(max_length=64, label="Mobile number")
 
     class Meta:
-        model = Users
+        model = User
         fields = ['first_name', 'last_name', 'mobile_number','email', 'password']
- 
-    # def save(self, commit=True):
-    #     user = super(CreateUserForm, self).save(commit=False) 
-    #     if commit:
-    #         user.save()
-    #     return user
+
+    def save(self, commit: True):
+        user = super(CreateUserForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
 
 class RegisterForm(forms.Form):
     first_name = forms.CharField(
@@ -48,13 +43,13 @@ class RegisterForm(forms.Form):
         widget=forms.PasswordInput, label="Password"
     )
 
-    def clean(self):
-        cleaned_data = super().clean()
-        email = cleaned_data.get('email')
-        first_name = cleaned_data.get('first_name')
-        last_name = cleaned_data.get('last_name')
-        mobile_number = cleaned_data.get('mobile_number')
-        password = cleaned_data.get('password')
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     email = cleaned_data.get('email')
+    #     first_name = cleaned_data.get('first_name')
+    #     last_name = cleaned_data.get('last_name')
+    #     mobile_number = cleaned_data.get('mobile_number')
+    #     password = cleaned_data.get('password')
 
 
 

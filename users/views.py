@@ -43,7 +43,7 @@ def registerPage(request):
     # template_name = 'users/sign_up1.html'
 
         if request.method == 'POST':
-          form = CreateUserForm(request.POST)
+          form = RegisterForm(request.POST)
           if form.is_valid:
               form.save()
               print(100)
@@ -69,6 +69,7 @@ class RegisterView(FormView):
             password=make_password(form.cleaned_data.get('password')),
             level='user'
         )
+        print(user)
         user.save()
 
         return super().form_valid(form)
