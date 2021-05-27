@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 from order.form import OrderForm
-from product.models import Product
+from product.models import Product, Category
 from .form import RegisterForm
 from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
@@ -24,6 +24,7 @@ class ProductRegister(FormView):
         product = Product(
             name = form.data.get('name'),
             price = form.data.get('price'),
+            category = Category.objects.get(id = form.data.get('category')),
             stock = form.data.get('stock'),
             image=form.cleaned_data['image'],
             description = form.data.get('description')
