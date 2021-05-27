@@ -67,7 +67,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', #allauth needs this
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -136,3 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+TWITTER_API_KEY = 'ccnRjWAWBTlLT4kkFXHrDJ6PT'
+TWITTER_API_SECRET_KEY = 'Fc5Kmlo73eThr9O9na5xZMdYtGj477MLdcwRiIfW7Nug5l0dKJ'
+TWITTER_AUTH_CALLBACK_URL = 'http://127.0.0.1:8000/callback/twitter/'
