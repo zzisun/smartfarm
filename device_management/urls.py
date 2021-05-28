@@ -1,4 +1,4 @@
-"""config URL Configuration
+"""plog_dm URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -14,16 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import path
+
+from . import views
+
+app_name = "device_management"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('product/', include('product.urls')),
-    path('', include('users.urls')),
-    path('order/', include('order.urls')),
-    path('device_management/', include('device_management.urls')),
+    path('', views.index, name='index'),
+    path('control',views.control, name='control'),
+    path('device',views.device, name='device'),
+    path('device1', views.device1, name='device1'),
+    path('device2', views.device2, name='device2'),
+    path('device3', views.device3, name='device3'),
+    path('device4', views.device4, name='device4'),
+    path('device5', views.device5, name='device5'),
+    path('create_plant_params', views.create_plant_params.as_view(), name='create_plant_params'),
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

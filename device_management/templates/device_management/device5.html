@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <link href="//db.onlinewebfonts.com/c/d4d6e1a6527a21185217393c427a52cb?family=Segoe+UI+Semibold" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href={% static "css/default.css" %}>
+    <script type="text/javascript" src={% static "js/jquery-3.5.1.min.js" %}></script>
+    <script type="text/javascript" src={% static "js/main.js" %}></script>
+</head>
+<body>
+    <!-- header -->
+    <header class="header">
+        <a href="javascript:;" class="back_btn  txt_medium">BACK</a>
+    </header>
+    <!-- //header -->
+    <!-- device -->
+    <div class="device_wrap footer_on">
+        <form action="">
+            <div class="cont tx_c">
+                <h2 class="top_title re_tp10">Krishian smart farm details</h2>
+                <ul class="form_ul tm50 tx_l">
+                    <li>
+                        <p class="input_tit">Farm model No</p>
+                        <div class="input_box">
+                            <input type="text" placeholder="">
+                        </div>
+                    </li>
+                    <li>
+                        <p class="input_tit">Farm capacity</p>
+                        <div class="input_box plants_box">
+                            <input type="text" placeholder="">
+                            <span class="txt_gray66 txt_14">Plants</span>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="input_tit">Farm type</p>
+                        <div class="input_box">
+                            <input type="text" placeholder="">
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="next_btn tm100 re_tm10">Next</a>
+            </div>
+        </form>
+    </div>
+    <!-- //device -->
+    <!-- footer_gnb -->
+    <footer class="footer_gnb">
+        <ul class="gnb_ul">
+            <li>
+                <a href="#"><img src="images/ic_store.png" alt="store icon"></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/ic_community.png" alt="community icon"></a>
+            </li>
+        </ul>
+        <a href="javascript:;" class="gnb_home"><img src="images/ic_home.png" alt="home icon"></a>
+    </footer>
+    <!-- //footer_gnb -->
+</body>
+</html>
