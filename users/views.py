@@ -15,13 +15,13 @@ from rest_framework.decorators import api_view
 from .serializers import UserSerializer
 
 # for OAuth in twitter
-from requests_oauthlib import OAuth1
+# from requests_oauthlib import OAuth1
 from urllib.parse import urlencode
 from rest_framework.views import APIView
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.conf import settings
-import requests
-from .tweepy import tweet_scrap
+# import requests
+# from .tweepy import tweet_scrap
 
 def home(request):
     return render(request, 'home.html', {'user' : request.session.get('user')})
