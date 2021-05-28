@@ -80,7 +80,7 @@ class create_farm_info(APIView):
         serializer = POST_Farm_Info(data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=201)
+            return Response(serializer.data, template_name = "device7", status=201)
         return Response(serializer.errors, status=400)
 
 class create_plant_params(APIView):
