@@ -18,7 +18,7 @@
     <div class="sign_wrap tx_c tp220 re_tp20 footer_on">
         <img src={%static "images/img_check.png"%} alt="check image">
         <h2 class="title tm42">Thank you for your order !</h2>
-        <a href="#" class="btn line tm194 re_tm20">View your order</a>
+        <a href="{% url 'order_list' pk=user.pk %}" class="btn line tm194 re_tm20">View your order</a>
         <a href="{% url 'ProductListView' %}" class="btn tm10">Go to Home page</a>
     </div>
     <!-- footer_gnb -->
