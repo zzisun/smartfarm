@@ -23,6 +23,7 @@ urlpatterns = [
     path('product/', include('product.urls')),
     path('', include('users.urls')),
     path('order/', include('order.urls')),
+    path('twitter/', include('twitter.urls')),
     path('device_management/', include('device_management.urls')),
 ]
 
