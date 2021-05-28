@@ -11,7 +11,7 @@ class CreateUserForm(UserCreationForm):
     mobile_number = forms.CharField(max_length=64, label="Mobile number")
 
     class Meta:
-        model = User
+        model = Users
         fields = ['first_name', 'last_name', 'mobile_number','email', 'password']
 
     def save(self, commit: True):
@@ -21,27 +21,27 @@ class CreateUserForm(UserCreationForm):
             user.save()
         return user
 
-class RegisterForm(forms.Form):
-    first_name = forms.CharField(
-        error_messages={'required': "Input First Name."},
-        max_length=64, label="First name"
-    )
-    last_name = forms.CharField(
-        error_messages={'required': "Input Last Name."},
-        max_length=64, label="Last name"
-    )
-    mobile_number = forms.CharField(
-        error_messages={'required': "Input Mobile Number."},
-        max_length=64, label="Mobile number"
-    )
-    email = forms.EmailField(
-        error_messages={'required': "Input Email."},
-        max_length=64, label="Email address"
-    )
-    password = forms.CharField(
-        error_messages={'required': "Input Password"},
-        widget=forms.PasswordInput, label="Password"
-    )
+# class RegisterForm(forms.Form):
+#     first_name = forms.CharField(
+#         error_messages={'required': "Input First Name."},
+#         max_length=64, label="First name"
+#     )
+#     last_name = forms.CharField(
+#         error_messages={'required': "Input Last Name."},
+#         max_length=64, label="Last name"
+#     )
+#     mobile_number = forms.CharField(
+#         error_messages={'required': "Input Mobile Number."},
+#         max_length=64, label="Mobile number"
+#     )
+#     email = forms.EmailField(
+#         error_messages={'required': "Input Email."},
+#         max_length=64, label="Email address"
+#     )
+#     password = forms.CharField(
+#         error_messages={'required': "Input Password"},
+#         widget=forms.PasswordInput, label="Password"
+#     )
 
     # def clean(self):
     #     cleaned_data = super().clean()
@@ -77,3 +77,24 @@ class LoginForm(forms.Form):
 
             if not check_password(password, user.password):
                 self.add_error('password', 'Wrong password.')
+
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django import forms
+from .models import User
+
+
+class RegisterForm(UserCreationForm):
+    first_name = forms.CharField(max_length=64, label="First name")
+    last_name = forms.CharField(max_length=64, label="Last name")
+    email = forms.EmailField(label="Email address", required=True)
+    mobile_number = forms.CharField(max_length=64, label="Mobile number")
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'mobile_number', 'email', 'password')
+
+
+# class UserChangeForm(UserChangeForm):
+
+#     class Meta:
+#         model = User
+#         fields = ('email',)

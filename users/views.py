@@ -2,6 +2,7 @@ from django.contrib import auth
 from django.http import request
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from users import models
 
 from users.models import Users
 from .form import CreateUserForm, RegisterForm, LoginForm
@@ -15,6 +16,9 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import inlineformset_factory
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+# from django.core.mail.message import EmailMessage
+
+
 
 def home(request):
     return render(request, "users/sign_in1.html")
@@ -57,7 +61,7 @@ def registerPage(request):
 
 class RegisterView(FormView):
     template_name = 'users/sign_up1.html'
-    form_class = RegisterForm
+    form_class = CreateUserForm
     success_url = '/verify'
 
     def form_valid(self, form):
@@ -95,6 +99,9 @@ class LoginView(FormView):
     #     self.request.session['user'] = form.data.get('email')
     #     return super().form_valid(form)
 
+# class PasswordResetView(FormView):
+
+
 def logout(request):
     if request.session.get('user'):
         del(request.session['user'])
@@ -105,3 +112,11 @@ def userAPI(request):
     userlist = list(Users.objects.all())
     serializer = UserSerializer(userlist, many=True)
     return Response(serializer.data)
+
+def send_email(): 
+    subject = "메시지" 
+    to = ['aaa@bbb.com'] 
+    from_email = 'myaccount@gmail.com' 
+    message = "메시지를 성공적으로 전송" 
+    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
+
