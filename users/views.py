@@ -43,6 +43,7 @@ class LoginView(FormView):
         self.request.session['user'] = form.data.get('email')
         return super().form_valid(form)
 
+
 def logout(request):
     if request.session.get('user'):
         del(request.session['user'])
