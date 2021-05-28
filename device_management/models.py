@@ -4,7 +4,7 @@ from django.db.models.expressions import Case
 
 # Create your models here.
 class Device_Info(models.Model):
-    device_serial = models.IntegerField(primary_key=True)
+    device_serial = models.IntegerField()
     device_model = models.CharField(default="", null=False, max_length=15)
     device_name = models.CharField(default="", max_length=15)
     device_detail = models.CharField(max_length=100, default="")
