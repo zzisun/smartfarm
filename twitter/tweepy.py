@@ -23,14 +23,12 @@ def tweet_scrap(search_words):
         tweet_info = {}
         tweet_info["id"] = id_cnt
         tweet_info["text"] = tweet.text
+        tweet_info["device"] = tweet.text.split('/')[0]
         tweet_info["user_name"] = tweet.user.screen_name
-        print(tweet.text, tweet.user.screen_name)
         if 'media' in tweet.entities:
             for image in tweet.entities['media']:
                 tweet_info["image"] = tweet_info.get("image", [])
                 tweet_info["image"].append(image['media_url'])
-                print(image['media_url'])
-                print(tweet_info["image"])
         tweet_info_list.append(tweet_info)
     return tweet_info_list
 
