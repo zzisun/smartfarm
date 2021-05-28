@@ -1,11 +1,18 @@
 from django import forms
-from .models import Product
+from .models import Product, Category
 
 class RegisterForm(forms.Form):
     name = forms.CharField(
         error_messages={'required':"Input product name."},
         max_length = 50, label = "Product name"
     )
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.Select,
+        error_messages={'required':"Select category."},
+        label = "Category"
+    )
+
     price = forms.IntegerField(
         error_messages={'required' : "Input price."},
         label = "price"
@@ -26,6 +33,7 @@ class RegisterForm(forms.Form):
     def clean(self):
         cleaned_data = super().clean()
         name = cleaned_data.get('name')
+        category = cleaned_data.get('category')
         price = cleaned_data.get('price')
         stock = cleaned_data.get('stock')
         description = cleaned_data.get('description')
@@ -33,6 +41,7 @@ class RegisterForm(forms.Form):
 
         if not (name and price and stock and description and image):
             self.add_error('name', "No data.")
+            self.add_error('category', "No data.")
             self.add_error('price', "No data.")
             self.add_error('stock', "No data.")
             self.add_error('description', "No data.")
