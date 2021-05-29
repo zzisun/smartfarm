@@ -21,9 +21,9 @@ class Farm_Info(models.Model):
 
 class Plant_Info(models.Model):
     farm_info = models.ForeignKey(Farm_Info, on_delete=CASCADE)
-    crop_group = models.IntegerField() #0:lettuce 1:leafy green, 2:herbs, 3:fruits
+    crop_group = models.CharField(max_length = 15) 
     crop_name = models.CharField(max_length = 20, null=True)
-    life_stage = models.IntegerField() #0:seed planting 1:germination 2:seeding 3:growth 4:harvest
+    life_stage = models.CharField(max_length = 15) 
     planting_date = models.DateField() #first date to plant seed
 
 class Growth_Params(models.Model):

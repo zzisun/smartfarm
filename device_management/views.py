@@ -59,6 +59,9 @@ def device4(request):
     
     return render(request, 'device_management/device4.html')
 
+
+
+
 def device7(request):
     #device_info_serial = request.POST['device_info'].get("device_serial")
     
@@ -75,12 +78,19 @@ def farm_info_setting(request):
         "device_info"
     }
 
+class crop_info_registeration(APIView):
+    template_name = "device_management/device6.html"
+
+    def post(self, request):
+        
+
 class create_farm_info(APIView):
     def post(self, request):
         serializer = POST_Farm_Info(data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, template_name = "device7", status=201)
+            farm_info = serializer.data["id"]
+            return render(request, 'device_management/device6.html',{'farm_info':farm_info})
         return Response(serializer.errors, status=400)
 
 class create_plant_params(APIView):
