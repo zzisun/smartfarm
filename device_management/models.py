@@ -4,6 +4,7 @@ from django.db.models.expressions import Case
 
 # Create your models here.
 class Device_Info(models.Model):
+    #device_serial = models.IntegerField()
     device_serial = models.IntegerField(primary_key=True)
     device_model = models.CharField(default="", null=False, max_length=15)
     device_name = models.CharField(default="", max_length=15)
@@ -16,14 +17,16 @@ class Farm_Info(models.Model):
     farm_type = models.CharField(max_length=15)
     farm_name = models.CharField(default="", max_length = 20)
     farm_capacity = models.IntegerField(default=1, null=False)
-    farm_no = models.IntegerField(primary_key=True)
+    farm_no = models.IntegerField()
+    farm_plant_num = models.IntegerField()
+    farm_model_no = models.CharField()
 
 class Plant_Info(models.Model):
     farm_info = models.ForeignKey(Farm_Info, on_delete=CASCADE)
-    crop_group = models.IntegerField() #0:lettuce 1:leafy green, 2:herbs, 3:fruits
+    crop_group = models.CharField(max_length = 15) 
     crop_name = models.CharField(max_length = 20, null=True)
-    life_stage = models.IntegerField() #0:seed planting 1:germination 2:seeding 3:growth 4:harvest
-    planting_date = models.DateField() #first date to plant seed
+    life_stage = models.CharField(max_length = 15) 
+    planting_date = models.DateField(auto_now_add=True) #first date to plant seed
 
 class Growth_Params(models.Model):
     device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)

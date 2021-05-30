@@ -6,7 +6,7 @@ from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import POST_Growth_Param_Serializer, POST_Mock
+from .serializers import POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info
 import json
 
 def index(request):
@@ -59,21 +59,42 @@ def device4(request):
     
     return render(request, 'device_management/device4.html')
 
-def device5(request):
+
+
+
+def device7(request):
     #device_info_serial = request.POST['device_info'].get("device_serial")
     
     device_serial = request.POST.get('device_serial') #changed way to send and receive only device_serial value not device_info object
     #context = {'device_serial': device_info_serial} #send information to html file!
+
+    
     context = {'device_serial': device_serial}
     print(device_serial)
-    return render(request, 'device_management/device5.html', context=context)
+    return render(request, 'device_management/device7.html', context=context)
 
 def farm_info_setting(request):
     mock_farm_info = {
         "device_info"
     }
 
+class crop_info_registeration(APIView):
+    template_name = "device_management/device6.html"
 
+    def post(self, request):
+        crop_serializer = POST_Plant_Info(data = request.data)
+        if crop_serializer.is_valid():
+            crop_serializer.save()
+            
+
+class create_farm_info(APIView):
+    def post(self, request):
+        serializer = POST_Farm_Info(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            farm_info = serializer.data["id"]
+            return render(request, 'device_management/device6.html',{'farm_info':farm_info})
+        return Response(serializer.errors, status=400)
 
 class create_plant_params(APIView):
 

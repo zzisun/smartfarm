@@ -24,53 +24,99 @@
 
     <div class="device_wrap footer_on">
         
-        <form action={% url "device_management:device5" %} method="POST">
+        <!--
+        <form action={% url 'device_management:Create_farm_info' %} method="POST">
+                -->
+           
+        <form action={% url 'device_management:Create_farm_info' %} method="POST">
+           
             {% csrf_token %}
             <div class="cont tx_c">
-                <h2 class="top_title re_tp10">Choose Krishian Smart farm</h2>
-                <div class="scroll_box tm50">
-                    <ul>
-                        <li class="bm10">
-                            <label for="farm1" class="custom_radio">
-                                <input type="radio" id="farm1" class="appearance dn" name="farm">
-                                <span class="radio_box">Smart farm 20</span>
-                            </label>
+                <div id="get_hidden_1" class = "get_hidden" style="display: block;">
+                    <h2 class="top_title re_tp10">Choose Krishian Smart farm</h2>
+                    
+                    <div class="scroll_box tm50">
+                    
+                        <ul>
+                            <li class="bm10">
+                                <label for="farm1" class="custom_radio">
+                                    <input type="radio" id="farm1" class="appearance dn" name="farm_name">
+                                    <span class="radio_box">Smart farm 20</span>
+                                </label>
+                            </li>
+                            <li class="bm10">
+                                <label for="farm2" class="custom_radio">
+                                    <input type="radio" id="farm2" class="appearance dn" name="farm_name">
+                                    <span class="radio_box">Smart farm 30</span>
+                                </label>
+                            </li>
+                            <li class="bm10">
+                                <label for="farm3" class="custom_radio">
+                                    <input type="radio" id="farm3" class="appearance dn" name="farm_name">
+                                    <span class="radio_box">Smart farm 50</span>
+                                </label>
+                            </li>
+                            <li class="bm10">
+                                <label for="farm4" class="custom_radio">
+                                    <input type="radio" id="farm4" class="appearance dn" name="farm_name">
+                                    <span class="radio_box">Smart farm 50</span>
+                                </label>
+                            </li>
+                            <li class="bm10">
+                                <label for="farm5" class="custom_radio">
+                                    <input type="radio" id="farm5" class="appearance dn" name="farm_name">
+                                    <span class="radio_box">Smart farm 50</span>
+                                </label>
+                            </li>
+                            <li class="bm10">
+                                <label for="farm6" class="custom_radio">
+                                    <input type="radio" id="farm6" class="appearance dn" name="farm_name">
+                                    <span class="radio_box">Smart farm 50</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <input type="hidden" name="device_info" value={{device_info.device_serial}}>
+                    
+                </div>
+                <div id = "get_hidden_2" class="get_hidden" style="display:none">
+
+                    <h2 class="top_title re_tp10">Krishian smart farm details</h2>
+                    <ul class="form_ul tm50 tx_l">
+                        <li>
+                            <p class="input_tit">Farm model No</p>
+                            <div class="input_box">
+                                <input type="text" placeholder="" name="farm_no">
+                            </div>
                         </li>
-                        <li class="bm10">
-                            <label for="farm2" class="custom_radio">
-                                <input type="radio" id="farm2" class="appearance dn" name="farm">
-                                <span class="radio_box">Smart farm 30</span>
-                            </label>
+                        <li>
+                            <p class="input_tit">Farm capacity</p>
+                            <div class="input_box plants_box">
+                                <input type="text" placeholder="" name="farm_capacity">
+                                <span class="txt_gray66 txt_14">Plants</span>
+                            </div>
                         </li>
-                        <li class="bm10">
-                            <label for="farm3" class="custom_radio">
-                                <input type="radio" id="farm3" class="appearance dn" name="farm">
-                                <span class="radio_box">Smart farm 50</span>
-                            </label>
-                        </li>
-                        <li class="bm10">
-                            <label for="farm4" class="custom_radio">
-                                <input type="radio" id="farm4" class="appearance dn" name="farm">
-                                <span class="radio_box">Smart farm 50</span>
-                            </label>
-                        </li>
-                        <li class="bm10">
-                            <label for="farm5" class="custom_radio">
-                                <input type="radio" id="farm5" class="appearance dn" name="farm">
-                                <span class="radio_box">Smart farm 50</span>
-                            </label>
-                        </li>
-                        <li class="bm10">
-                            <label for="farm6" class="custom_radio">
-                                <input type="radio" id="farm6" class="appearance dn" name="farm">
-                                <span class="radio_box">Smart farm 50</span>
-                            </label>
+                        <li>
+                            <p class="input_tit">Farm type</p>
+                            <div class="input_box">
+                                <input type="text" placeholder="" name="farm_type">
+                            </div>
                         </li>
                     </ul>
+                    
                 </div>
-                <input type="hidden" name="device_serial" value={{device_info.device_serial}}>
+                <div id = "get_hidden_3" class="get_hidden" style="display:none">
+                    <img src={% static "images/img_farm.png" %} alt="farm image">
+                    <h1 class=" bold title bp20">Choose a name for your farm</h1>
+                    <div class="input_type1">
+                        <input type="text" placeholder="Lettuce Garden" class="tx_l" name="farm_name">
+                    </div>
+                </div>
+
+                <a href="#" id ="shownextform" class="next_btn tm100 re_tm10">nextui</a>
+                <button id = "tmp_store" style="display: none;" class="next_btn tm100 re_tm10"> Next</button>
                 
-                <button class="next_btn tm100 re_tm10" id = "tmp_store">Next</button>
                 
                 
             </div>
@@ -79,9 +125,11 @@
     <script type="text/javascript">
         window.onload = function(){
             var butt = document.getElementById("tmp_store");
+
+            var next_div = butt.parent;
             butt.addEventListener('click', function(){
                 var inputs = document.querySelectorAll("input");
-                var device_info_hidden = document.querySelector("input").value;
+                var device_info_hidden = document.querySelector("input[name='device_serial']").value;
                 var parent;
                 var checked_farm_name;
                 for (var i=0; i<inputs.length; i++){
@@ -96,6 +144,31 @@
                 //console.log(device_info);
                 sessionStorage.setItem("device_info", device_info_hidden);
                 sessionStorage.setItem("farm_name", checked_farm_name);
+
+        
+            }); //do not use session storage?
+
+            var shownextform = document.getElementById("shownextform");
+            let last_ui = 0;
+            
+            shownextform.addEventListener('click', function(){
+                var nextui_list = document.querySelectorAll(".get_hidden");
+                for (let i=0; i<nextui_list.length; i++){
+                    console.log(nextui_list[i].id);
+                    if (nextui_list[i].style.display == "block"){
+                        if (i < nextui_list.length-1){
+                            nextui_list[i].style.display = "none";
+                            nextui_list[i+1].style.display = "block";
+                            last_ui += 1;
+                        }
+                        if (nextui_list[i].id == "get_hidden_1"){ //why get_hidden_1? because it's onclick event, so when get_hidden_2 appeared,it still not work until it's clicked
+                            document.getElementById("tmp_store").style.display = "block";
+                            shownextform.style.display = "none";
+                        }
+                        break;
+                    }
+
+                }
             });
         }
         </script>

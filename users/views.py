@@ -15,12 +15,14 @@ from rest_framework.decorators import api_view
 from .serializers import UserSerializer
 
 # for OAuth in twitter
-from requests_oauthlib import OAuth1
+# from requests_oauthlib import OAuth1
 from urllib.parse import urlencode
 from rest_framework.views import APIView
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.conf import settings
-import requests
+
+ import requests 
+ from .tweepy import tweet_scrap
 
 def home(request):
     return render(request, 'home.html', {'user' : request.session.get('user')})
@@ -50,6 +52,7 @@ class LoginView(FormView):
     def form_valid(self, form):
         self.request.session['user'] = form.data.get('email')
         return super().form_valid(form)
+
 
 def logout(request):
     if request.session.get('user'):
