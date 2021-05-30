@@ -21,7 +21,7 @@ from . import views
 app_name = "device_management"
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.device1, name='device1'),
     path('control',views.control, name='control'),
     path('device',views.device, name='device'),
     path('device1', views.device1, name='device1'),
@@ -31,4 +31,5 @@ urlpatterns = [
     path('device7', views.device7, name='device7'),
     path('create_plant_params', views.create_plant_params.as_view(), name='create_plant_params'),
     path('create_farm_info', views.create_farm_info.as_view(), name='Create_farm_info'),
+    path('status', views.status, name='status'),
 ]

@@ -103,13 +103,35 @@
                         </ul>
                     </div>
                 </div>
+                <div class="hide_form" id="hide3" style="display: none;">
+                    <h2 class="top_title re_tp10">Select plant life stage</h2>
+                    <div class="stage_box">
+                        <div class="bar">
+                            <p style="width: 55%;"></p>
+                        </div>
+                        <ul class="" id="stage_bar">
+                            <li>Seed<br>Planting</li>
+                            <li>Germination</li>
+                            <li class="on">Seedling</li>
+                            <li>Growth</li>
+                            <li>Hervest</li>
+                        </ul>
+                        <div class="choice_box">
+                            <p class="txt_16 txt_medium txt_black33">Seedling</p>
+                            <div class="btn_box">
+                                <button type="button" id="stage_up" onclick = select_life_stage(this.id)><img src={% static "images/ic_up.png" %} alt="up arrow icon"></button>
+                                <button type="button" id="stage_down" onclick = select_life_stage(this.id) class="tm9"><img src={% static "images/ic_down.png" %} alt="down arrow icon"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <a href="#" class="next_btn tm170 re_tm20" id="toggle">Next</a>
             </div>
         </form>
     </div>
 
     <script type="text/javascript">
-        windows.onload = function(){
+        window.onload = function(){
             let next_page_button = document.createElement("button");
             let uitoggle = document.getElementById("toggle");
             let parent_div = document.getElementsByClassName("cont tx_c")[0];
@@ -118,7 +140,8 @@
 
 
             next_page_button.className = "next_btn tm170 re_tm20";
-            uitoggle.addEventListener('clilck', function(){
+            next_page_button.innerText = "next";
+            uitoggle.addEventListener('click', function(){
                 if (hide_divs[0].style.display == "block"){
                     if (document.getElementById("green_ch").checked == false && document.getElementById("herbs_ch").checked == false && 
                     document.getElementById("fruits_ch").checked == false){
@@ -127,11 +150,33 @@
                     else{
                         hide_divs[0].style.display = "none";
                         hide_divs[1].style.display = "block";
-                        uitoggle.style.display = "none";
-                        parent_div.appendChild(next_page_button);
+
                     }
                 }
+
+                if (hide_divs[1].style.display == "block"){
+                    if (document.getElementById("crop1").checked == true || document.getElementById("crop2").checked == true 
+                    || document.getElementById("crop3").checked == true || document.getElementById("crop4").checked == true
+                    || document.getElementById("crop5").checked == true || document.getElementById("crop6").checked == true 
+                    || document.getElementById("crop7").checked == true || document.getElementById("crop8").checked == true){
+                        hide_divs[1].style.display = "none";
+                        hide_divs[2].style.display = "block";
+
+                        uitoggle.remove();
+                        parent_div.appendChild(next_page_button);
+                    }
+                    else{
+                        alert("Select crop name");
+                    }
+                }
+
             });
+
+            function select_life_stage(id){
+                if (id == "stage_up"){
+
+                }
+            }
         }
     </script>
     <!-- //device -->
