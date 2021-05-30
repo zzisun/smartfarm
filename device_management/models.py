@@ -12,15 +12,16 @@ class Device_Info(models.Model):
     device_ip_address = models.CharField(max_length = 40, default="0.0.0.0")
     device_password = models.CharField(max_length = 20, default="0000")
 
+
 class Farm_Info(models.Model):
     device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)
     farm_type = models.CharField(max_length=15)
     farm_name = models.CharField(default="", max_length = 20)
     farm_capacity = models.IntegerField(default=1, null=False)
-    farm_no = models.IntegerField()
-    farm_plant_num = models.IntegerField()
-    farm_model_no = models.CharField()
-
+    farm_plant_num = models.IntegerField(default = 0)
+    farm_model_no = models.CharField(max_length = 15, default = "Smart farm 20")
+    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+     
 class Plant_Info(models.Model):
     farm_info = models.ForeignKey(Farm_Info, on_delete=CASCADE)
     crop_group = models.CharField(max_length = 15) 

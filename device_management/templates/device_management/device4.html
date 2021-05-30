@@ -40,37 +40,37 @@
                         <ul>
                             <li class="bm10">
                                 <label for="farm1" class="custom_radio">
-                                    <input type="radio" id="farm1" class="appearance dn" name="farm_name">
+                                    <input type="radio" id="farm1" class="appearance dn" name="farm_model_no">
                                     <span class="radio_box">Smart farm 20</span>
                                 </label>
                             </li>
                             <li class="bm10">
                                 <label for="farm2" class="custom_radio">
-                                    <input type="radio" id="farm2" class="appearance dn" name="farm_name">
+                                    <input type="radio" id="farm2" class="appearance dn" name="farm_model_no">
                                     <span class="radio_box">Smart farm 30</span>
                                 </label>
                             </li>
                             <li class="bm10">
                                 <label for="farm3" class="custom_radio">
-                                    <input type="radio" id="farm3" class="appearance dn" name="farm_name">
+                                    <input type="radio" id="farm3" class="appearance dn" name="farm_model_no">
                                     <span class="radio_box">Smart farm 50</span>
                                 </label>
                             </li>
                             <li class="bm10">
                                 <label for="farm4" class="custom_radio">
-                                    <input type="radio" id="farm4" class="appearance dn" name="farm_name">
+                                    <input type="radio" id="farm4" class="appearance dn" name="farm_model_no">
                                     <span class="radio_box">Smart farm 50</span>
                                 </label>
                             </li>
                             <li class="bm10">
                                 <label for="farm5" class="custom_radio">
-                                    <input type="radio" id="farm5" class="appearance dn" name="farm_name">
+                                    <input type="radio" id="farm5" class="appearance dn" name="farm_model_no">
                                     <span class="radio_box">Smart farm 50</span>
                                 </label>
                             </li>
                             <li class="bm10">
                                 <label for="farm6" class="custom_radio">
-                                    <input type="radio" id="farm6" class="appearance dn" name="farm_name">
+                                    <input type="radio" id="farm6" class="appearance dn" name="farm_model_no">
                                     <span class="radio_box">Smart farm 50</span>
                                 </label>
                             </li>
@@ -87,7 +87,7 @@
                         <li>
                             <p class="input_tit">Farm model No</p>
                             <div class="input_box">
-                                <input type="text" placeholder="" name="farm_no">
+                                <input type="text" id = "input_farm_model_name" placeholder="" readonly name="farm_model_no">
                             </div>
                         </li>
                         <li>
@@ -111,6 +111,15 @@
                     <h1 class=" bold title bp20">Choose a name for your farm</h1>
                     <div class="input_type1">
                         <input type="text" placeholder="Lettuce Garden" class="tx_l" name="farm_name">
+                    </div>
+                </div>
+
+                <div id = "get_hidden_4" class="get_hidden" style="display: none;">
+                    <img src={% static "images/img_plants.png" %} alt="plants image">
+                    <h1 class=" bold title bp0">Total number of plants</h1>
+
+                    <input type="text" class="choice_box choice_box2" name="farm_plant_num">
+                    
                     </div>
                 </div>
 
@@ -153,6 +162,17 @@
             
             shownextform.addEventListener('click', function(){
                 var nextui_list = document.querySelectorAll(".get_hidden");
+                var farm_model_no_list = document.querySelectorAll("input.appearance");
+
+                for (let checked = 0; checked<farm_model_no_list.length; checked++){
+                    if (farm_model_no_list[checked].checked === true){
+                        let dom = farm_model_no_list[checked].parentNode.children[1].innerText
+                        console.log(dom);
+                        document.getElementById("input_farm_model_name").value = dom;
+                    }
+                }
+
+
                 for (let i=0; i<nextui_list.length; i++){
                     console.log(nextui_list[i].id);
                     if (nextui_list[i].style.display == "block"){
@@ -161,7 +181,7 @@
                             nextui_list[i+1].style.display = "block";
                             last_ui += 1;
                         }
-                        if (nextui_list[i].id == "get_hidden_1"){ //why get_hidden_1? because it's onclick event, so when get_hidden_2 appeared,it still not work until it's clicked
+                        if (nextui_list[i].id == "get_hidden_3"){ //why get_hidden_2? because it's onclick event, so when get_hidden_2 appeared,it still not work until it's clicked
                             document.getElementById("tmp_store").style.display = "block";
                             shownextform.style.display = "none";
                         }

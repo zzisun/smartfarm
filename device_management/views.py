@@ -78,6 +78,9 @@ def farm_info_setting(request):
         "device_info"
     }
 
+def status(request):
+    return render(request, 'device_management/status.html')
+
 class crop_info_registeration(APIView):
     template_name = "device_management/device6.html"
 
@@ -85,7 +88,7 @@ class crop_info_registeration(APIView):
         crop_serializer = POST_Plant_Info(data = request.data)
         if crop_serializer.is_valid():
             crop_serializer.save()
-            
+            return render(request, 'device_management/')
 
 class create_farm_info(APIView):
     def post(self, request):
