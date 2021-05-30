@@ -6,7 +6,7 @@ from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info
+from .serializers import POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info
 import json
 
 def index(request):
@@ -82,7 +82,10 @@ class crop_info_registeration(APIView):
     template_name = "device_management/device6.html"
 
     def post(self, request):
-        
+        crop_serializer = POST_Plant_Info(data = request.data)
+        if crop_serializer.is_valid():
+            crop_serializer.save()
+            
 
 class create_farm_info(APIView):
     def post(self, request):
