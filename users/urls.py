@@ -4,6 +4,8 @@ from django.contrib.auth import views as auth_views
 from . import views
 from users.views import userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEndpoint, TwitterShare
 
+from users.views import home
+from users.views import LoginView, RegisterView, userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEndpoint
 urlpatterns = [
     path('', views.home, name='home'),
     path('mypage/', views.mypage, name='mypage'),
@@ -25,5 +27,4 @@ urlpatterns = [
     path('userlist/',userAPI),
     path("auth/twitter/redirect/", TwitterAuthRedirectEndpoint.as_view(), name="twitter-login-redirect"),
     path("callback/twitter/", TwitterCallbackEndpoint.as_view(), name="twitter-login-callback"),
-    path("share/twitter/", TwitterShare, name="twitter-share")
 ]

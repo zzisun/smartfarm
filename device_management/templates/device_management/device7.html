@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <link href="//db.onlinewebfonts.com/c/d4d6e1a6527a21185217393c427a52cb?family=Segoe+UI+Semibold" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href={% static "css/default.css" %}>
+    <script type="text/javascript" src={% static "js/jquery-3.5.1.min.js" %}></script>
+    <script type="text/javascript" src={% static "js/main.js" %}></script>
+</head>
+<body>
+    <!-- header -->
+    <header class="header">
+        <a href="javascript:;" class="back_btn  txt_medium">BACK</a>
+    </header>
+    <!-- //header -->
+    <!-- device -->
+    <div class="device_wrap footer_on">
+        <form action="">
+            <div class="cont tx_c crop_con">
+                <h2 class="top_title re_tp10">Select your crop</h2>
+                <div class="scroll_box tm50 crop_box">
+                    <ul class="clear">
+                        <li class="custom_radio2">
+                            <button type="button" class="crop_btn">Create<br>new crop</button>
+                        </li>
+                        <li class="custom_radio2">
+                            <input type="radio" id="crop1" class="appearance dn" name="crop">
+                            <label for="crop1">
+                                <span class=" txt_gray88">Lettuce</span>
+                            </label>
+                        </li>
+                        <li class="custom_radio2">
+                            <input type="radio" id="crop2" class="appearance dn" name="crop">
+                            <label for="crop2">
+                                <span class=" txt_gray88">Spinach</span>
+                            </label>
+                        </li>
+                        <li class="custom_radio2">
+                            <input type="radio" id="crop3" class="appearance dn" name="crop">
+                            <label for="crop3">
+                                <span class=" txt_gray88">Arugula</span>
+                            </label>
+                        </li>
+                        <li class="custom_radio2">
+                            <input type="radio" id="crop4" class="appearance dn" name="crop">
+                            <label for="crop4">
+                                <span class=" txt_gray88">Collards</span>
+                            </label>
+                        </li>
+                        <li class="custom_radio2">
+                            <input type="radio" id="crop5" class="appearance dn" name="crop">
+                            <label for="crop5">
+                                <span class=" txt_gray88">Kale</span>
+                            </label>
+                        </li>
+                        <li class="custom_radio2">
+                            <input type="radio" id="crop6" class="appearance dn" name="crop">
+                            <label for="crop6">
+                                <span class=" txt_gray88">Arugula</span>
+                            </label>
+                        </li>
+                        <li class="custom_radio2">
+                            <input type="radio" id="crop7" class="appearance dn" name="crop">
+                            <label for="crop7">
+                                <span class=" txt_gray88">Collards</span>
+                            </label>
+                        </li>
+                        <li class="custom_radio2">
+                            <input type="radio" id="crop8" class="appearance dn" name="crop">
+                            <label for="crop8">
+                                <span class=" txt_gray88">Kale</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <a href="#" class="next_btn tm100 re_tm10">Next</a>
+            </div>
+        </form>
+    </div>
+    <!-- //device -->
+    <!-- footer_gnb -->
+    <footer class="footer_gnb">
+        <ul class="gnb_ul">
+            <li>
+                <a href="#"><img src="images/ic_store.png" alt="store icon"></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/ic_community.png" alt="community icon"></a>
+            </li>
+        </ul>
+        <a href="javascript:;" class="gnb_home"><img src="images/ic_home.png" alt="home icon"></a>
+    </footer>
+    <!-- //footer_gnb -->
+</body>
+</html>

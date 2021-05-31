@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter Share</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+    <div id="container">
+        <h2>Twitter Share</h2>
+        <hr>
+        <button type="button" onclick="location.href = '/auth/twitter/redirect/'" class="btn btn-primary">
+            Sign In Twitter
+        </button>
+        <br>
+        <br>
+        <a href="https://twitter.com/intent/tweet?button_hashtag=krishian_1_0_0&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" id="twitter-share-btn" data-size="large"
+           data-text="{{ data_text }}" data-lang="en" data-show-count="false">Tweet #krishian_1_0_0</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <br>
+        <br>
+        <button type="button" onclick="location.href = '/twitter/post/'"class="btn btn-primary">
+            Get Post
+        </button>
+    </div>
+</body>
+</html>

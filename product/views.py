@@ -12,6 +12,8 @@ from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
 from users.decorators import admin_required
 
+
+
 class ProductListView(ListView):
     template_name = 'product_list.html'
     model = Product
@@ -48,5 +50,5 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['orderform'] = OrderForm(self.request)
         context['cartform'] = CartForm(self.request)
-        context['user'] = Users.objects.get(email=self.request.session.get('user'))
+        context['users'] = Users.objects.get(email=self.request.session.get('user'))
         return context
