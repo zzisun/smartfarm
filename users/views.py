@@ -1,18 +1,26 @@
-from django.shortcuts import render
+from django.contrib import auth
+from django.http import request
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from users import models
 
-# Create your views here.
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-from users.models import Users
-from .form import RegisterForm, LoginForm
+# from users.models import Users
+from .form import CreateUserForm
 from django.views.generic.edit import FormView
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import redirect
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes
 from .serializers import UserSerializer
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.forms import inlineformset_factory
+
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+# from django.core.mail.message import EmailMessage
+
+
 
 # for OAuth in twitter
 # from requests_oauthlib import OAuth1
@@ -25,45 +33,80 @@ import requests
 
 
 def home(request):
-    return render(request, 'home.html', {'user' : request.session.get('user')})
+    return render(request, "users/sign_in1.html")
+
+def resetPassword(request):
+    return render(request, "users/sign_in3.html")   
+def checkEmail(request):
+    return render(request, "users/sign_in4.html") 
+def createPassword(request):
+    return render(request, "users/sign_in5.html")
+
+def verifyAccount(request):
+    return render(request, "users/sign_up2.html")
+def success(request):
+    return render(request, "users/sign_up3.html")
 
 
-class RegisterView(FormView):
-    template_name = 'user_register.html'
-    form_class = RegisterForm
-    success_url = '/login'
+def registerPage(request):
+	if request.user.is_authenticated:
+		return redirect('home')
+	else:
+		form = CreateUserForm()
+		if request.method == 'POST':
+			form = CreateUserForm(request.POST)
+			if form.is_valid():
+				form.save()
+				user = form.cleaned_data.get('username')
+				messages.success(request, 'Account was created for ' + user)
 
-    def form_valid(self, form):
-        user = Users(
-            email=form.data.get('email'),
-            name=form.data.get('name'),
-            password=make_password(form.data.get('password')),
-            level='user'
-        )
-        user.save()
+				return redirect('verify')
+		context = {'form':form}
+		return render(request, 'users/sign_up1.html', context)
 
-        return super().form_valid(form)
+def loginPage(request):
+	if request.user.is_authenticated:
+		return redirect('home')
+	else:
+		if request.method == 'POST':
+			username = request.POST.get('username')
+			password =request.POST.get('password')
 
-class LoginView(FormView):
-    template_name = 'login.html'
-    form_class = LoginForm
-    success_url = '/product'
+			user = authenticate(request, username=username, password=password)
 
-    def form_valid(self, form):
-        self.request.session['user'] = form.data.get('email')
-        return super().form_valid(form)
+			if user is not None:
+				login(request, user)
+				return redirect('mypage')
+			else:
+				messages.info(request, 'Username OR password is incorrect')
+
+		context = {}
+		return render(request, 'users/sign_in2.html', context)
 
 
-def logout(request):
-    if request.session.get('user'):
-        del(request.session['user'])
-    return redirect('/')
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
+
+@login_required(login_url='login')
+def mypage(request):
+    return render(request, 'users/status.html')
+
 
 @api_view(['GET'])
 def userAPI(request):
-    userlist = list(Users.objects.all())
+    userlist = list(User.objects.all())
     serializer = UserSerializer(userlist, many=True)
     return Response(serializer.data)
+
+
+def send_email(): 
+    subject = "메시지" 
+    to = ['aaa@bbb.com'] 
+    from_email = 'myaccount@gmail.com' 
+    message = "메시지를 성공적으로 전송" 
+    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
+
 
 # OAuth by Twitters
 class TwitterAuthRedirectEndpoint(APIView):
@@ -126,4 +169,16 @@ class TwitterCallbackEndpoint(APIView):
             return HttpResponse(
                 "<html><body>Something went wrong.Try again.</body></html>", status=403
             )
+
+
+def TwitterShare(request):
+    search_words = ["#krishian_1_0_0"]
+    tweet_info = tweet_scrap(search_words)
+    data_text = "3,5,7,10,0.5,0.80,1.20,1.60,1.40,5.6,5.8,6,18,12,65,75,50,70,5,10,400,21,5 "
+
+    content = {
+        "tweet_info": tweet_info,
+        "data_text": data_text,
+    }
+    return render(request, 'twitter.html', content)
 
