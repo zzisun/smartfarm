@@ -50,7 +50,7 @@ def success(request):
 
 def registerPage(request):
 	if request.user.is_authenticated:
-		return redirect('home')
+		return redirect('mypage')
 	else:
 		form = CreateUserForm()
 		if request.method == 'POST':
@@ -66,7 +66,7 @@ def registerPage(request):
 
 def loginPage(request):
 	if request.user.is_authenticated:
-		return redirect('home')
+		return redirect('mypage')
 	else:
 		if request.method == 'POST':
 			username = request.POST.get('username')
