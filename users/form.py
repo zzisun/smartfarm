@@ -1,59 +1,26 @@
 from django import forms
-from .models import Users
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.db import models
+from django.forms import fields, widgets
 from django.contrib.auth.hashers import check_password
 
+class CreateUserForm(UserCreationForm):
+	class Meta:
+		model = User
+		fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
 
-class RegisterForm(forms.Form):
-    email = forms.EmailField(
-        error_messages={'required': "Input Email."},
-        max_length=64, label="email"
-    )
-    name = forms.CharField(
-        error_messages={'required': "Input Name."},
-        max_length=64, label="name"
-    )
-    password = forms.CharField(
-        error_messages={'required': "Input Password"},
-        widget=forms.PasswordInput, label="Password"
-    )
-    re_password = forms.CharField(
-        error_messages={'required': "Input Password one more"},
-        widget=forms.PasswordInput, label="Input re_password"
-    )
+# class CreateUserForm(UserCreationForm):
+#     email = forms.EmailField(label="Email address", required=True)
+#     mobile_number = forms.CharField(max_length=64, label="Mobile number")
 
-    def clean(self):
-        cleaned_data = super().clean()
-        email = cleaned_data.get('email')
-        name = cleaned_data.get('name')
-        password = cleaned_data.get('password')
-        re_password = cleaned_data.get('re_password')
+#     class Meta:
+#         model = Users
+#         fields = ['first_name', 'last_name', 'mobile_number','email', 'password']
 
-        if password and re_password:
-            if password != re_password:
-                self.add_error('password', 'Those passwords didn’t match.')
-
-
-class LoginForm(forms.Form):
-    email = forms.EmailField(
-        error_messages={'required': 'Input Email.'},
-        max_length=64, label="email"
-    )
-    password = forms.CharField(
-        error_messages={'required': "Input Password"},
-        max_length=128, label="password", widget=forms.PasswordInput
-    )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        email = cleaned_data.get('email')
-        password = cleaned_data.get('password')
-
-        if email and password:
-            try:
-                user = Users.objects.get(email=email)
-            except Users.DoesNotExist:
-                self.add_error('email', "Couldn't find your account.")
-                return
-
-            if not check_password(password, user.password):
-                self.add_error('password', 'Wrong password.')
+#     def save(self, commit: True):
+#         user = super(CreateUserForm, self).save(commit=False)
+#         user.email = self.cleaned_data['email']
+#         if commit:
+#             user.save()
+#         return user
