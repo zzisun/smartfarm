@@ -4,8 +4,8 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from users import models
 
-from users.models import Users
-from .form import CreateUserForm, RegisterForm, LoginForm
+# from users.models import Users
+from .form import CreateUserForm
 from django.views.generic.edit import FormView
 from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
@@ -14,6 +14,7 @@ from .serializers import UserSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import inlineformset_factory
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -32,16 +33,14 @@ from .tweepy import tweet_scrap
 
 def home(request):
     return render(request, "users/sign_in1.html")
-def signIn(request):
-    return render(request, "users/sign_in2.html")
-def signUp(request):
-    return render(request, "users/sign_up1.html")
+
 def resetPassword(request):
     return render(request, "users/sign_in3.html")   
 def checkEmail(request):
     return render(request, "users/sign_in4.html") 
 def createPassword(request):
     return render(request, "users/sign_in5.html")
+
 def verifyAccount(request):
     return render(request, "users/sign_up2.html")
 def success(request):
@@ -49,40 +48,26 @@ def success(request):
 
 
 def registerPage(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = CreateUserForm()
-    # template_name = 'users/sign_up1.html'
+	if request.user.is_authenticated:
+		return redirect('home')
+	else:
+		form = CreateUserForm()
+		if request.method == 'POST':
+			form = CreateUserForm(request.POST)
+			if form.is_valid():
+				form.save()
+				user = form.cleaned_data.get('username')
+				messages.success(request, 'Account was created for ' + user)
 
-        if request.method == 'POST':
-          form = RegisterForm(request.POST)
-          if form.is_valid:
-              form.save()
-              print(100)
-              return redirect('verify')
-        else:
-            form = CreateUserForm()
-            
-        context = {'form':form}
-        return render(request, 'users/sign_up1.html', context)
-
-
-def registerPage(request):
-	form = RegisterForm()
-	if request.method == 'POST':
-			
-		form = RegisterForm(request.POST)
-		if form.is_valid():
-			form.save()
-			first_name = form.cleaned_data.get('first_name')
-			messages.success(request, 'Account was created for ' + first_name)
-			return redirect('verify')
-	context = {'form':form}
-	return render(request, 'users/sign_up1.html', context)
+				return redirect('verify')
+		context = {'form':form}
+		return render(request, 'users/sign_up1.html', context)
 
 def loginPage(request):
-	if request.method == 'POST':
+	if request.user.is_authenticated:
+		return redirect('home')
+	else:
+		if request.method == 'POST':
 			username = request.POST.get('username')
 			password =request.POST.get('password')
 
@@ -90,16 +75,17 @@ def loginPage(request):
 
 			if user is not None:
 				login(request, user)
-				return redirect('home')
+				return redirect('mypage')
 			else:
 				messages.info(request, 'Username OR password is incorrect')
-	context = {}
-	return render(request, "users/sign_in2.html", context)
 
-def logout(request):
-    if request.session.get('user'):
-        del(request.session['user'])
-    return redirect('/')
+		context = {}
+		return render(request, 'users/sign_in2.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
 
 @login_required(login_url='login')
 def mypage(request):
@@ -107,7 +93,7 @@ def mypage(request):
 
 @api_view(['GET'])
 def userAPI(request):
-    userlist = list(Users.objects.all())
+    userlist = list(User.objects.all())
     serializer = UserSerializer(userlist, many=True)
     return Response(serializer.data)
 

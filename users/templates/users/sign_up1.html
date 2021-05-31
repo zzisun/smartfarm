@@ -37,11 +37,11 @@
                     </div>
                 </li>
                 <li>
-                    <p class="input_tit">Mobile number</p>
+                    <p class="input_tit">User name(key)</p>
                     <div class="input_box">
                         <!-- <input type="text" placeholder="Mobile number" class="form-control" name="mobile_number" id="mobile_number"
                         value="{{ form.mobile_number.value|default_if_none:'' }}" > -->
-                        {{form.mobile_number}}
+                        {{form.username}}
                     </div>
                 </li>
                 <li>
@@ -74,12 +74,22 @@
                         </label>
                         <label for="agree_check" class="fl">Agree with terms and condition</label>
                     </div>
+                    {{form.errors}}
+                    <div class="mt-4">
+                        <div class="d-flex justify-content-center links">
+                            Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                        <input class="btn login_btn" type="submit" value="Register Account">
+                      </div>
                 </li>
             </ul>
         </form>
+        
         <div class="bottom_box tx_c">
             <p class="line_txt Roboto">Or Connect Through</p>
-            <a href="{% provider_login_url 'twitter' process='connect' %}" class="btn_sns bm10">
+            <a href="#" class="btn_sns bm10">
                 <img src="{%static 'images/ic_face.png' %}" alt="facebook icon" class="rm10">
                 <span>Connect with Facebook</span>
             </a>
@@ -89,15 +99,15 @@
             </a>
         </div>
         
-        {{form.errors}}
+        
         <!-- <a href="#" class="btn tm42">Sign up</a> -->
-        <button type="submit" class="btn tm42">Sign up</button>
+        
     </div>
     <script>
         var form_fields = document.getElementsByTagName('input')
 		form_fields[1].placeholder='First Name..';
 		form_fields[2].placeholder='Last Name..';
-		form_fields[3].placeholder='Mobile Number...';
+		// form_fields[3].placeholder='Mobile Number...';
         form_fields[4].placeholder='Email...';  
 		form_fields[5].placeholder='Enter password...';
         form_fields[6].placeholder='Re-enter Password...';
