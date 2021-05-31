@@ -18,35 +18,54 @@
 <body>
     <div class="sign_wrap sign_up tp40">
         <form action="" method="POST">
+            {% csrf_token %}
             <ul class="form_ul">
                 <li>
                     <p class="input_tit">First name</p>
                     <div class="input_box">
-                        <input type="text" placeholder="First name">
+                        <!-- <input type="text" placeholder="First name" class="form-control" name="first_name" id="first_name"
+                        value="{{ form.first_name.value|default_if_none:'' }}"> -->
+                        {{form.first_name}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Last name</p>
                     <div class="input_box">
-                        <input type="text" placeholder="Last name">
+                        <!-- <input type="text" placeholder="Last name" class="form-control" name="last_name" id="last_name"
+                        value="{{ form.last_name.value|default_if_none:'' }}"> -->
+                        {{form.last_name}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Mobile number</p>
                     <div class="input_box">
-                        <input type="text" placeholder="Mobile number">
+                        <!-- <input type="text" placeholder="Mobile number" class="form-control" name="mobile_number" id="mobile_number"
+                        value="{{ form.mobile_number.value|default_if_none:'' }}" > -->
+                        {{form.mobile_number}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Email address</p>
                     <div class="input_box">
-                        <input type="text" placeholder="Email address">
+                        <!-- <input type="text" placeholder="Email address" class="form-control" name="email" id="email"
+                        value="{{ form.email.value|default_if_none:'' }}"> -->
+                        {{form.email}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Password</p>
                     <div class="input_box">
-                        <input type="password" placeholder="">
+                        <!-- <input type="text" placeholder="Email address" class="form-control" name="email" id="email"
+                        value="{{ form.email.value|default_if_none:'' }}"> -->
+                        {{form.password1}}
+                    </div>
+                </li>
+                <li>
+                    <p class="input_tit">Password Confirm</p>
+                    <div class="input_box">
+                        <!-- <input type="password" placeholder="" class="form-control" name="password2" id="password2"
+                        value="{{ form.password2.value|default_if_none:'' }}"> -->
+                        {{form.password2}}
                     </div>
                     <div class="custom_check tm20 clear">
                         <label for="agree_check" class="check_box fl">
@@ -62,14 +81,30 @@
             <p class="line_txt Roboto">Or Connect Through</p>
             <a href="{% provider_login_url 'twitter' process='connect' %}" class="btn_sns bm10">
                 <img src="{%static 'images/ic_face.png' %}" alt="facebook icon" class="rm10">
-                <span>Connect with Twitter</span>
+                <span>Connect with Facebook</span>
             </a>
             <a href="{% provider_login_url 'google' %}" class="btn_sns">
                 <img src="{%static 'images/ic_google.png' %}" alt="google icon" class="rm10">
                 <span>Connect with Google</span>
             </a>
         </div>
-        <a href="/verify" class="btn tm42">Sign up</a>
+        
+        {{form.errors}}
+        <!-- <a href="#" class="btn tm42">Sign up</a> -->
+        <button type="submit" class="btn tm42">Sign up</button>
     </div>
+    <script>
+        var form_fields = document.getElementsByTagName('input')
+		form_fields[1].placeholder='First Name..';
+		form_fields[2].placeholder='Last Name..';
+		form_fields[3].placeholder='Mobile Number...';
+        form_fields[4].placeholder='Email...';  
+		form_fields[5].placeholder='Enter password...';
+        form_fields[6].placeholder='Re-enter Password...';
+
+		for (var field in form_fields){	
+			form_fields[field].className += ' form-control'
+		}
+    </script>
 </body>
 </html>
