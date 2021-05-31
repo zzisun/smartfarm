@@ -16,6 +16,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import inlineformset_factory
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 # from django.core.mail.message import EmailMessage
 
 
@@ -45,8 +46,7 @@ def verifyAccount(request):
     return render(request, "users/sign_up2.html")
 def success(request):
     return render(request, "users/sign_up3.html")
-def mypage(request):
-    return render(request, "users/status.html")
+
 
 def registerPage(request):
     if request.user.is_authenticated:
@@ -68,53 +68,42 @@ def registerPage(request):
         return render(request, 'users/sign_up1.html', context)
 
 
-class RegisterView(FormView):
-    template_name = 'users/sign_up1.html'
-    form_class = CreateUserForm
-    success_url = '/verify'
+def registerPage(request):
+	form = RegisterForm()
+	if request.method == 'POST':
+			
+		form = RegisterForm(request.POST)
+		if form.is_valid():
+			form.save()
+			first_name = form.cleaned_data.get('first_name')
+			messages.success(request, 'Account was created for ' + first_name)
+			return redirect('verify')
+	context = {'form':form}
+	return render(request, 'users/sign_up1.html', context)
 
-    def form_valid(self, form):
-        user = Users(
-            email=form.cleaned_data.get('email'),
-            first_name=form.cleaned_data.get('first_name'),
-            last_name=form.cleaned_data.get('last_name'),
-            mobile_number=form.cleaned_data.get('mobile_number'),
-            password=make_password(form.cleaned_data.get('password')),
-            level='user'
-        )
-        print(user)
-        user.save()
+def loginPage(request):
+	if request.method == 'POST':
+			username = request.POST.get('username')
+			password =request.POST.get('password')
 
-        return super().form_valid(form)
+			user = authenticate(request, username=username, password=password)
 
-class LoginView(FormView):
-    template_name = 'users/sign_in2.html'
-    form_class = LoginForm
-    success_url = 'mypage/'
-
-    def form_valid(self, form):
-        if request.method == "POST":
-            username = request.POST["username"]
-            password = request.POST["password"]
-            user = authentication_classes.authenticate(request, username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                return HttpResponseRedirect('/success/')
-            else:
-                return render(request, 'users/sign_in2.html', {'error':'username or password is incorrect'})
-            # 로그인 실패시 'username or password is incorrect' 메시지를 띄움  
-        else:
-            return render(request, 'users/sign_in2.html')
-    #     self.request.session['user'] = form.data.get('email')
-    #     return super().form_valid(form)
-
-# class PasswordResetView(FormView):
-
+			if user is not None:
+				login(request, user)
+				return redirect('home')
+			else:
+				messages.info(request, 'Username OR password is incorrect')
+	context = {}
+	return render(request, "users/sign_in2.html", context)
 
 def logout(request):
     if request.session.get('user'):
         del(request.session['user'])
     return redirect('/')
+
+@login_required(login_url='login')
+def mypage(request):
+    return render(request, 'users/status.html')
 
 @api_view(['GET'])
 def userAPI(request):
