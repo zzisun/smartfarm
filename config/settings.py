@@ -153,49 +153,18 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID=2
 
-# Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
-        'SCOPE': ['email', 'public_profile'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'INIT_PARAMS': {'cookie': True},
-        'FIELDS': [
-            'id',
-            'first_name',
-            'last_name',
-            'middle_name',
-            'name',
-            'name_format',
-            'picture',
-            'short_name'
-        ],
-        'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': 'path.to.callable',
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v7.0',
-    }
-}
 
+AUTH_USER_MODEL = 'users.Users'
 
+# auth 로그인 후 mypage로 이동
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 LOGIN_REDIRECT_URL = "/mypage"
 ACCOUNT_AUTHENTICATED_LOGOUT_REDIRECTS = True
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-# 메일을 호스트하는 서버
-EMAIL_PORT = '587'
-# gmail과의 통신하는 포트
-EMAIL_HOST_USER = 'krishian2021@gmail.com'
-# 발신할 이메일
-EMAIL_HOST_PASSWORD = 'krishian2021!'
-# 발신할 메일의 비밀번호
-EMAIL_USE_TLS = True
-# TLS 보안 방법
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-# 사이트와 관련한 자동응답을 받을 이메일 주소
-
-# SECURE_SSL_REDIRECT = 
+# auth 로그인 username이 아닌 email로 구현
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
