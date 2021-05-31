@@ -20,8 +20,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # from django.core.mail.message import EmailMessage
 
-
-
 # for OAuth in twitter
 from requests_oauthlib import OAuth1
 from urllib.parse import urlencode
@@ -49,15 +47,13 @@ def success(request):
 
 def registerPage(request):
 	if request.user.is_authenticated:
-		return redirect('home')
+		return redirect('mypage')
 	else:
 		form = CreateUserForm()
 		if request.method == 'POST':
 			form = CreateUserForm(request.POST)
 			if form.is_valid():
 				form.save()
-				user = form.cleaned_data.get('username')
-				messages.success(request, 'Account was created for ' + user)
 
 				return redirect('verify')
 		context = {'form':form}
@@ -65,13 +61,13 @@ def registerPage(request):
 
 def loginPage(request):
 	if request.user.is_authenticated:
-		return redirect('home')
+		return redirect('mypage')
 	else:
 		if request.method == 'POST':
-			username = request.POST.get('username')
+			email = request.POST.get('email')
 			password =request.POST.get('password')
 
-			user = authenticate(request, username=username, password=password)
+			user = authenticate(request, email=email, password=password)
 
 			if user is not None:
 				login(request, user)

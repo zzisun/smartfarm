@@ -46,6 +46,9 @@
                 <input class="btn tm118 re_tm10" type="submit" value="Sign in">
               </div>
         </form>
+        {% for message in messages %}
+			<p id="messages">{{message}}</p>
+		{% endfor %}			
         
     </div>
 </body>
