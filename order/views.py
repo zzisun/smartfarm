@@ -118,7 +118,8 @@ def modify_cart(request,pk):
     cart.quantity = int(request.POST.get('quantity'))
     cart.amount = cart.product.price * cart.quantity
     cart.save()
-    user = Users.objects.get(email=request.session.get('user'))
+    # 
+    user = Users.objects.get(email=request.email)
 
     return redirect('cartlist',user.pk)
 

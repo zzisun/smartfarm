@@ -19,7 +19,7 @@ class ProductListView(ListView):
     model = Product
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['users'] = Users.objects.get(email=self.request.session.get('user'))
+        context['users'] = Users.objects.get(email=self.request.user.email)
         return context
 
 @method_decorator(admin_required, name = 'dispatch')
