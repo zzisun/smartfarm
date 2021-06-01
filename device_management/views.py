@@ -88,7 +88,8 @@ class crop_info_registeration(APIView):
         crop_serializer = POST_Plant_Info(data = request.data)
         if crop_serializer.is_valid():
             crop_serializer.save()
-            return render(request, 'device_management/')
+            context = crop_serializer.data
+            return render(request, 'device_management/status.html',context=context)
 
 class create_farm_info(APIView):
     def post(self, request):

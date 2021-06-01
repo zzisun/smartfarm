@@ -117,7 +117,7 @@
                             <li>Hervest</li>
                         </ul>
                         <div class="choice_box">
-                            <p class="txt_16 txt_medium txt_black33">Seedling</p>
+                            <p class="txt_16 txt_medium txt_black33" id="current_stage">Seedling</p>
                             <div class="btn_box">
                                 <button type="button" id="stage_up" onclick = select_life_stage(this.id)><img src={% static "images/ic_up.png" %} alt="up arrow icon"></button>
                                 <button type="button" id="stage_down" onclick = select_life_stage(this.id) class="tm9"><img src={% static "images/ic_down.png" %} alt="down arrow icon"></button>
@@ -131,6 +131,25 @@
     </div>
 
     <script type="text/javascript">
+        function select_life_stage(id){
+            let life_stage_list = ['Seed Planting', 'Germination', 'Seedling', 'Growth', 'Hervest'];
+            let current_stage = document.querySelector("#current_stage");
+
+            for (let i=0; i<life_stage_list.length; i++){
+                if (life_stage_list[i] == current_stage.innerText){
+                    if (id == "stage_up"){
+                        current_stage.innerText = life_stage_list[(i+1)%life_stage_list.length];
+                        break;
+                    }
+                    else if (id == "stage_down"){
+                        current_stage.innerText = life_stage_list[(i-1)%life_stage_list.length];
+                        break;
+                    }
+                }
+            }
+
+        }
+
         window.onload = function(){
             let next_page_button = document.createElement("button");
             let uitoggle = document.getElementById("toggle");
@@ -172,11 +191,7 @@
 
             });
 
-            function select_life_stage(id){
-                if (id == "stage_up"){
-
-                }
-            }
+            
         }
     </script>
     <!-- //device -->
