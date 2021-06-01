@@ -5,8 +5,8 @@
 .btn {text-align: center;width: 100%; height: 50px; border-radius: 50px; background-color: #7eb34f; color: #fff; font-weight: 500; font-size: 18px; display: block; line-height: 50px; box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);}
 .btn_sns {font-weight:500;box-sizing: border-box; width: 100%; width: 100%; height: 50px; border:1px solid #ddd; border-radius: 50px; color: #333333; font-weight: 500; font-size: 18px;display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; -webkit-justify-content: center; justify-content: center;-webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
 .skip_btn {color: #999999;font-size: 14px;font-weight:500;margin-top: 22px;display: block;}
-.next_btn{margin-right: auto;margin-left: auto; display: block;text-align: left; width: 140px;height: 50px;font-size: 14px;color: #fff;background-color: #7eb34f;border-radius: 50px;box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);background-image: url(../images/ic_next.png);background-repeat: no-repeat;background-position: right 20px center;padding-left: 43px;line-height: 47px;}
-
+.next_btn{margin-right: auto;margin-left: auto; display: block;text-align: left; width: 140px;height: 50px;font-size: 14px;color: #fff;background-color: #7eb34f;border-radius: 50px;box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);background-image: url(../images/ic_next.png);background-repeat: no-repeat;background-position: right 20px center;padding:16px 0 0 43px;}
+.btn.line{border:1px solid #7eb34f;background: #fff;color: #7eb34f;}
 
 .toggle_box {position: relative; width: 32px; height: 16px;}
 .toggle_box .toggle_btn {position: relative; width: 32px; height: 16px; display: inline-block;}
