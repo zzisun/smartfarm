@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout Page</title>
+</head>
+<body>
+<H1>Checkout Page</H1>
+
+<a href="{% url 'cartbuy' %}" class = "button">complete!</a>
+</body>
+<script>
+    function complete(name,id){
+        document.getElementById(name).value ++;
+        var form = document.createElement('form');
+        form.setAttribute('method','Post');
+        var url = 'modify/' + id;
+        form.setAttribute('action',url);
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type","hidden");
+        hiddenField.setAttribute("name",'quantity');
+        hiddenField.setAttribute("value",document.getElementById(name).value);
+        form.appendChild(hiddenField);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</html>

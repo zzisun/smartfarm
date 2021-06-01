@@ -58,12 +58,14 @@
 .tm42{margin-top: 42px;}
 .tm47{margin-top: 47px;}
 .tm50{margin-top: 50px;}
+.tm70{margin-top: 70px;}
 .tm80{margin-top: 80px;}
 .tm88{margin-top: 88px;}
 .tm95{margin-top: 95px;}
 .tm100{margin-top: 100px;}
 .tm118{margin-top: 118px;}
 .tm140{margin-top: 140px;}
+.tm170{margin-top: 170px;}
 .tm180{margin-top: 180px;}
 .tm194{margin-top: 194px;}
 .tm205{margin-top: 205px;}
@@ -82,14 +84,14 @@
 
 
 /*폰트*/
-.txt_14 {font-size: 14px !important;}
 .txt_15 {font-size: 15px;}
 .txt_16 {font-size: 16px;}
 .txt_18 {font-size: 18px;}
 .txt_gray_aa {color: #aaaaaa;}
 .txt_gray_cc {color: #cccccc;}
 .txt_gray88 {color: #888888;}
-.txt_gray66 {color: #666666;}
+.txt_gray66 {color: #666666 !important;}
 .txt_black33 {color: #333333;}
 .txt_green{color: #7eb34f;}
 .txt_medium {font-weight: 500;}
+

@@ -19,7 +19,7 @@ class Product(models.Model):
     # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, verbose_name="Product name", default='')
     #text = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='Category')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='Category', default='')
     price = models.IntegerField(verbose_name="Price", default=0)
     description = models.TextField(verbose_name="Description", default='')
     image = models.ImageField(upload_to='images/', null = True)

@@ -57,14 +57,14 @@ button {
 
 .form_ul li{margin-bottom: 32px;}
 .form_ul li:last-child{margin-bottom: 0px;}
-.form_ul li .input_tit{font-size: 14px;color: #333;font-family:'Roboto';font-weight:500; padding-bottom:13px;}
+.form_ul li .input_tit{font-size: 14px;color: #333;font-weight:500; padding-bottom:13px;}
 .form_ul li .input_box{border-bottom: 1px solid #ddd;}
 .form_ul li .input_box input{font-size:14px;color:#888; line-height:23px; border:0; width:100%; box-sizing:border-box;padding:5px 10px; height:27px}
 
 .input_type1 input{border:1px solid #dddddd;width:100%;height: 50px;border-radius: 5px; color: #666666; font-size: 14px; text-align: center;}
 
 .code_input{border-bottom: 1px solid #ddd;}
-.code_input input{padding:20px 10px; font-family:'Roboto'; font-size: 20px; color: #888;border:0; width:100%; box-sizing:border-box; text-align: center;}
+.code_input input{padding:20px 10px;  font-size: 20px; color: #888;border:0; width:100%; box-sizing:border-box; text-align: center;}
 .code_input input::-webkit-input-placeholder { /* WebKit browsers */ color: #ddd; text-align:center;} 
 .code_input input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color: #ddd; text-align:center;} 
 .code_input input::-moz-placeholder { /* Mozilla Firefox 19+ */ color: #ddd; text-align:center; } 
@@ -80,6 +80,13 @@ button {
 .custom_radio .radio_box::after{display: none; content: '';position: absolute; width: 100%; height: 100%;top: 0;left: 0; background-image: url(../images/ic_check2.png); background-repeat: no-repeat;background-position: right 30px center;}
 .custom_radio input:checked + .radio_box {border: 1.5px solid #7eb34f;color: #7eb34f;}
 .custom_radio input:checked + .radio_box::after{display: block;}
+
+.custom_radio2 {position: relative; width: 84px;height: 84px;float: left;margin-right: 14px;margin-bottom: 14px;}
+.custom_radio2:nth-of-type(3n){margin-right: 0;}
+.custom_radio2 label {background:#fff; width: 100%;height: 100%; border-radius: 10px;display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: space-around; justify-content: space-around; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
+.custom_radio2 input:checked + label {border:1px solid #7eb34f;}
+.custom_radio2 input:checked + label span{color: #7eb34f;}
+
 
 
 

@@ -44,26 +44,37 @@ class OrderCreate(FormView):
             'request': self.request
         })
         return kw
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users'] = Users.objects.get(email=self.request.session.get('user'))
+        return context
 
 @method_decorator(login_required, name = 'dispatch')
 class AddCart(FormView):
     form_class = CartForm
 
-    #template_name = 'order_complete.html'
     def form_valid(self, form):
         with transaction.atomic():
             prod = Product.objects.get(pk=form.data.get('product'))
-            amou = prod.price * int(form.data.get('quantity'))
-            #print(amou)
-            order = Cart(
-                quantity = form.data.get('quantity'),
-                product = prod,
-                user = Users.objects.get(email = self.request.session.get('user')),
-                amount = amou
-            )
-            order.save()
-            #prod.stock -= int(form.data.get('quantity'))
-            #prod.save()
+            user = Users.objects.get(email=self.request.session.get('user'))
+            quant = int(form.data.get('quantity'))
+            prev_cart = Cart.objects.filter(user=user)
+            flag = False
+            for i in prev_cart:
+                if prod.id == i.product.id:
+                    i.amount += prod.price * quant
+                    i.quantity += quant
+                    i.save()
+                    break
+            else:
+                amou = prod.price * int(form.data.get('quantity'))
+                newcart = Cart(
+                    quantity = form.data.get('quantity'),
+                    product = prod,
+                    user = user,
+                    amount = amou
+                )
+                newcart.save()
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -111,3 +122,26 @@ def modify_cart(request,pk):
     user = Users.objects.get(email=request.email)
 
     return redirect('cartlist',user.pk)
+
+def payment(request):
+    return render(request,'payment.html')
+
+def cart_to_buy(request):
+    user = Users.objects.get(email=request.session.get('user'))
+    cart = Cart.objects.filter(user=user)
+    for prod in cart:
+        product = Product.objects.get(pk=prod.product.id)
+    #prod = Product.objects.get(pk=form.data.get('product'))
+        amou = product.price * int(prod.quantity)
+    #print(amou)
+        order = Order(
+            quantity=prod.quantity,
+            product=product,
+            user=Users.objects.get(email=request.session.get('user')),
+            amount=amou
+        )
+        order.save()
+        product.stock -= int(prod.quantity)
+        product.save()
+        prod.delete()
+    return redirect('ordercomplete')

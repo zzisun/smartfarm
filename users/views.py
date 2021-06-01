@@ -20,13 +20,14 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail.message import EmailMessage
 
 # for OAuth in twitter
-from requests_oauthlib import OAuth1
+# from requests_oauthlib import OAuth1
 from urllib.parse import urlencode
 from rest_framework.views import APIView
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.conf import settings
+
 import requests
-from .tweepy import tweet_scrap
+
 
 def home(request):
     return render(request, "users/sign_in1.html")
@@ -84,6 +85,7 @@ def mypage(request):
     current_user = request.user
     messages.info(request, 'user: '+current_user.email)
     return render(request, 'users/status.html')
+
 
 @api_view(['GET'])
 def userAPI(request):
@@ -149,7 +151,7 @@ class TwitterCallbackEndpoint(APIView):
             user_id = res_split[2].split("=")[1] if len(res_split) > 2 else None
             user_name = res_split[3].split("=")[1] if len(res_split) > 3 else None
             # store oauth_token, oauth_secret, user_id, user_name
-            redirect_url = "http://127.0.0.1:8000/share/twitter/"
+            redirect_url = "http://127.0.0.1:8000/twitter/share/"
             return HttpResponseRedirect(redirect_url)
         except ConnectionError:
             return HttpResponse(
@@ -161,6 +163,7 @@ class TwitterCallbackEndpoint(APIView):
                 "<html><body>Something went wrong.Try again.</body></html>", status=403
             )
 
+
 def TwitterShare(request):
     search_words = ["#krishian_1_0_0"]
     tweet_info = tweet_scrap(search_words)
@@ -171,3 +174,4 @@ def TwitterShare(request):
         "data_text": data_text,
     }
     return render(request, 'twitter.html', content)
+
