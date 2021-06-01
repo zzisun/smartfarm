@@ -26,7 +26,7 @@ class OrderCreate(FormView):
             order = Order(
                 quantity = form.data.get('quantity'),
                 product = prod,
-                user = Users.objects.get(email = self.request.session.get('user')),
+                user = Users.objects.get(email = self.request.user.email),
                 amount = amou
             )
             order.save()
