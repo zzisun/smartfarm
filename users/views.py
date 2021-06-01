@@ -3,8 +3,8 @@ from django.http import request
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from users import models
+from .form import *
 
-# from users.models import Users
 from .form import CreateUserForm
 from django.views.generic.edit import FormView
 from django.contrib.auth.hashers import make_password
@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes
 from .serializers import UserSerializer
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+# from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import inlineformset_factory
 
 from django.contrib import messages
@@ -62,20 +62,35 @@ def loginPage(request):
 	if request.user.is_authenticated:
 		return redirect('mypage')
 	else:
+		form = LoginForm()
 		if request.method == 'POST':
-			email = request.POST.get('email')
-			password =request.POST.get('password')
+			form = LoginForm(request.POST)
 
-			user = authenticate(request, email=email, password=password)
+			
 
-			if user is not None:
-				login(request, user)
-				return redirect('mypage')
-			else:
-				messages.info(request, 'Username OR password is incorrect')
+				
+		context = {'form':form}
+		return render(request, 'users/sign_up1.html', context)
+    
 
-		context = {}
-		return render(request, 'users/sign_in2.html', context)
+	# else:
+    #     form = LoginForm()
+	# 	if request.method == 'POST':
+	# 		email = request.POST.get('email')
+	# 		password =request.POST.get('password')
+
+	# 		user = authenticate(request, email=email, password=password)
+
+	# 		if user is not None:
+	# 			login(request, user)
+	# 			return redirect('mypage')
+	# 		else:
+	# 			messages.info(request, 'Username OR password is incorrect')
+    #     else:
+    #         form = LoginForm()
+
+	# 	context = {'form':form}
+	# 	return render(request, 'users/sign_in2.html', context)
 
 
 def logoutUser(request):
