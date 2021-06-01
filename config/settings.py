@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
     # add twitter
-    'twitter',
+    'twitter.apps.TwitterConfig',
     'device_management',
 ]
 
