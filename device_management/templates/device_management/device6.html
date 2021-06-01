@@ -107,7 +107,7 @@
                     <h2 class="top_title re_tp10">Select plant life stage</h2>
                     <div class="stage_box">
                         <div class="bar">
-                            <p style="width: 55%;"></p>
+                            <p style="width: 55%;" id="stage_colorline"></p>
                         </div>
                         <ul class="" id="stage_bar">
                             <li>Seed<br>Planting</li>
@@ -143,16 +143,25 @@
     <script type="text/javascript">
         function select_life_stage(id){
             let life_stage_list = ['Seed Planting', 'Germination', 'Seedling', 'Growth', 'Hervest'];
+            let line_width_list = ['5%', '30%', '55%', '80%', '100%'];
             let current_stage = document.querySelector("#current_stage");
+            let stage_colorline = document.querySelector("#stage_colorline");
+            let text_cursor = document.querySelector("#stage_bar").children;
 
             for (let i=0; i<life_stage_list.length; i++){
                 if (life_stage_list[i] == current_stage.innerText){
                     if (id == "stage_up"){
                         current_stage.innerText = life_stage_list[(i+1)%life_stage_list.length];
+                        stage_colorline.style.width = line_width_list[(i+1)%life_stage_list.length];
+                        text_cursor[i].classList.remove("on");
+                        text_cursor[(i+1)%life_stage_list.length].classList.add("on");
                         break;
                     }
                     else if (id == "stage_down"){
                         current_stage.innerText = life_stage_list[(i-1)%life_stage_list.length];
+                        stage_colorline.style.width = line_width_list[(i-1)%life_stage_list.length];
+                        text_cursor[i].classList.remove("on");
+                        text_cursor[(i-1)%life_stage_list.length].classList.add("on");
                         break;
                     }
                 }
