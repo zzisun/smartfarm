@@ -7,6 +7,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info
+from .forms import Farm_Info_Form
 import json
 
 def index(request):
@@ -86,20 +87,40 @@ class crop_info_registeration(APIView):
 
     def post(self, request):
         crop_serializer = POST_Plant_Info(data = request.data)
+        
         if crop_serializer.is_valid():
             crop_serializer.save()
-            context = crop_serializer.data
-            return render(request, 'device_management/status.html',context=context)
+            
+            #return render(request, 'device_management/status.html',context=context)
+            return Response(crop_serializer.data, status=201)
+        return Response(crop_serializer.errors, status=400)    
+
 
 class create_farm_info(APIView):
-    def post(self, request):
+   def post(self, request):
         serializer = POST_Farm_Info(data = request.data)
+
         if serializer.is_valid():
             serializer.save()
-            farm_info = serializer.data["id"]
-            return render(request, 'device_management/device6.html',{'farm_info':farm_info})
-        return Response(serializer.errors, status=400)
+            farm_info = serializer.data["farm_name"]
+            farm_info_name = Farm_Info.objects.get(farm_name = farm_info).farm_name
+            return render(request, 'device_management/device6.html',{'farm_info':farm_info_name})
+        else:
+            print(serializer.data)
+            return Response(serializer.errors, status=400)
 
+'''
+class create_farm_info(APIView):
+    def post(self, request):
+        if request.method == 'POST':
+            farm_form = Farm_Info_Form(request.POST)
+            if farm_form.is_valid():
+                device = farm_form.cleaned_data['device_info'].device_serial
+                farm_save = farm_form.save()
+                farm_save.save()
+                farm_info_pk = Farm_Info.objects.get(device_info = device).id
+                return render(request, 'device_management/device6.html',{'farm_info':farm_info_pk}) 
+'''
 class create_plant_params(APIView):
 
     def post(self, request):
