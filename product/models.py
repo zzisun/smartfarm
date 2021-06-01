@@ -16,7 +16,7 @@ class Category(models.Model):
         return '{}'.format(self.sort)
 
 class Product(models.Model):
-    #author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, verbose_name="Product name", default='')
     #text = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='Category', default='')

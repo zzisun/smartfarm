@@ -24,6 +24,9 @@
         <!-- top_box -->
         <div class="top_box">
             <form action="">
+                {% for message in messages %}
+			    <p id="messages">{{message}}</p>
+		        {% endfor %}
                 <ul>
                     <li>
                         <p class="input_tit Roboto">Farm Name</p>

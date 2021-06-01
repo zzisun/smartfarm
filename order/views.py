@@ -6,14 +6,12 @@ from django.utils.decorators import method_decorator
 from product.models import Product
 from order.models import Order, Cart
 from users.models import Users
-from users.decorators import login_required
 from .form import OrderForm, CartForm
 # Create your views here.
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 #주문 생성 view
-@method_decorator(login_required, name = 'dispatch')
 class OrderCreate(FormView):
     form_class = OrderForm
     success_url = '/order/complete'
@@ -26,7 +24,7 @@ class OrderCreate(FormView):
             order = Order(
                 quantity = form.data.get('quantity'),
                 product = prod,
-                user = Users.objects.get(email = self.request.session.get('user')),
+                user = Users.objects.get(email = self.request.user.email),
                 amount = amou
             )
             order.save()
@@ -46,17 +44,16 @@ class OrderCreate(FormView):
         return kw
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['users'] = Users.objects.get(email=self.request.session.get('user'))
+        context['users'] = Users.objects.get(email=self.request.user.email)
         return context
 
-@method_decorator(login_required, name = 'dispatch')
 class AddCart(FormView):
     form_class = CartForm
 
     def form_valid(self, form):
         with transaction.atomic():
             prod = Product.objects.get(pk=form.data.get('product'))
-            user = Users.objects.get(email=self.request.session.get('user'))
+            user = Users.objects.get(email=self.request.user.email)
             quant = int(form.data.get('quantity'))
             prev_cart = Cart.objects.filter(user=user)
             flag = False
@@ -77,8 +74,11 @@ class AddCart(FormView):
                 newcart.save()
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        return redirect('/product/')
+
     def get_success_url(self):
-        user = Users.objects.get(email=self.request.session.get('user'))
+        user = Users.objects.get(email=self.request.user.email)
         return '/order/cart/{}'.format(user.pk)
 
     def get_form_kwargs(self, **kwargs):
@@ -88,7 +88,7 @@ class AddCart(FormView):
         })
         return kw
 
-@method_decorator(login_required, name = 'dispatch')
+
 class OrderListView(ListView):
     template_name = 'order_list.html'
     model = Order
@@ -118,7 +118,7 @@ def modify_cart(request,pk):
     cart.quantity = int(request.POST.get('quantity'))
     cart.amount = cart.product.price * cart.quantity
     cart.save()
-    user = Users.objects.get(email=request.session.get('user'))
+    user = Users.objects.get(email=request.user.email)
 
     return redirect('cartlist',user.pk)
 
@@ -126,7 +126,7 @@ def payment(request):
     return render(request,'payment.html')
 
 def cart_to_buy(request):
-    user = Users.objects.get(email=request.session.get('user'))
+    user = Users.objects.get(email=request.user.email)
     cart = Cart.objects.filter(user=user)
     for prod in cart:
         product = Product.objects.get(pk=prod.product.id)
@@ -136,7 +136,7 @@ def cart_to_buy(request):
         order = Order(
             quantity=prod.quantity,
             product=product,
-            user=Users.objects.get(email=request.session.get('user')),
+            user=Users.objects.get(email=request.user.email),
             amount=amou
         )
         order.save()

@@ -19,7 +19,7 @@ class OrderForm(forms.Form):
         cleaned_data = super().clean()
         quantity = cleaned_data.get('quantity')
         product = cleaned_data.get('product')
-        user = self.request.session.get('user')
+        user = self.request.user
 
         if not (quantity and product and user):
             self.add_error('quantity', "수량이 없습니다.")
@@ -43,7 +43,7 @@ class CartForm(forms.Form):
         cleaned_data = super().clean()
         quantity = cleaned_data.get('quantity')
         product = cleaned_data.get('product')
-        user = self.request.session.get('user')
+        user = self.request.user
 
         if not (quantity and product and user):
             self.add_error('quantity', "수량이 없습니다.")
