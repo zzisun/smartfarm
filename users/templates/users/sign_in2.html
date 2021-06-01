@@ -42,10 +42,15 @@
             <div class="tx_r tm18">
                 <a href="/password_reset" class="txt_14 txt_green Roboto txt_medium">forget password?</a>
             </div>
+            {% for message in messages %}
+			<p id="messages">{{message}}</p>
+		    {% endfor %}	
             <div class="d-flex justify-content-center mt-3 login_container">
                 <input class="btn tm118 re_tm10" type="submit" value="Sign in">
-              </div>
+            </div>
+            
         </form>
+        		
         
     </div>
 </body>
