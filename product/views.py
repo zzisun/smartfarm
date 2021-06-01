@@ -50,5 +50,5 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['orderform'] = OrderForm(self.request)
         context['cartform'] = CartForm(self.request)
-        context['users'] = Users.objects.get(email=self.request.session.get('user'))
+        context['users'] = Users.objects.get(email=self.request.user.email)
         return context
