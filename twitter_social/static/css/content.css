@@ -344,6 +344,7 @@
 .twit_form{display: flex; justify-content: left; flex-direction: row; padding-top: 20px;}
 .twit_form button{background: #1DA1F2; width: 100px; height: 40px; border-radius: 50px; color: #fff; font-size: 18px; text-align: center;}
 
+.twit_share_btn{background: #fff; width: 200px; height: 40px; border-radius: 50px; color: #1DA1F2; font-size: 18px; text-align: center;}
 /* self made */
 
 

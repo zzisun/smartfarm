@@ -19,12 +19,16 @@
 <body>
     <header class="header">
             <a href="javascript:window.history.back();" class="back_btn txt_medium">BACK</a>
-            <a href="/notification" class="noti">Notification</a>
+            <a href="javascript:" class="noti">Notification</a>
     </header>
     <header class="header" style="background-color: #1DA1F2">
         <strong style="margin-bottom: 15px; font-size : 20px;">
             <a href="javascript:" class="txt_white txt_18">Feed</a>
         </strong>
+        <button type="button" class="twit_share_btn"
+                onclick="location.href = 'https://twitter.com/intent/tweet?button_hashtag=krishian_1_0_0&ref_src=twsrc%5Etfw'">
+            Create Post
+        </button>
     </header>
     <div class="twit_form">
         <button type="button" onclick="location.href = '/twitter/post/'">All</button>
