@@ -37,11 +37,11 @@
                     </div>
                 </li>
                 <li>
-                    <p class="input_tit">User name(key)</p>
+                    <p class="input_tit">Mobile number</p>
                     <div class="input_box">
                         <!-- <input type="text" placeholder="Mobile number" class="form-control" name="mobile_number" id="mobile_number"
                         value="{{ form.mobile_number.value|default_if_none:'' }}" > -->
-                        {{form.username}}
+                        {{form.mobile_number}}
                     </div>
                 </li>
                 <li>
@@ -107,7 +107,7 @@
         var form_fields = document.getElementsByTagName('input')
 		form_fields[1].placeholder='First Name..';
 		form_fields[2].placeholder='Last Name..';
-		// form_fields[3].placeholder='Mobile Number...';
+		form_fields[3].placeholder='Mobile Number...';
         form_fields[4].placeholder='Email...';  
 		form_fields[5].placeholder='Enter password...';
         form_fields[6].placeholder='Re-enter Password...';

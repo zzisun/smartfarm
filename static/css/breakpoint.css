@@ -1,0 +1,9 @@
+
+
+@media screen and (max-height: 670px) {
+    .re_tp10 {padding-top:10% !important;}
+    .re_tp20 {padding-top:20%;}
+    .re_tm10{margin-top:10%;}
+    .re_tm20{margin-top:20%;}
+    .re_tm30{margin-top:30%;}
+}

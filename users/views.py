@@ -18,7 +18,7 @@ from django.forms import inlineformset_factory
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-# from django.core.mail.message import EmailMessage
+from django.core.mail.message import EmailMessage
 
 # for OAuth in twitter
 from requests_oauthlib import OAuth1
@@ -43,7 +43,6 @@ def verifyAccount(request):
     return render(request, "users/sign_up2.html")
 def success(request):
     return render(request, "users/sign_up3.html")
-
 
 def registerPage(request):
 	if request.user.is_authenticated:
@@ -92,7 +91,6 @@ def userAPI(request):
     userlist = list(User.objects.all())
     serializer = UserSerializer(userlist, many=True)
     return Response(serializer.data)
-
 
 def send_email(): 
     subject = "메시지" 

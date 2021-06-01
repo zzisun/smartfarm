@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+/* Common */
+.db {display:block}
+.inline {display:inline}
+.inlineblock {display:inline-block}
+.dn {display:none}
+.fl {float:left}
+.fr {float:right}
+.fn {float:none}
+.both {clear:both}
+.cursor{cursor:pointer; }
+.top {vertical-align:top}
+.mid {vertical-align:middle}
+.bot {vertical-align:bottom}
+.underline{text-decoration:underline}
+.spcing{padding:0 4px}
+.tx_r{text-align:right;}
+.tx_c{text-align:center;}
+.tx_l{text-align:left;}
+.m0 {margin:0}
+.p0 {padding:0}
+.italic{font-style: italic;}
+.spacing{display:inline-block; text-align:center}
+.keep{word-break: keep-all;}
+.relative {position:relative}
+.mar_auto {margin:0 auto}
+.bold {font-weight:600;}
+.normal {font-weight:normal}
+.line_h_2{line-height: 1.2;}
+.pre{white-space: pre-line;}
+
+.tp0{padding-top: 0px !important;}
+.tp6{padding-top: 6px !important;}
+.tp8{padding-top: 8px;}
+.tp40{padding-top: 40px;}
+.tp140{padding-top: 140px;}
+.tp220{padding-top: 220px;}
+
+.bp3{padding-bottom: 3px !important;}
+.bp10{padding-bottom: 10px !important;}
+
+.lp6{padding-left:6px;}
+
+.tm2{margin-top: 2px;}
+.tm9{margin-top: 9px;}
+.tm10{margin-top: 10px;}
+.tm16{margin-top: 16px;}
+.tm17{margin-top: 17px;}
+.tm18{margin-top: 18px;}
+.tm20{margin-top: 20px;}
+.tm24{margin-top: 24px;}
+.tm25{margin-top: 25px;}
+.tm27{margin-top: 27px;}
+.tm30{margin-top: 30px;}
+.tm34{margin-top: 34px !important;}
+.tm40{margin-top: 40px;}
+.tm42{margin-top: 42px;}
+.tm47{margin-top: 47px;}
+.tm50{margin-top: 50px;}
+.tm80{margin-top: 80px;}
+.tm88{margin-top: 88px;}
+.tm95{margin-top: 95px;}
+.tm100{margin-top: 100px;}
+.tm118{margin-top: 118px;}
+.tm140{margin-top: 140px;}
+.tm180{margin-top: 180px;}
+.tm194{margin-top: 194px;}
+.tm205{margin-top: 205px;}
+.tm220{margin-top: 220px;}
+
+.rm20{margin-right: 20px;}
+.rm10{margin-right: 10px;}
+
+.lm3{margin-left: 3px;}
+
+.bm10{margin-bottom: 10px;}
+.bm20{margin-bottom: 20px;}
+
+
+.w_85 {width:85%}
+
+
+/*폰트*/
+.txt_14 {font-size: 14px !important;}
+.txt_15 {font-size: 15px;}
+.txt_16 {font-size: 16px;}
+.txt_18 {font-size: 18px;}
+.txt_gray_aa {color: #aaaaaa;}
+.txt_gray_cc {color: #cccccc;}
+.txt_gray88 {color: #888888;}
+.txt_gray66 {color: #666666;}
+.txt_black33 {color: #333333;}
+.txt_green{color: #7eb34f;}
+.txt_medium {font-weight: 500;}
