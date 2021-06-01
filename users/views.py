@@ -81,6 +81,8 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def mypage(request):
+    current_user = request.user
+    messages.info(request, 'user: '+current_user.email)
     return render(request, 'users/status.html')
 
 @api_view(['GET'])

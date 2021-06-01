@@ -22,9 +22,6 @@ class CreateUserForm(UserCreationForm):
         return user
     
 class LoginForm(forms.ModelForm):
-    """
-      Form for Logging in  users
-    """
     password  = forms.CharField(label= 'Password', widget=forms.PasswordInput)
 
     class Meta:
@@ -35,9 +32,6 @@ class LoginForm(forms.ModelForm):
                    'password':forms.TextInput(attrs={'class':'form-control'}),
         }
     def __init__(self, *args, **kwargs):
-        """
-          specifying styles to fields 
-        """
         super(LoginForm, self).__init__(*args, **kwargs)
         for field in (self.fields['email'],self.fields['password']):
             field.widget.attrs.update({'class': 'form-control '})

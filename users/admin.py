@@ -1,13 +1,3 @@
-# from django.contrib import admin
-# from django.contrib.auth.models import Group
-# from .models import *
-
-# class UsersAdmin(admin.ModelAdmin):
-#     list_display = ('email',)
-
-# admin.site.register(Users, UsersAdmin)
-# admin.site.unregister(Group)
-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
