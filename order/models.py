@@ -7,7 +7,7 @@ class Order(models.Model):
     ordered_date = models.DateTimeField(auto_now_add=True, verbose_name="order_date")
     quantity = models.IntegerField(verbose_name="quantity")
     amount = models.PositiveIntegerField(verbose_name="product_amount", default=0)
-    STATUS_CHOICED = (('Proc','Processing'),('Deli','Delivered'))
+    STATUS_CHOICED = (('Proc','Processing'),('Ship','Shipped'),('On','On the way'),('Deli','Delivered'))
     status = models.CharField(max_length=4,verbose_name="status", choices=STATUS_CHOICED, default='Proc')
 
     def __str__(self):

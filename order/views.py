@@ -89,15 +89,23 @@ class AddCart(FormView):
         return kw
 
 
-class OrderListView(ListView):
-    template_name = 'order_list.html'
-    model = Order
-
 def order_list(request, pk):
     user = Users.objects.get(pk=pk)
     orders = Order.objects.filter(user=user)
-    context = {'orders':orders}
-    return render(request, 'order_list2.html',context)
+    ongoing = []
+    fo = True
+    history =[]
+    fh = True
+    for i in orders:
+        #history
+        if i.status == 'Deli':
+            history.append(i)
+            fh = False
+        else:
+            ongoing.append(i)
+            fo = False
+    context = {'history':history, 'fh':fh,'ongoing':ongoing, 'fo':fo}
+    return render(request, 'account3.html',context)
 
 def cart_list(request, pk):
     user = Users.objects.get(pk=pk)

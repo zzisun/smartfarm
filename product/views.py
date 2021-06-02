@@ -13,14 +13,25 @@ from django.utils.decorators import method_decorator
 from users.decorators import admin_required
 
 
-
+'''
 class ProductListView(ListView):
-    template_name = 'product_list.html'
+    template_name = 'catagory.html'
     model = Product
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['users'] = Users.objects.get(email=self.request.user.email)
+        context['category'] = Category.objects.all()
         return context
+'''
+def category_list(request, pk):
+    user = Users.objects.get(email=request.user.email)
+    category = Category.objects.get(pk=pk)
+    all = Category.objects.all()
+    product = Product.objects.all()
+    context = {'category':category, 'all':all,'users':user, 'product':product}
+
+    return render(request, 'catagory.html',context)
+
 
 @method_decorator(admin_required, name = 'dispatch')
 class ProductRegister(FormView):
@@ -42,7 +53,7 @@ class ProductRegister(FormView):
 
 
 class ProductDetailView(DetailView):
-    template_name = "product_detail.html"
+    template_name = "product.html"
     queryset = Product.objects.all()
     context_object_name = 'product'
 
