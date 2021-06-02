@@ -21,7 +21,7 @@
             <a href='/login' class="btn">Sign in</a>
             <p class="line_txt Roboto">Or Connect Through</p>
             
-            <a href="/auth/twitter/redirect/" class="btn_sns bm20">
+            <a href="{% provider_login_url 'twitter' %}" class="btn_sns bm20">
                 <img src="{% static 'images/ic_face.png' %}" alt="facebook icon" class="rm10">
                 <span>Connect with Twitter</span>
             </a>
