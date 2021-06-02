@@ -49,10 +49,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.twitter',
+    # 'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
     # add twitter
-    # 'twitter',
+    'twitter',
     'device_management',
 ]
 
