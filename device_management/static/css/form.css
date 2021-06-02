@@ -43,8 +43,7 @@ input.checkbox, input[type="radio"]{margin:-2px 2px 2px 0; vertical-align:middle
 .infile:focus{border:1px solid #a7d725;}
 
 .textarea{border:1px solid #ddd;  padding:10px; text-align:left; line-height:18px;color:#666;  text-align:left; box-sizing:border-box; 
-		   transition:0.3s;-webkit-transition:0.3s;-moz-transition:0.3s;-o-transition:0.3s;}
-.textarea:focus{border:1px solid #e1c270;}
+		   transition:0.3s;-webkit-transition:0.3s;-moz-transition:0.3s;-o-transition:0.3s;border-radius: 5px;color: #888;}
 
 .select{border:1px solid #ddd; color:#555; height:41px; line-height:39px; box-sizing:border-box; background:#fff; vertical-align:top;
 		transition:0.3s;-webkit-transition:0.3s;-moz-transition:0.3s;-o-transition:0.3s; display:inline-block}
@@ -55,19 +54,27 @@ button {
 	border:0
 }
 
+.date_input_box{width: 200px;height: 50px;margin:0 auto;border:1px solid #dddddd;border-radius: 50px;}
+.date_input_box input{width: calc(100% - 50px);height: 50px;border:none;text-align: center;border-radius: 50px;height: 48px;}
+.date_input_box button{width: 50px;height: 50px;}
+.date_input_box img{margin-top: -1px;}
+
 .form_ul li{margin-bottom: 32px;}
 .form_ul li:last-child{margin-bottom: 0px;}
 .form_ul li .input_tit{font-size: 14px;color: #333;font-weight:500; padding-bottom:13px;}
 .form_ul li .input_box{border-bottom: 1px solid #ddd;}
 .form_ul li .input_box input{font-size:14px;color:#888; line-height:23px; border:0; width:100%; box-sizing:border-box;padding:5px 10px; height:27px}
 
-.input_type1 input{border:1px solid #dddddd;width:100%;height: 50px;border-radius: 5px; color: #666666; font-size: 14px; text-align: center;}
+.input_type1 input{border:1px solid #dddddd;width:100%;height: 50px; padding:0 15px;border-radius: 5px; color: #666666; font-size: 14px; text-align: center;}
+
+.input_btn_box input{border:1px solid #dddddd;width: calc(100% - 70px);height: 40px;border:1px solid #ddd;border-radius: 5px;background:#fff;font-size: 12px;color: #888888;padding:0 17px;float: left;}
+.input_btn_box button{height: 40px;float: right;}
 
 .code_input{border-bottom: 1px solid #ddd;}
 .code_input input{padding:20px 10px;  font-size: 20px; color: #888;border:0; width:100%; box-sizing:border-box; text-align: center;}
-.code_input input::-webkit-input-placeholder { /* WebKit browsers */ color: #ddd; text-align:center;} 
-.code_input input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color: #ddd; text-align:center;} 
-.code_input input::-moz-placeholder { /* Mozilla Firefox 19+ */ color: #ddd; text-align:center; } 
+.code_input input::-webkit-input-placeholder { /* WebKit browsers */ color: #ddd; text-align:center;}
+.code_input input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color: #ddd; text-align:center;}
+.code_input input::-moz-placeholder { /* Mozilla Firefox 19+ */ color: #ddd; text-align:center; }
 
 .custom_check .check_box{display: block;width: 15px;height: 15px;position: relative;}
 .custom_check .check{box-sizing: border-box;display: block;width: 15px;height: 15px;border:1px solid #aaaaaa; border-radius: 2px; background-color: #fff; position: absolute;}
@@ -75,12 +82,24 @@ button {
 .custom_check .check_box input:checked + .check::after{display: block;}
 .custom_check .check_box + label{font-size: 14px; font-family: 'Roboto';color: #333333;margin-left: 12px;margin-top: -2px;}
 
+.custom_check2>label{display: block;}
+.custom_check2 .check{display: block;margin:10px auto 0; width: 18px;height: 18px;border:1px solid #dddddd;border-radius: 50%;position: relative;}
+.custom_check2 .check::after{display: none; position: absolute;content: '';width: 100%;height: 100%;background: url(../images/ic_check3.png)no-repeat center;top: 0;left: 0;}
+.custom_check2 input:checked + .check::after{display: block;}
+
+.custom_check3 .check{width: 15px;height: 15px;border-radius: 0;margin:0;}
+
 .custom_radio {position: relative; width: 100%; height: 50px; display: block;}
 .custom_radio .radio_box{position: absolute; background-color: #fff; width: 100%; height: 100%; top: 0;left: 0;text-align: left; padding-left:30px;line-height:47px;font-size: 14px;color: #888888; box-sizing: border-box; border:1px solid #dddddd; border-radius: 50px;}
 .custom_radio .radio_box::after{display: none; content: '';position: absolute; width: 100%; height: 100%;top: 0;left: 0; background-image: url(../images/ic_check2.png); background-repeat: no-repeat;background-position: right 30px center;}
 .custom_radio input:checked + .radio_box {border: 1.5px solid #7eb34f;color: #7eb34f;}
 .custom_radio input:checked + .radio_box::after{display: block;}
 
+.custom_radio2 {position: relative; width: 84px;height: 84px;float: left;margin-right: 14px;margin-bottom: 14px;}
+.custom_radio2:nth-of-type(3n){margin-right: 0;}
+.custom_radio2 label {background:#fff; width: 100%;height: 100%; border-radius: 10px;display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: space-around; justify-content: space-around; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
+.custom_radio2 input:checked + label {border:1px solid #7eb34f;}
+.custom_radio2 input:checked + label span{color: #7eb34f !important;}
 
 
 

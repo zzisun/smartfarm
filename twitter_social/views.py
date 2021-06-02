@@ -5,10 +5,7 @@ from .macro import background_posting
 
 def TwitterShare(request):
     # category를 나눌 수 있음
-    data_text = parameter_send()
-    content = {
-        "data_text": data_text,
-    }
+    content = {}
     return render(request, 'twitter_share.html', content)
 
 def TwitterPost(request):
@@ -17,9 +14,10 @@ def TwitterPost(request):
     if category is not None:
         search_words.append('#'+category)
     tweet_info = tweet_scrap(search_words)
-
+    data_text = parameter_send()
     content = {
         "tweet_info": tweet_info,
+        "data_text": data_text,
     }
     return render(request, 'twitter_post.html', content)
 
