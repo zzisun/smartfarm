@@ -8,7 +8,7 @@ class OrderForm(forms.Form):
 
     quantity = forms.IntegerField(
         error_messages={'required': "Input quantity."},
-        label="quantity", widget = forms.NumberInput
+        label="quantity", widget = forms.HiddenInput
     )
     product = forms.IntegerField(
         error_messages={'required': "Input product name."},
@@ -32,7 +32,7 @@ class CartForm(forms.Form):
 
     quantity = forms.IntegerField(
         error_messages={'required': "Input quantity."},
-        label="quantity", widget=forms.NumberInput
+        label="quantity", widget=forms.HiddenInput
     )
     product = forms.IntegerField(
         error_messages={'required': "Input product name."},
