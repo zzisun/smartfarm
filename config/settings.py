@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
     # add twitter
     'twitter_social',
@@ -187,7 +187,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 TWITTER_API_KEY = 'ccnRjWAWBTlLT4kkFXHrDJ6PT'
 TWITTER_API_SECRET_KEY = 'Fc5Kmlo73eThr9O9na5xZMdYtGj477MLdcwRiIfW7Nug5l0dKJ'
-TWITTER_AUTH_CALLBACK_URL = 'http://127.0.0.1:8000/callback/twitter/'
+TWITTER_AUTH_CALLBACK_URL = 'http://158.247.227.73:8000/callback/twitter/'
 TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAO0xQAEAAAAAd2KCkP9bRPDIjzd4uM4f9ceF%2Bso%3D9jrvq42TSQOQ3aFpMkuCmMoNparRqYe3aqYElJSaRS7hbyXew7'
 TWITTER_ACCESS_TOKEN = '1397186084178743306-XSavdhMvF8YmLzKJ2Rhfyqq53xNE2g'
 TWITTER_ACCESS_SECRET = 'LwrbOyzaNj17VFLKkxZBuTF0dJIDEML7zIxbpATeLaiQV'

@@ -20,7 +20,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail.message import EmailMessage
 
 # for OAuth in twitter
-# from requests_oauthlib import OAuth1
+from requests_oauthlib import OAuth1
 from urllib.parse import urlencode
 from rest_framework.views import APIView
 from django.http.response import HttpResponseRedirect, HttpResponse
