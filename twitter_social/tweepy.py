@@ -9,7 +9,9 @@ def tweet_scrap(search_words):
     access_token_secret = settings.TWITTER_ACCESS_SECRET
 
     auth = tw.OAuthHandler(consumer_key, consumer_secret)
+
     auth.set_access_token(access_token, access_token_secret)
+
     api = tw.API(auth, wait_on_rate_limit=True)
 
     tweets = tw.Cursor(api.search,
