@@ -135,10 +135,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 STATICFILES_DIR = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
 
+=======
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+>>>>>>> 4a259e148d2bc116074869ed27e0d0e5b68de77f
 
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

@@ -25,7 +25,6 @@ from urllib.parse import urlencode
 from rest_framework.views import APIView
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.conf import settings
-
 import requests
 from django.views.decorators.csrf import csrf_exempt
 
@@ -118,7 +117,7 @@ class TwitterAuthRedirectEndpoint(APIView):
              #Step one: obtaining request token
             request_token_url = "https://api.twitter.com/oauth/request_token"
             data = urlencode({
-                      "oauth_callback": settings.TWITTER_AUTH_CALLBACK_URL
+                "oauth_callback": settings.TWITTER_AUTH_CALLBACK_URL
             })
             response = requests.post(request_token_url, auth=oauth, data=data)
             response.raise_for_status()
@@ -156,7 +155,7 @@ class TwitterCallbackEndpoint(APIView):
             user_id = res_split[2].split("=")[1] if len(res_split) > 2 else None
             user_name = res_split[3].split("=")[1] if len(res_split) > 3 else None
             # store oauth_token, oauth_secret, user_id, user_name
-            redirect_url = "http://127.0.0.1:8000/twitter/share/"
+            redirect_url = "http://158.247.227.73:8000/twitter/share/"
             return HttpResponseRedirect(redirect_url)
         except ConnectionError:
             return HttpResponse(
@@ -165,5 +164,5 @@ class TwitterCallbackEndpoint(APIView):
 
         except:
             return HttpResponse(
-                "<html><body>Something went wrong.Try again.</body></html>", status=403
+                "<html><body>Something went wrong.Try again. redirect problem</body></html>", status=403
             )
