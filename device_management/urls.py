@@ -33,4 +33,5 @@ urlpatterns = [
     path('create_farm_info', views.create_farm_info.as_view(), name='Create_farm_info'),
     path('crop_info_registeration', views.crop_info_registeration.as_view(), name='crop_info_registeration'),
     path('status', views.status, name='status'),
+    path('history_detail',views.history_detail, name='history_detail'),
 ]

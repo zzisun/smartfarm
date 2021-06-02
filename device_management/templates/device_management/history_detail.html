@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href={% static "css/default.css" %}>
     <script type="text/javascript" src={% static "js/jquery-3.5.1.min.js" %}></script>
     <script type="text/javascript" src={% static "js/main.js" %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <!-- header -->
@@ -67,11 +69,15 @@
                 <h2 class="title  bold">Lettuce Garden</h2>
                 <div class="graph_box tm30">
                     <h4 class=" bold txt_gray66  lp6">PH</h4>
-                    <div class="graph"></div>
+                    <div class="graph">
+                        <canvas id="chart_PH" class="graph" width="100%" height="85px"></canvas>
+                    </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">EC</h4>
-                    <div class="graph"></div>
+                    <div class="graph">
+                        
+                    </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">Temp</h4>
@@ -95,6 +101,30 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+
+                let ctx_ph = document.getElementById('chart_PH').getContext('2d');
+                let data_ph = {
+                    type : 'line',
+                    data : {
+                        labels : ['2021-01-01', '2021-01-02', '2021-01-03', '2021-01-04', '2021-01-05'],
+                        datasets:[{
+                            label : "PH",
+                            backgroundColor:'rgb(255, 99, 132)',
+                            fill : false, 
+                            borderColor : 'rgb(255, 99,132)',
+                            lineTension : 0.1, 
+                            data : ['1.5','5.5','2.7','6.6','10.0'],
+                        }]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    }
+                };
+
+                var chart_ph = new Chart(ctx_ph,data_ph);
+            </script>
             <button type="button" class="share_btn">
                 <img src={% static "images/ic_sharing.png" %} alt="sharing icon" class="fl">
                 <span class="  fr">Share farm status</span>

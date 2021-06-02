@@ -82,6 +82,13 @@ def farm_info_setting(request):
 def status(request):
     return render(request, 'device_management/status.html')
 
+def history_detail(request):
+    '''
+    if request.method == 'GET':
+        device_serial = request.GET['device_info']
+'''
+    return render(request, 'device_management/history_detail.html')
+
 class crop_info_registeration(APIView):
     template_name = "device_management/device6.html"
 
