@@ -5,7 +5,7 @@
 .btn {text-align: center;width: 100%; height: 50px; border-radius: 50px; background-color: #7eb34f; color: #fff; font-weight: 500; font-size: 18px; display: block; line-height: 50px; box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);}
 .btn_sns {font-weight:500;box-sizing: border-box; width: 100%; width: 100%; height: 50px; border:1px solid #ddd; border-radius: 50px; color: #333333; font-weight: 500; font-size: 18px;display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; -webkit-justify-content: center; justify-content: center;-webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
 .skip_btn {color: #999999;font-size: 14px;font-weight:500;margin-top: 22px;display: block;}
-.next_btn{margin-right: auto;margin-left: auto; display: block;text-align: left; width: 140px;height: 50px;font-size: 14px;color: #fff;background-color: #7eb34f;border-radius: 50px;box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);background-image: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_next.png);background-repeat: no-repeat;background-position: right 20px center;padding:16px 0 0 43px;}
+.next_btn{margin-right: auto;margin-left: auto; display: block;text-align: left; width: 140px;height: 50px;font-size: 14px;color: #fff;background-color: #7eb34f;border-radius: 50px;box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);background-image: url(../images/ic_next.png);background-repeat: no-repeat;background-position: right 20px center;padding:16px 0 0 43px;}
 .btn.line{border:1px solid #7eb34f;background: #fff;color: #7eb34f;}
 .btn_s{width: 60px;height: 30px;background: #fff; border-radius: 5px;color: #7eb34f;border:1px solid #7eb34f;font-size: 12px;font-weight: 500;}
 
@@ -88,21 +88,21 @@
 .device_wrap .cont .top_title{padding-top:73px;font-size: 20px;color: #333333; font-family: 'Roboto'; font-weight: bold;}
 .device_wrap .cont .title {font-size: 20px; color:#555555; padding:48px 0 27px;}
 .device_wrap .cont .sub_txt {font-size: 14px; color:#818181;}
-.device_wrap .new_btn{box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16); padding-top:40px; font-size: 14px; color: #818181;font-family: 'Roboto'; box-sizing: border-box;width: 180px; height: 156px; border: 1px solid #dddddd; border-radius: 20px; background-color: #f8f8f8; background-image: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_plus.png);background-repeat: no-repeat;background-position:top 49px center;}
+.device_wrap .new_btn{box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16); padding-top:40px; font-size: 14px; color: #818181;font-family: 'Roboto'; box-sizing: border-box;width: 180px; height: 156px; border: 1px solid #dddddd; border-radius: 20px; background-color: #f8f8f8; background-image: url(../images/ic_plus.png);background-repeat: no-repeat;background-position:top 49px center;}
 .device_wrap .arrow_btn {margin:58px auto 0; border: 0; width: 280px; height: 50px; border-radius: 50px; background-color: #f1f1f1; padding-left: 26px; color: #555555; font-size: 14px; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; -webkit-justify-content: space-between; justify-content: space-between; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
 .device_wrap .scroll_box {background-color: #f6f6f6;border-radius: 10px;padding:20px;max-height: 270px;}
 .group_ul {display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: space-between; justify-content: space-between; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
 .group_ul li{position: relative;width: 100px;height: 100px;}
-.group_ul li label{display: inline-block; width: 100px;height: 100px;background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_group1.png) no-repeat;background-size: contain;}
-.group_ul li:nth-of-type(2) label{background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_group2.png) no-repeat;background-size: contain;}
-.group_ul li:nth-of-type(3) label{background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_group3.png) no-repeat;background-size: contain;}
-.group_ul li input:checked + label{background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_group1_on.png) no-repeat;background-size: contain;}
-.group_ul li:nth-of-type(2) input:checked + label{background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_group2_on.png) no-repeat;background-size: contain;}
-.group_ul li:nth-of-type(3) input:checked + label{background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_group3_on.png) no-repeat;background-size: contain;}
+.group_ul li label{display: inline-block; width: 100px;height: 100px;background: url(../images/ic_group1.png) no-repeat;background-size: contain;}
+.group_ul li:nth-of-type(2) label{background: url(../images/ic_group2.png) no-repeat;background-size: contain;}
+.group_ul li:nth-of-type(3) label{background: url(../images/ic_group3.png) no-repeat;background-size: contain;}
+.group_ul li input:checked + label{background: url(../images/ic_group1_on.png) no-repeat;background-size: contain;}
+.group_ul li:nth-of-type(2) input:checked + label{background: url(../images/ic_group2_on.png) no-repeat;background-size: contain;}
+.group_ul li:nth-of-type(3) input:checked + label{background: url(../ic_group3_on.png) no-repeat;background-size: contain;}
 .group_ul li span{color: #818181; font-size: 14px;position: absolute;bottom: -35px;width: 100%;left: 0;}
 .group_ul li input:checked + label + span{color: #7eb34f;font-weight: 500;}
 .device_wrap .crop_box {max-width: 325px;margin-right: auto;margin-left: auto;}
-.device_wrap .crop_box .crop_btn{width: 100%;height: 100%;background: #e6e6e6 url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_plus_s.png) no-repeat center top 14px;border-radius: 10px;font-size:14px;color: #888888;padding-top: 15px;}
+.device_wrap .crop_box .crop_btn{width: 100%;height: 100%;background: #e6e6e6 url(../images/ic_plus_s.png) no-repeat center top 14px;border-radius: 10px;font-size:14px;color: #888888;padding-top: 15px;}
 .device_wrap .stage_box{max-width: 325px;margin: 0 auto;}
 .device_wrap .stage_box .bar{position: relative; width: 100%;height: 2px;background:#ebebeb;margin: 89px auto 0;}
 .device_wrap .stage_box .bar p{position: absolute;height: 100%;top: 0;left: 0;background: #7eb34f;}
@@ -213,7 +213,7 @@
 .garden_box .level_ul li:nth-of-type(2) .bar_box .bar{background:linear-gradient(rgb(138,181,100), rgb(68,119,45));}
 .garden_box .level_ul li:nth-of-type(n + 3) .bar_box .bar{background:linear-gradient(rgb(229,131,100), rgb(209,79,38));}
 .garden_box .level_ul li p{height: 24px;border:none;}
-.add_new_btn {width: calc(100% - 16px);height: 97px; margin: 10px 0 0 8px;background: #f8f8f8 url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_plus_s.png) no-repeat center top 30px;border-radius: 5px;box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);color: #888888;padding-top: 20px;}
+.add_new_btn {width: calc(100% - 16px);height: 97px; margin: 10px 0 0 8px;background: #f8f8f8 url(../images/ic_plus_s.png) no-repeat center top 30px;border-radius: 5px;box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);color: #888888;padding-top: 20px;}
 /* //mypage */
 
 /* menu */
@@ -236,12 +236,12 @@
 .cart_con .choice_wrap .choice_input button{position: absolute; width:20px;height: 10px;top: 0;right:0;}
 .cart_con .choice_wrap .choice_input button:last-child{top: unset;bottom: 0;}
 .select_wrap{width: 48px;position: relative;}
-.select_wrap p{width: 100%;height: 25px;border:1px solid #bfbfbf;border-radius: 5px;background:#fff url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_gray_down.png) no-repeat center right 5px;color: #333;padding-left: 10px;line-height: 25px;}
+.select_wrap p{width: 100%;height: 25px;border:1px solid #bfbfbf;border-radius: 5px;background:#fff url(../images/ic_gray_down.png) no-repeat center right 5px;color: #333;padding-left: 10px;line-height: 25px;}
 .select_wrap ul{z-index:1; position: absolute; width: 48px;border-radius: 0 0 5px 5px ;border:1px solid #bfbfbf;background: #fff;text-align: center;color: #333;line-height: 25px;display: none;overflow: hidden;}
 .select_wrap ul li{border-bottom: 1px solid #bfbfbf;}
 .select_wrap ul li:last-child{border-bottom: none;}
 .select_wrap ul li.on{background: #d5efba;}
-.select_wrap.on p{background:#fff url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_gray_up.png) no-repeat center right 5px;border-radius: 5px 5px 0 0;border-bottom: none;}
+.select_wrap.on p{background:#fff url(../images/ic_gray_up.png) no-repeat center right 5px;border-radius: 5px 5px 0 0;border-bottom: none;}
 .select_wrap.on ul{display: block;}
 .pro_ul>li .delt_btn{position: absolute;right:12px;top: 12px;}
 .cart_con .bottom_box{padding:20px 8.5px 0;}
@@ -257,20 +257,20 @@
 .menu_tit{font-size: 24px;color: #111;font-weight: bold;margin: 40px auto 20px;}
 .account_tab{border-bottom:1px solid #dddddd;width: calc(100% + 50px);margin-left: -25px;margin-bottom:30px;}
 .account_tab li{width: 33.333%;float: left;text-align: center;}
-.account_tab li a{position: relative; display: inline-block; font-size: 16px;color: #aaaaaa;font-weight: 500;background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_menu1.png) no-repeat center top;padding-top: 25px;}
-.account_tab li:nth-child(2) a{background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_menu2.png) no-repeat center top;}
-.account_tab li:nth-child(3) a{background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_menu3.png) no-repeat center top;}
+.account_tab li a{position: relative; display: inline-block; font-size: 16px;color: #aaaaaa;font-weight: 500;background: url(../images/ic_menu1.png) no-repeat center top;padding-top: 25px;}
+.account_tab li:nth-child(2) a{background: url(../images/ic_menu2.png) no-repeat center top;}
+.account_tab li:nth-child(3) a{background: url(../images/ic_menu3.png) no-repeat center top;}
 .account_tab li a::after{position: absolute;content: '';width: 100%;height: 2px;background:#7eb34f;bottom: -1px;left: 0;display: none;}
 .account_tab li.on a::after{display: block;}
-.account_tab li.on a{color: #7eb34f;background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_menu1_on.png) no-repeat center top;}
-.account_tab li:nth-child(2).on a{color: #7eb34f;background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_menu2_on.png) no-repeat center top;}
-.account_tab li:nth-child(3).on a{color: #7eb34f;background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_menu3_on.png) no-repeat center top;}
+.account_tab li.on a{color: #7eb34f;background: url(../images/ic_menu1_on.png) no-repeat center top;}
+.account_tab li:nth-child(2).on a{color: #7eb34f;background: url(../images/ic_menu2_on.png) no-repeat center top;}
+.account_tab li:nth-child(3).on a{color: #7eb34f;background: url(../images/ic_menu3_on.png) no-repeat center top;}
 .menu_wrap .profile_box{margin-top: 10px; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
 .menu_wrap .profile_box .camera_btn{width: 35px;height: 35px;border:1px solid #dddddd;border-radius: 50%;}
 .menu_wrap .profile_box .avatar_upload{position: relative; width:80px; height: 80px;border-radius: 50%;margin:0 20px;overflow:hidden;}
 .menu_wrap .profile_box .avatar_upload .avatar_preview {width: 100%;height: 100%;position: relative;}
-.menu_wrap .profile_box .avatar_upload .image_box {width: 100%;height: 100%;background:url(../../../../캡디/오아시스1팀_210601_코딩파일/images/non_profile.png);background-size: contain;background-repeat: no-repeat;background-position: center;}
-.menu_wrap .profile_box .file_btn{width: 35px;height: 35px;border:1px solid #dddddd;border-radius: 50%;background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_upload.png)no-repeat center;}
+.menu_wrap .profile_box .avatar_upload .image_box {width: 100%;height: 100%;background:url(../images/non_profile.png);background-size: contain;background-repeat: no-repeat;background-position: center;}
+.menu_wrap .profile_box .file_btn{width: 35px;height: 35px;border:1px solid #dddddd;border-radius: 50%;background: url(../images/ic_upload.png)no-repeat center;}
 .menu_wrap .form_ul li .input_box input{padding:5px 0;}
 .menu_wrap .history_box ul li{padding:10px 0;border-bottom:1px solid #dddddd;display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: space-between; justify-content: space-between; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
 .menu_wrap .history_box ul li p{font-size: 12px;color: #333;}
@@ -280,7 +280,7 @@
 .menu_wrap .gray_wrap{width: calc(100% + 50px);margin-left: -25px;background: #eeeeee;padding:12px 8px;min-height: calc(100vh - 139px);}
 .setting_ul li{background: #fff;border-radius:5px;width: 100%;height: 50px;margin-bottom: 10px;}
 .setting_ul li:last-child{margin-bottom: 0;}
-.setting_ul li a{display: block; padding:16px 30px; color: #333333;font-weight: 500;width: 100%;height: 100%;background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_right_arr.png)no-repeat center right 36px;}
+.setting_ul li a{display: block; padding:16px 30px; color: #333333;font-weight: 500;width: 100%;height: 100%;background: url(../images/ic_right_arr.png)no-repeat center right 36px;}
 .gray_wrap .inner_box {background: #fff;border-radius: 5px;padding:0 12px;}
 /* //setting */
 
@@ -320,7 +320,7 @@
 
 /* notification */
 .noti_ul{border-top: 1px solid #111111;}
-.noti_ul li{margin-top: 10px;border:1px solid #d2d2d2;border-radius: 5px;color: #333;padding:12px 14px 12px 40px;background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_noti.png) no-repeat top 13px left 11px;}
+.noti_ul li{margin-top: 10px;border:1px solid #d2d2d2;border-radius: 5px;color: #333;padding:12px 14px 12px 40px;background: url(../images/ic_noti.png) no-repeat top 13px left 11px;}
 /* //notification */
 
 /* product */
@@ -338,7 +338,7 @@
 /* share */
 .twit_btn{background: #0b85cb; width: 100%;height: 50px;border-radius: 50px;color: #fff;font-size: 18px;font-weight: 500;text-align: center;}
 .twit_btn img{margin-right: 10px;vertical-align:middle;}
-.edit_box{width: 230px;height: 160px;border-radius: 10px;margin:40px auto 30px;background: #f8f8f8 url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_edit.png) no-repeat center top 50px;color: #999;padding-top: 90px;}
+.edit_box{width: 230px;height: 160px;border-radius: 10px;margin:40px auto 30px;background: #f8f8f8 url(../캐images/ic_edit.png) no-repeat center top 50px;color: #999;padding-top: 90px;}
 .conti_btn {width: 230px;height: 40px;border:1px solid #dddddd;border-radius: 50px;color: #333;}
 /* //share */
 .twit_form{display: flex; justify-content: left; flex-direction: row; padding-top: 20px;}
