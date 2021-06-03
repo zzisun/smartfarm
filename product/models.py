@@ -41,3 +41,10 @@ class Product(models.Model):
         db_table = "shoppingmall_Product"
         verbose_name = "Product"
         verbose_name_plural = "Product"
+
+class Addfeature(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='Product', default='')
+    option = models.CharField(max_length=255, verbose_name="Option", default='')
+    price = models.IntegerField(verbose_name="Price", default=0)
+    def __str__(self):
+        return self.option

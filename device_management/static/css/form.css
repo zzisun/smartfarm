@@ -72,9 +72,9 @@ button {
 
 .code_input{border-bottom: 1px solid #ddd;}
 .code_input input{padding:20px 10px;  font-size: 20px; color: #888;border:0; width:100%; box-sizing:border-box; text-align: center;}
-.code_input input::-webkit-input-placeholder { /* WebKit browsers */ color: #ddd; text-align:center;}
-.code_input input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color: #ddd; text-align:center;}
-.code_input input::-moz-placeholder { /* Mozilla Firefox 19+ */ color: #ddd; text-align:center; }
+.code_input input::-webkit-input-placeholder { /* WebKit browsers */ color: #ddd; text-align:center;} 
+.code_input input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color: #ddd; text-align:center;} 
+.code_input input::-moz-placeholder { /* Mozilla Firefox 19+ */ color: #ddd; text-align:center; } 
 
 .custom_check .check_box{display: block;width: 15px;height: 15px;position: relative;}
 .custom_check .check{box-sizing: border-box;display: block;width: 15px;height: 15px;border:1px solid #aaaaaa; border-radius: 2px; background-color: #fff; position: absolute;}
