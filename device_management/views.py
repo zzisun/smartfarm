@@ -10,7 +10,7 @@ from .serializers import POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info
 from .forms import Farm_Info_Form
 import json
 from django.views.decorators.csrf import csrf_exempt
-
+from .status_default import Status_Default
 
 
 def index(request):
