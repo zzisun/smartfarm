@@ -110,16 +110,25 @@ class crop_info_registeration(APIView):
 
 
 @csrf_exempt
-def crop_info_reg_f(request):
-    farm_info_id = request.POST['farm_info']
-    print(farm_info_id)
-    farm_info_inst = Farm_Info.objects.get(pk=farm_info_id)
-    crop_group = request.POST['crop_group']
-    crop_name = request.POST['crop_name']
-    life_stage = request.POST['life_stage']
-    planting_date = request.POST['planting_date']
+def crop_info_reg_f(request, farm_info):
+    if request.method == 'POST':
+        farm_info_id = request.POST['farm_info']
+        print(farm_info_id)
+        farm_info_inst = Farm_Info.objects.get(pk=farm_info_id)
+        crop_group = request.POST['crop_group']
+        crop_name = request.POST['crop_name']
+        life_stage = request.POST['life_stage']
+        planting_date = request.POST['planting_date']
 
-    
+    elif request.method == 'GET':
+        farm_info_id = int(farm_info)
+        print(farm_info_id)
+        farm_info_inst = Farm_Info.objects.get(pk=farm_info_id)
+        crop_group = request.GET.get('crop_group')
+        crop_name = request.GET.get('crop_name')
+        life_stage = request.GET.get('life_stage')
+        planting_date = request.GET.get('planting_date')
+
     print("\nplant info: "+crop_group, crop_name,life_stage,planting_date)
     plant_information = Plant_Info.objects.all()
     

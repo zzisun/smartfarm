@@ -22,7 +22,7 @@
     <!-- //header -->
     <!-- device -->
     <div class="device_wrap footer_on">
-        <form action={% url 'device_management:crop_info_reg' %} method=POST>
+        <form action={% url 'device_management:crop_info_reg' farm_info %} method=GET>
             {% csrf_token %}
             <div class="cont tx_c">
                 <div class = "hide_form" id="hide_1" style="display: block;">
@@ -135,7 +135,7 @@
                         <input type="text" class="date_input fl" id="datepicker" value="2021-01-01" name="planting_date">
                     </div>
                 </div>
-                <input type="hidden", value={{farm_info}}, name="farm_info">
+                <!--<input type="hidden", value={{farm_info}}, name="farm_info">-->
                 <a href="#" class="next_btn tm170 re_tm20" id="toggle">Next</a>
             </div>
         </form>
