@@ -3,17 +3,15 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
-from product.models import Product
+from product.models import Product, Addfeature
 from order.models import Order, Cart
 from users.models import Users
-from users.decorators import login_required
 from .form import OrderForm, CartForm
 # Create your views here.
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 #주문 생성 view
-@method_decorator(login_required, name = 'dispatch')
 class OrderCreate(FormView):
     form_class = OrderForm
     success_url = '/order/complete'
@@ -26,7 +24,7 @@ class OrderCreate(FormView):
             order = Order(
                 quantity = form.data.get('quantity'),
                 product = prod,
-                user = Users.objects.get(email = self.request.session.get('user')),
+                user = Users.objects.get(email = self.request.user.email),
                 amount = amou
             )
             order.save()
@@ -46,39 +44,54 @@ class OrderCreate(FormView):
         return kw
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['users'] = Users.objects.get(email=self.request.session.get('user'))
+        context['users'] = Users.objects.get(email=self.request.user.email)
         return context
 
-@method_decorator(login_required, name = 'dispatch')
 class AddCart(FormView):
     form_class = CartForm
 
     def form_valid(self, form):
         with transaction.atomic():
             prod = Product.objects.get(pk=form.data.get('product'))
-            user = Users.objects.get(email=self.request.session.get('user'))
+            user = Users.objects.get(email=self.request.user.email)
             quant = int(form.data.get('quantity'))
             prev_cart = Cart.objects.filter(user=user)
-            flag = False
+            selected = self.request.POST.getlist('selected')
+            opt = ""
+            addprice = 0
+            if len(selected) != 0:
+                for i in selected:
+                    opt += "'{}', ".format(Addfeature.objects.get(pk=int(i)).option)
+                    addprice += Addfeature.objects.get(pk=int(i)).price
+            else:
+                opt = "None"
+            print(opt, addprice)
+
             for i in prev_cart:
                 if prod.id == i.product.id:
-                    i.amount += prod.price * quant
-                    i.quantity += quant
-                    i.save()
-                    break
+                    if opt == i.option:
+                        i.amount += prod.price * quant
+                        i.quantity += quant
+                        i.save()
+                        break
             else:
                 amou = prod.price * int(form.data.get('quantity'))
+                amou += addprice
                 newcart = Cart(
                     quantity = form.data.get('quantity'),
                     product = prod,
                     user = user,
-                    amount = amou
+                    amount = amou,
+                    option = opt
                 )
                 newcart.save()
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        return redirect('/product/')
+
     def get_success_url(self):
-        user = Users.objects.get(email=self.request.session.get('user'))
+        user = Users.objects.get(email=self.request.user.email)
         return '/order/cart/{}'.format(user.pk)
 
     def get_form_kwargs(self, **kwargs):
@@ -88,16 +101,24 @@ class AddCart(FormView):
         })
         return kw
 
-@method_decorator(login_required, name = 'dispatch')
-class OrderListView(ListView):
-    template_name = 'order_list.html'
-    model = Order
 
 def order_list(request, pk):
     user = Users.objects.get(pk=pk)
     orders = Order.objects.filter(user=user)
-    context = {'orders':orders}
-    return render(request, 'order_list2.html',context)
+    ongoing = []
+    fo = True
+    history =[]
+    fh = True
+    for i in orders:
+        #history
+        if i.status == 'Deli':
+            history.append(i)
+            fh = False
+        else:
+            ongoing.append(i)
+            fo = False
+    context = {'history':history, 'fh':fh,'ongoing':ongoing, 'fo':fo}
+    return render(request, 'account3.html',context)
 
 def cart_list(request, pk):
     user = Users.objects.get(pk=pk)
@@ -118,7 +139,7 @@ def modify_cart(request,pk):
     cart.quantity = int(request.POST.get('quantity'))
     cart.amount = cart.product.price * cart.quantity
     cart.save()
-    user = Users.objects.get(email=request.session.get('user'))
+    user = Users.objects.get(email=request.user.email)
 
     return redirect('cartlist',user.pk)
 
@@ -126,18 +147,20 @@ def payment(request):
     return render(request,'payment.html')
 
 def cart_to_buy(request):
-    user = Users.objects.get(email=request.session.get('user'))
+    user = Users.objects.get(email=request.user.email)
     cart = Cart.objects.filter(user=user)
     for prod in cart:
         product = Product.objects.get(pk=prod.product.id)
     #prod = Product.objects.get(pk=form.data.get('product'))
-        amou = product.price * int(prod.quantity)
+        amou = prod.amount
+        opt = prod.option
     #print(amou)
         order = Order(
             quantity=prod.quantity,
             product=product,
-            user=Users.objects.get(email=request.session.get('user')),
-            amount=amou
+            user=Users.objects.get(email=request.user.email),
+            amount=amou,
+            option = opt,
         )
         order.save()
         product.stock -= int(prod.quantity)

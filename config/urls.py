@@ -24,7 +24,7 @@ urlpatterns = [
     path('', include('users.urls')),
     path('accounts/', include('allauth.urls')),
     path('order/', include('order.urls')),
-    path('twitter/', include('twitter.urls')),
+    path('twitter/', include('twitter_social.urls')),
     path('device_management/', include('device_management.urls')),
 ]
 

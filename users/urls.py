@@ -2,22 +2,20 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
-from users.views import userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEndpoint, TwitterShare
+from users.views import userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEndpoint
 
-from users.views import home
-from users.views import LoginView, RegisterView, userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEndpoint
 urlpatterns = [
     path('', views.home, name='home'),
     path('mypage/', views.mypage, name='mypage'),
     path('signup/', views.registerPage, name='signup'),
     path('verify/',views.verifyAccount, name='verify'),
     path('login/', views.loginPage, name='login'),
+    path('logout/', views.logoutUser, name="logout"),
     path('success/', views.success, name='success'),
     path('mypage/', views.mypage, name='mypage'),
 
     path('resetPassword/', views.resetPassword, name='resetPassword'),
     path('createPassword/', views.createPassword, name='createPassword'),
-    path('userlist/',userAPI),
 
     path('password_reset/', auth_views.PasswordResetView.as_view(), name="password_reset"),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),

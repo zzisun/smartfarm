@@ -28,17 +28,28 @@ body,button,input,select,textarea,table {
 	font-size: 14px;
 	letter-spacing: -0.025em;
 }
-.footer_on{padding-bottom: 120px;}
+.footer_on{padding-bottom: 120px !important;}
 
 /* header */
 .header {display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; -webkit-justify-content: space-between; justify-content: space-between; padding: 25px 24px 0 25px;}
-.header p {color:#6e6f6e;}
-.header .back_btn {padding-left: 30px;color: #333333;font-size: 18px; background-image: url(../images/ic_back.png);background-repeat: no-repeat;background-position: left top 4px;}
+.header .noti {color:#6e6f6e;font-size: 12px;}
+.header .back_btn {padding-left: 30px;color: #333333;font-size: 18px; background-image: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_back.png);background-repeat: no-repeat;background-position: left top 2px;}
 /* //header */
 
 /* footer_gnb */
 .footer_gnb {position: fixed; bottom: 0; width: 100%; text-align: center;}
 .footer_gnb .gnb_ul {width: 100%; height: 58px; background-color: #fff; box-shadow: 0 -2px 8px 0 rgba(0,0,0,0.1); border-radius: 28px 28px 0 0; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; -webkit-justify-content: space-between; justify-content: space-between; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
 .footer_gnb .gnb_ul li {width: calc(50% - 58px);}
+.footer_gnb .gnb_ul li a{display: block;}
 .footer_gnb .gnb_home {position:absolute; top:-34px; left:50%; transform: translateX(-50%); width: 68px; height: 68px; border-radius: 50%; background-color: #fff; box-shadow: 0 0 6px 0 rgba(0,0,0,0.16); display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; -webkit-justify-content: space-around; justify-content: space-around; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center;}
 /* //footer_gnb */
+
+/* popup */
+.pop_wrap{position: fixed;top: 0;left: 0; width: 100%;height: 100vh;background: rgba(55,55,55,.8);z-index: 999;}
+.pop_wrap .pop_cont{position: absolute;width: calc(100% - 50px);top: 50%;left: 50%;transform: translate(-50%,-50%);}
+.pop_cont .pop_inner{background: #fff;border-radius:5px;padding: 55px 20px;}
+.pop_inner .pop_close{position: absolute;width: 25px;height: 25px;top: -40px;right: 0;}
+.pop_inner .txt{font-size: 20px;font-weight: bold;color: #333;}
+.pop_inner .btn_box button{width: calc(50% - 6.5px);height: 40px;border:1px solid #7eb34f;font-size: 16px;border-radius: 50px;color: #7eb34f;background:#fff; box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);margin-top: 44px}
+.pop_inner .btn_box button + button{background:#7eb34f;color: #fff;}
+/* //popup */

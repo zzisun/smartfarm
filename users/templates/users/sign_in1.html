@@ -20,7 +20,8 @@
         <div class="bottom_box">
             <a href='/login' class="btn">Sign in</a>
             <p class="line_txt Roboto">Or Connect Through</p>
-            <a href="{% provider_login_url 'twitter' process='connect' %}" class="btn_sns bm20">
+            
+            <a href="{% provider_login_url 'twitter' %}" class="btn_sns bm20">
                 <img src="{% static 'images/ic_face.png' %}" alt="facebook icon" class="rm10">
                 <span>Connect with Twitter</span>
             </a>
@@ -32,6 +33,9 @@
         <div class="sign_txt">
             <p class="Roboto txt_gray_aa txt_18">Don't have an account?</p>
             <a href="/signup" class="Roboto txt_medium txt_black33 txt_18">Sign up</a>
+        </div>
+        <div class="bottom_box">
+            <a href="{% url 'logout' %}" class="btn">Logout</a>
         </div>
     </div>
 </body>

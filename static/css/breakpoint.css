@@ -1,10 +1,8 @@
-
-
 @media screen and (max-height: 670px) {
     .re_tp10 {padding-top:10% !important;}
     .re_tp20 {padding-top:20%;}
     .re_tm10{margin-top:10%;}
-    .re_tm20{margin-top:20%;}
+    .re_tm20{margin-top:20% !important;}
     .re_tm30{margin-top:30%;}
 }
 
@@ -16,5 +14,10 @@
 
 @media screen and (max-width: 360px) {
     /* device */
+    .device_wrap .cont {padding:0 10px;}
     .group_ul{width: calc(100% + 40px);margin-left: -20px;}
+
+    /* cart */
+    .pro_ul>li{padding:14px 5px;}
+    .pro_ul>li .txt_box{width: calc(100% - 110px);}
 }

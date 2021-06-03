@@ -16,7 +16,7 @@ class Category(models.Model):
         return '{}'.format(self.sort)
 
 class Product(models.Model):
-    #author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, verbose_name="Product name", default='')
     #text = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='Category', default='')
@@ -41,3 +41,10 @@ class Product(models.Model):
         db_table = "shoppingmall_Product"
         verbose_name = "Product"
         verbose_name_plural = "Product"
+
+class Addfeature(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='Product', default='')
+    option = models.CharField(max_length=255, verbose_name="Option", default='')
+    price = models.IntegerField(verbose_name="Price", default=0)
+    def __str__(self):
+        return self.option
