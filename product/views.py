@@ -12,24 +12,21 @@ from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
 from users.decorators import admin_required
 
-
-'''
-class ProductListView(ListView):
-    template_name = 'catagory.html'
-    model = Product
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['users'] = Users.objects.get(email=self.request.user.email)
-        context['category'] = Category.objects.all()
-        return context
-'''
 def category_list(request, pk):
     user = Users.objects.get(email=request.user.email)
-    category = Category.objects.get(pk=pk)
-    all = Category.objects.all()
-    product = Product.objects.all()
-    context = {'category':category, 'all':all,'users':user, 'product':product}
-
+    if Category.objects.count() > 0:
+        while True:
+            try:
+                category = Category.objects.get(pk=pk)
+                break
+            except Category.DoesNotExist:
+                pk += 1
+        all = Category.objects.all()
+        product = Product.objects.all()
+        context = {'category': category, 'all': all, 'users': user, 'product': product}
+    else:
+        message = "No Product"
+        context = {'message':message}
     return render(request, 'catagory.html',context)
 
 
