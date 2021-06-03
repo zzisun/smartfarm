@@ -110,18 +110,19 @@ class crop_info_registeration(APIView):
 
 
 @csrf_exempt
-def crop_info_reg_f(request, farm_info):
+def crop_info_reg_f(request):
     if request.method == 'POST':
-        farm_info_id = request.POST['farm_info']
+        farm_info_id = int(request.POST['farm_info'])
         print(farm_info_id)
         farm_info_inst = Farm_Info.objects.get(pk=farm_info_id)
+        print(farm_info_inst.farm_name)
         crop_group = request.POST['crop_group']
         crop_name = request.POST['crop_name']
         life_stage = request.POST['life_stage']
         planting_date = request.POST['planting_date']
 
     elif request.method == 'GET':
-        farm_info_id = int(farm_info)
+        farm_info_id = int(request.GET.get('farm_info'))
         print(farm_info_id)
         farm_info_inst = Farm_Info.objects.get(pk=farm_info_id)
         crop_group = request.GET.get('crop_group')
@@ -129,7 +130,7 @@ def crop_info_reg_f(request, farm_info):
         life_stage = request.GET.get('life_stage')
         planting_date = request.GET.get('planting_date')
 
-    print("\nplant info: "+crop_group, crop_name,life_stage,planting_date)
+    print("plant info: "+crop_group, crop_name,life_stage,planting_date)
     plant_information = Plant_Info.objects.all()
     
     try :
@@ -140,9 +141,10 @@ def crop_info_reg_f(request, farm_info):
             planting_date = planting_date, \
             )
         plant_information.save()
-        return HttpResponse(content=json.loads(request.body), status=200) 
+        context = {"plant_info": plant_information}
+        return render(request, "device_management/status.html", context=context) 
     except Exception as ex:
-        plant_information  = None
+        plant_information = None
         print("EXCEPTION----------------------------plant_information store", ex)
         return HttpResponse(content = ex)
            
