@@ -34,7 +34,7 @@ class Plant_Info(models.Model):
     crop_group = models.CharField(max_length = 15) 
     crop_name = models.CharField(max_length = 20, null=True)
     life_stage = models.CharField(max_length = 15) 
-    planting_date = models.DateField(default = date.today()) #first date to plant seed
+    planting_date = models.DateField() #first date to plant seed
 
 @receiver(pre_save, sender = Plant_Info)
 def plant_info_pre_save(sender, instance, **kwargs):
