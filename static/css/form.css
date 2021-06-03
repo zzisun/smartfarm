@@ -78,20 +78,20 @@ button {
 
 .custom_check .check_box{display: block;width: 15px;height: 15px;position: relative;}
 .custom_check .check{box-sizing: border-box;display: block;width: 15px;height: 15px;border:1px solid #aaaaaa; border-radius: 2px; background-color: #fff; position: absolute;}
-.custom_check .check::after{display: none;content: '';position: absolute;top:0 ; left: 0;width: 100%;height: 100%;background-image: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_check.png); background-repeat: no-repeat; background-position: center;}
+.custom_check .check::after{display: none;content: '';position: absolute;top:0 ; left: 0;width: 100%;height: 100%;background-image: url(../images/ic_check.png); background-repeat: no-repeat; background-position: center;}
 .custom_check .check_box input:checked + .check::after{display: block;}
 .custom_check .check_box + label{font-size: 14px; font-family: 'Roboto';color: #333333;margin-left: 12px;margin-top: -2px;}
 
 .custom_check2>label{display: block;}
 .custom_check2 .check{display: block;margin:10px auto 0; width: 18px;height: 18px;border:1px solid #dddddd;border-radius: 50%;position: relative;}
-.custom_check2 .check::after{display: none; position: absolute;content: '';width: 100%;height: 100%;background: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_check3.png)no-repeat center;top: 0;left: 0;}
+.custom_check2 .check::after{display: none; position: absolute;content: '';width: 100%;height: 100%;background: url(../images/ic_check3.png)no-repeat center;top: 0;left: 0;}
 .custom_check2 input:checked + .check::after{display: block;}
 
 .custom_check3 .check{width: 15px;height: 15px;border-radius: 0;margin:0;}
 
 .custom_radio {position: relative; width: 100%; height: 50px; display: block;}
 .custom_radio .radio_box{position: absolute; background-color: #fff; width: 100%; height: 100%; top: 0;left: 0;text-align: left; padding-left:30px;line-height:47px;font-size: 14px;color: #888888; box-sizing: border-box; border:1px solid #dddddd; border-radius: 50px;}
-.custom_radio .radio_box::after{display: none; content: '';position: absolute; width: 100%; height: 100%;top: 0;left: 0; background-image: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_check2.png); background-repeat: no-repeat;background-position: right 30px center;}
+.custom_radio .radio_box::after{display: none; content: '';position: absolute; width: 100%; height: 100%;top: 0;left: 0; background-image: url(../images/ic_check2.png); background-repeat: no-repeat;background-position: right 30px center;}
 .custom_radio input:checked + .radio_box {border: 1.5px solid #7eb34f;color: #7eb34f;}
 .custom_radio input:checked + .radio_box::after{display: block;}
 

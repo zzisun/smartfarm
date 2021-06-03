@@ -33,7 +33,7 @@ body,button,input,select,textarea,table {
 /* header */
 .header {display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; -webkit-justify-content: space-between; justify-content: space-between; padding: 25px 24px 0 25px;}
 .header .noti {color:#6e6f6e;font-size: 12px;}
-.header .back_btn {padding-left: 30px;color: #333333;font-size: 18px; background-image: url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_back.png);background-repeat: no-repeat;background-position: left top 2px;}
+.header .back_btn {padding-left: 30px;color: #333333;font-size: 18px; background-image: url(../images/ic_back.png);background-repeat: no-repeat;background-position: left top 2px;}
 /* //header */
 
 /* footer_gnb */
