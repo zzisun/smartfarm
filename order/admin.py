@@ -5,6 +5,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('user', 'product', 'quantity','ordered_date')
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('user','product','quantity')
+    list_display = ('user','product','quantity','option')
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Cart, CartAdmin)

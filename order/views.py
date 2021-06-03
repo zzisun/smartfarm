@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
-from product.models import Product
+from product.models import Product, Addfeature
 from order.models import Order, Cart
 from users.models import Users
 from .form import OrderForm, CartForm
@@ -56,20 +56,33 @@ class AddCart(FormView):
             user = Users.objects.get(email=self.request.user.email)
             quant = int(form.data.get('quantity'))
             prev_cart = Cart.objects.filter(user=user)
-            flag = False
+            selected = self.request.POST.getlist('selected')
+            opt = ""
+            addprice = 0
+            if len(selected) != 0:
+                for i in selected:
+                    opt += "'{}', ".format(Addfeature.objects.get(pk=int(i)).option)
+                    addprice += Addfeature.objects.get(pk=int(i)).price
+            else:
+                opt = "None"
+            print(opt, addprice)
+
             for i in prev_cart:
                 if prod.id == i.product.id:
-                    i.amount += prod.price * quant
-                    i.quantity += quant
-                    i.save()
-                    break
+                    if opt == i.option:
+                        i.amount += prod.price * quant
+                        i.quantity += quant
+                        i.save()
+                        break
             else:
                 amou = prod.price * int(form.data.get('quantity'))
+                amou += addprice
                 newcart = Cart(
                     quantity = form.data.get('quantity'),
                     product = prod,
                     user = user,
-                    amount = amou
+                    amount = amou,
+                    option = opt
                 )
                 newcart.save()
         return super().form_valid(form)
@@ -139,13 +152,15 @@ def cart_to_buy(request):
     for prod in cart:
         product = Product.objects.get(pk=prod.product.id)
     #prod = Product.objects.get(pk=form.data.get('product'))
-        amou = product.price * int(prod.quantity)
+        amou = prod.amount
+        opt = prod.option
     #print(amou)
         order = Order(
             quantity=prod.quantity,
             product=product,
             user=Users.objects.get(email=request.user.email),
-            amount=amou
+            amount=amou,
+            option = opt,
         )
         order.save()
         product.stock -= int(prod.quantity)

@@ -34,103 +34,27 @@
             <h3 class="title">Description</h3>
             <p class="pre txt_box">{{ product.description|safe }}</p>
         </div>
+        <form method = "POST" action = "/order/addcart/" >
         <div>
             <h3 class="title">Add more feature</h3>
             <ul class="add_ul">
-                <li>
-                    <p class="left_txt">Smart Fertigation Device</p>
-                    <div class="clear right_txt">
-                        <p class="fl txt_12">BDT</p>
-                        <p class="tx_r fl txt_12">20,000</p>
-                        <div class="custom_check custom_check2 custom_check3 clear fl lm20">
-                            <label for="check1" class="check_box fl">
-                                <input type="checkbox" id="check1" class="dn appearance">
-                                <span class="check fl"></span>
-                            </label>
+                {% for opt in option %}
+                    <li>
+                        <p class="left_txt">{{opt.option}}</p>
+                        <div class="clear right_txt">
+                            <p class="fl txt_12">BDT</p>
+                            <p class="tx_r fl txt_12">{{opt.price}}</p>
+                            <div class="custom_check custom_check2 custom_check3 clear fl lm20">
+                                <label for="check{{opt.id}}" class="check_box fl">
+                                    <input type="checkbox" id="check{{opt.id}}" name="selected" class="dn appearance" value="{{opt.id}}">
+                                    <span class="check fl"></span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <p class="left_txt">DO controller</p>
-                    <div class="clear right_txt">
-                        <p class="fl txt_12">BDT</p>
-                        <p class="tx_r fl txt_12">5,000</p>
-                        <div class="custom_check custom_check2 custom_check3 clear fl lm20">
-                            <label for="check2" class="check_box fl">
-                                <input type="checkbox" id="check2" class="dn appearance">
-                                <span class="check fl"></span>
-                            </label>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <p class="left_txt">Root Zone Temperature Sensor</p>
-                    <div class="clear right_txt">
-                        <p class="fl txt_12">BDT</p>
-                        <p class="tx_r fl txt_12">500</p>
-                        <div class="custom_check custom_check2 custom_check3 clear fl lm20">
-                            <label for="check3" class="check_box fl">
-                                <input type="checkbox" id="check3" class="dn appearance">
-                                <span class="check fl"></span>
-                            </label>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <p class="left_txt">Grow light with controller</p>
-                    <div class="clear right_txt">
-                        <p class="fl txt_12">BDT</p>
-                        <p class="tx_r fl txt_12">10,000</p>
-                        <div class="custom_check custom_check2 custom_check3 clear fl lm20">
-                            <label for="check4" class="check_box fl">
-                                <input type="checkbox" id="check4" class="dn appearance">
-                                <span class="check fl"></span>
-                            </label>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <p class="left_txt">Smart Monitoring Camera</p>
-                    <div class="clear right_txt">
-                        <p class="fl txt_12">BDT</p>
-                        <p class="tx_r fl txt_12">5,000</p>
-                        <div class="custom_check custom_check2 custom_check3 clear fl lm20">
-                            <label for="check5" class="check_box fl">
-                                <input type="checkbox" id="check5" class="dn appearance">
-                                <span class="check fl"></span>
-                            </label>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <p class="left_txt">Krishian Grow tent</p>
-                    <div class="clear right_txt">
-                        <p class="fl txt_12">BDT</p>
-                        <p class="tx_r fl txt_12">10,000</p>
-                        <div class="custom_check custom_check2 custom_check3 clear fl lm20">
-                            <label for="check6" class="check_box fl">
-                                <input type="checkbox" id="check6" class="dn appearance">
-                                <span class="check fl"></span>
-                            </label>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <p class="left_txt">Cooling System (Fogger)</p>
-                    <div class="clear right_txt">
-                        <p class="fl txt_12">BDT</p>
-                        <p class="tx_r fl txt_12">4,000</p>
-                        <div class="custom_check custom_check2 custom_check3 clear fl lm20">
-                            <label for="check7" class="check_box fl">
-                                <input type="checkbox" id="check7" class="dn appearance">
-                                <span class="check fl"></span>
-                            </label>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
-        <form method = "POST" action = "/order/addcart/" >
             {% csrf_token %}
             {% for field in cartform %}
                  <div class = "form-group">

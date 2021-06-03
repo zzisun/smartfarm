@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView
 
 from order.form import OrderForm, CartForm
 from users.models import Users
-from product.models import Product, Category
+from product.models import Product, Category, Addfeature
 from .form import RegisterForm
 from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
@@ -62,4 +62,5 @@ class ProductDetailView(DetailView):
         context['orderform'] = OrderForm(self.request)
         context['cartform'] = CartForm(self.request)
         context['users'] = Users.objects.get(email=self.request.user.email)
+        context['option'] = Addfeature.objects.filter(product=self.kwargs['pk'])
         return context
