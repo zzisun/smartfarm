@@ -20,14 +20,14 @@ class Device_Info(models.Model):
 
 
 class Farm_Info(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID', unique=True)
     device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)
     farm_type = models.CharField(max_length=15)
-    farm_name = models.CharField(primary_key = False, max_length = 30, null=False, default="farm"+time.strftime('%Y-%m-%d-%I:%M:%S-%p'), unique=True)
+    farm_name = models.CharField(max_length = 30, null=False, default="farm"+time.strftime('%Y-%m-%d-%I:%M:%S-%p'))
     farm_capacity = models.IntegerField(default=1, null=False)
     farm_plant_num = models.IntegerField(default = 0)
     farm_model_no = models.CharField(max_length = 15, default = "Smart farm 20")
-    
-    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID', unique=True)
+
      
 class Plant_Info(models.Model):
     farm_info = models.ForeignKey(Farm_Info, on_delete=CASCADE)

@@ -22,7 +22,7 @@
     <!-- //header -->
     <!-- device -->
     <div class="device_wrap footer_on">
-        <form action={% url 'device_management:crop_info_registeration' %} method=POST>
+        <form action={% url 'device_management:crop_info_registeration' %} method="post">
             <div class="cont tx_c">
                 <div class = "hide_form" id="hide_1" style="display: block;">
                     <h2 class="top_title re_tp10 bm20">Select your crop group</h2>
@@ -44,6 +44,7 @@
                             <span>Fruits</span>
                         </li>
                     </ul>
+                    <input type="hidden" name="farm_info" value={{ farm_info.id }}>
                 </div>
                 <div class="hide_form" id="hide2" style="display: none;">
                     <h2 class="top_title re_tp10">Select your crop</h2>
@@ -134,8 +135,8 @@
                         <input type="text" class="date_input fl" id="datepicker" value="2021-01-01" name="planting_date">
                     </div>
                 </div>
-                <input type="hidden", value={{farm_info.id}}, name="farm_info">
-                <a href="#" class="next_btn tm170 re_tm20" id="toggle">Next</a>
+                <a href="#" class="next_btn tm170 re_tm20" id="toggle">{{ farm_info.id }}</a>
+                <button id = "tmp_store" style="display: none;" class="next_btn tm100 re_tm10"> Next</button>
             </div>
         </form>
     </div>
