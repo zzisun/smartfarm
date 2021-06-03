@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 # Create your views here.
-from .models import Device_Info, Farm_Info, Growth_Params
+from .models import Device_Info, Farm_Info, Growth_Params, Plant_Info
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
@@ -9,6 +9,9 @@ from rest_framework.response import Response
 from .serializers import POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info
 from .forms import Farm_Info_Form
 import json
+from django.views.decorators.csrf import csrf_exempt
+
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -60,6 +63,8 @@ def device4(request):
     
     return render(request, 'device_management/device4.html')
 
+def device6(request):
+    return render(request, 'device_management/device6.html')
 
 
 
@@ -74,6 +79,7 @@ def device7(request):
     print(device_serial)
     return render(request, 'device_management/device7.html', context=context)
 
+
 def farm_info_setting(request):
     mock_farm_info = {
         "device_info"
@@ -81,6 +87,13 @@ def farm_info_setting(request):
 
 def status(request):
     return render(request, 'device_management/status.html')
+
+def history_detail(request):
+    '''
+    if request.method == 'GET':
+        device_serial = request.GET['device_info']
+'''
+    return render(request, 'device_management/history_detail.html')
 
 class crop_info_registeration(APIView):
     template_name = "device_management/device6.html"
@@ -96,15 +109,56 @@ class crop_info_registeration(APIView):
         return Response(crop_serializer.errors, status=400)    
 
 
+@csrf_exempt
+def crop_info_reg_f(request):
+    if request.method == 'POST':
+        farm_info_id = int(request.POST['farm_info'])
+        print(farm_info_id)
+        farm_info_inst = Farm_Info.objects.get(pk=farm_info_id)
+        print(farm_info_inst.farm_name)
+        crop_group = request.POST['crop_group']
+        crop_name = request.POST['crop_name']
+        life_stage = request.POST['life_stage']
+        planting_date = request.POST['planting_date']
+
+    elif request.method == 'GET':
+        farm_info_id = int(request.GET.get('farm_info'))
+        print(farm_info_id)
+        farm_info_inst = Farm_Info.objects.get(pk=farm_info_id)
+        crop_group = request.GET.get('crop_group')
+        crop_name = request.GET.get('crop_name')
+        life_stage = request.GET.get('life_stage')
+        planting_date = request.GET.get('planting_date')
+
+    print("plant info: "+crop_group, crop_name,life_stage,planting_date)
+    plant_information = Plant_Info.objects.all()
+    
+    try :
+        plant_information = Plant_Info(farm_info = farm_info_inst, \
+            crop_group =crop_group , \
+            crop_name = crop_name, \
+            life_stage = life_stage,\
+            planting_date = planting_date, \
+            )
+        plant_information.save()
+        context = {"plant_info": plant_information}
+        return render(request, "device_management/status.html", context=context) 
+    except Exception as ex:
+        plant_information = None
+        print("EXCEPTION----------------------------plant_information store", ex)
+        return HttpResponse(content = ex)
+           
+
 class create_farm_info(APIView):
    def post(self, request):
         serializer = POST_Farm_Info(data = request.data)
 
         if serializer.is_valid():
             serializer.save()
-            farm_info = serializer.data["farm_name"]
-            farm_info_name = Farm_Info.objects.get(farm_name = farm_info).farm_name
-            return render(request, 'device_management/device6.html',{'farm_info':farm_info_name})
+            farm_info = serializer.data["id"]
+            #farm_info_name = Farm_Info.objects.get(farm_name = farm_info).farm_name
+            context = {'farm_info':farm_info}
+            return render(request, 'device_management/device6.html',context = context)
         else:
             print(serializer.data)
             return Response(serializer.errors, status=400)
@@ -121,6 +175,7 @@ class create_farm_info(APIView):
                 farm_info_pk = Farm_Info.objects.get(device_info = device).id
                 return render(request, 'device_management/device6.html',{'farm_info':farm_info_pk}) 
 '''
+
 class create_plant_params(APIView):
 
     def post(self, request):

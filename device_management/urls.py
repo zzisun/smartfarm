@@ -28,9 +28,14 @@ urlpatterns = [
     path('device2', views.device2, name='device2'),
     path('device3', views.device3, name='device3'),
     path('device4', views.device4, name='device4'),
+    path('device6', views.device6, name='device6'),
+
     path('device7', views.device7, name='device7'),
     path('create_plant_params', views.create_plant_params.as_view(), name='create_plant_params'),
     path('create_farm_info', views.create_farm_info.as_view(), name='Create_farm_info'),
     path('crop_info_registeration', views.crop_info_registeration.as_view(), name='crop_info_registeration'),
+    #path('crop_info_reg/<int:farm_info>', views.crop_info_reg_f, name='crop_info_reg'),
+    path('crop_info_reg', views.crop_info_reg_f, name='crop_info_reg'),
     path('status', views.status, name='status'),
+    path('history_detail',views.history_detail, name='history_detail'),
 ]

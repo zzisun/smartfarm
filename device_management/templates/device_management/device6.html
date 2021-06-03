@@ -22,24 +22,25 @@
     <!-- //header -->
     <!-- device -->
     <div class="device_wrap footer_on">
-        <form action={% url 'device_management:crop_info_registeration' %} method=POST>
+        <form action={% url 'device_management:crop_info_reg' %} method=POST>
+            {% csrf_token %}
             <div class="cont tx_c">
                 <div class = "hide_form" id="hide_1" style="display: block;">
                     <h2 class="top_title re_tp10 bm20">Select your crop group</h2>
                     <p class="sub_txt">You can choose single crop<br>group for one farm at a time.</p>
                     <ul class="group_ul tm70">
                         <li>
-                            <input type="radio" id="green_ch" class="appearance dn" name="crop_group">
+                            <input type="radio" id="green_ch" class="appearance dn" name="crop_group" value="Leafy Green">
                             <label for="green_ch"></label>
                             <span>Leafy Green</span>
                         </li>
                         <li>
-                            <input type="radio" id="herbs_ch" class="appearance dn" name="crop_group">
+                            <input type="radio" id="herbs_ch" class="appearance dn" name="crop_group" value="Herbs">
                             <label for="herbs_ch"></label>
                             <span>Herbs</span>
                         </li>
                         <li>
-                            <input type="radio" id="fruits_ch" class="appearance dn" name="crop_group">
+                            <input type="radio" id="fruits_ch" class="appearance dn" name="crop_group" value="Fruits">
                             <label for="fruits_ch"></label>
                             <span>Fruits</span>
                         </li>
@@ -53,49 +54,49 @@
                                 <button type="button" class="crop_btn">Create<br>new crop</button>
                             </li>
                             <li class="custom_radio2">
-                                <input type="radio" id="crop1" class="appearance dn" name="crop_name">
+                                <input type="radio" id="crop1" class="appearance dn" name="crop_name" value="Lettuce">
                                 <label for="crop1">
                                     <span class=" txt_gray88">Lettuce</span>
                                 </label>
                             </li>
                             <li class="custom_radio2">
-                                <input type="radio" id="crop2" class="appearance dn" name="crop_name">
+                                <input type="radio" id="crop2" class="appearance dn" name="crop_name" value="Spinach">
                                 <label for="crop2">
                                     <span class=" txt_gray88">Spinach</span>
                                 </label>
                             </li>
                             <li class="custom_radio2">
-                                <input type="radio" id="crop3" class="appearance dn" name="crop_name">
+                                <input type="radio" id="crop3" class="appearance dn" name="crop_name" value="Argula">
                                 <label for="crop3">
                                     <span class=" txt_gray88">Arugula</span>
                                 </label>
                             </li>
                             <li class="custom_radio2">
-                                <input type="radio" id="crop4" class="appearance dn" name="crop_name">
+                                <input type="radio" id="crop4" class="appearance dn" name="crop_name" value="Collards">
                                 <label for="crop4">
                                     <span class=" txt_gray88">Collards</span>
                                 </label>
                             </li>
                             <li class="custom_radio2">
-                                <input type="radio" id="crop5" class="appearance dn" name="crop_name">
+                                <input type="radio" id="crop5" class="appearance dn" name="crop_name" value="Kale">
                                 <label for="crop5">
                                     <span class=" txt_gray88">Kale</span>
                                 </label>
                             </li>
                             <li class="custom_radio2">
-                                <input type="radio" id="crop6" class="appearance dn" name="crop_name">
+                                <input type="radio" id="crop6" class="appearance dn" name="crop_name" value="Argula">
                                 <label for="crop6">
                                     <span class=" txt_gray88">Arugula</span>
                                 </label>
                             </li>
                             <li class="custom_radio2">
-                                <input type="radio" id="crop7" class="appearance dn" name="crop_name">
+                                <input type="radio" id="crop7" class="appearance dn" name="crop_name" value="Collards">
                                 <label for="crop7">
                                     <span class=" txt_gray88">Collards</span>
                                 </label>
                             </li>
                             <li class="custom_radio2">
-                                <input type="radio" id="crop8" class="appearance dn" name="crop_name">
+                                <input type="radio" id="crop8" class="appearance dn" name="crop_name" value="Kale">
                                 <label for="crop8">
                                     <span class=" txt_gray88">Kale</span>
                                 </label>
@@ -134,7 +135,7 @@
                         <input type="text" class="date_input fl" id="datepicker" value="2021-01-01" name="planting_date">
                     </div>
                 </div>
-                <input type="hidden", value={{farm_info.id}}, name="farm_info">
+                <input type="hidden" value={{farm_info}} name="farm_info">
                 <a href="#" class="next_btn tm170 re_tm20" id="toggle">Next</a>
             </div>
         </form>
@@ -199,6 +200,7 @@
                     || document.getElementById("crop3").checked == true || document.getElementById("crop4").checked == true
                     || document.getElementById("crop5").checked == true || document.getElementById("crop6").checked == true 
                     || document.getElementById("crop7").checked == true || document.getElementById("crop8").checked == true){
+
                         hide_divs[1].style.display = "none";
                         hide_divs[2].style.display = "block";
 
