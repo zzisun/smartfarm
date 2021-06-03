@@ -341,7 +341,11 @@
 .edit_box{width: 230px;height: 160px;border-radius: 10px;margin:40px auto 30px;background: #f8f8f8 url(../../../../캡디/오아시스1팀_210601_코딩파일/images/ic_edit.png) no-repeat center top 50px;color: #999;padding-top: 90px;}
 .conti_btn {width: 230px;height: 40px;border:1px solid #dddddd;border-radius: 50px;color: #333;}
 /* //share */
+.twit_form{display: flex; justify-content: left; flex-direction: row; padding-top: 20px;}
+.twit_form button{background: #1DA1F2; width: 100px; height: 40px; border-radius: 50px; color: #fff; font-size: 18px; text-align: center;}
 
+.twit_share_btn{background: #fff; width: 200px; height: 40px; border-radius: 50px; color: #1DA1F2; font-size: 18px; text-align: center;}
+/* self made */
 
 
 
