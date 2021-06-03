@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from .tweepy import tweet_scrap
 from .data_share import parameter_send, parameter_get
 from .macro import background_posting
+from users.models import Users
 
 def TwitterShare(request):
     # category를 나눌 수 있음
-    content = {}
+    user = Users.objects.get(email=request.user.email)
+    content = {'user' : user}
     return render(request, 'twitter_share.html', content)
 
 def TwitterPost(request):
