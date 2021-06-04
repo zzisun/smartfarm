@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,10 +25,12 @@
     </header>
     <!-- //header -->
     <div class="menu_wrap footer_on tx_c">
-        <button type="button" onclick="location.href = '/auth/twitter/redirect/'" class="twit_btn tm50">
+        <a href="{% provider_login_url 'twitter' %}">
+            <button type="button" class="twit_btn tm50">
             <img src="{% static "images/ic_twitter_w.png" %}" alt="twitter icon">
             Log in with twitter
-        </button>
+            </button>
+        </a>
         <p class="tm50 txt_black33"><span class="txt_medium">Krishian</span> will receive:<br>Your photos, videos and timeline post.</p>
         <div class="edit_box">
             <a href="https://twitter.com/intent/tweet?button_hashtag=krishian_1_0_0&ref_src=twsrc%5Etfw" >
