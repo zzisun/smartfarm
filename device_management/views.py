@@ -154,7 +154,7 @@ def crop_info_reg_f(request):
         # filter method returns "QuerySet" object, so Must serialize using from django.core import serializers.serialize()
         # Structure is not normal json, like this
         '''
-        {"model": "device_management.mock_params", "pk": 11, "fields": {{"serial": "22222222", "ph": 5.0, "temp": 53, ...}}
+        {"model": "device_management.mock_params", "pk": 11, "fields": {{"serial": "22222222", "ph": 5.0, "temp": 53, ...+}
         '''
         mock_status = serializers.serialize('json',mock_params.objects.filter(serial = str(device_serial)).order_by('date'))
         print(mock_status)
@@ -200,7 +200,7 @@ class create_plant_params(APIView):
         serializer = POST_Mock(data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return render(serializer.data)
+            return Response(serializer.data, status=200)
         return Response(serializer.errors, status=400)
 
 
