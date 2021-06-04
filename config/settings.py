@@ -141,7 +141,6 @@ STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -180,7 +179,7 @@ EMAIL_PORT = '587'
 # gmail과의 통신하는 포트
 EMAIL_HOST_USER = 'krishian2021@gmail.com'
 # 발신할 이메일
-EMAIL_HOST_PASSWORD = 'krishian2021!'
+EMAIL_HOST_PASSWORD = 'murukR1!'
 # 발신할 메일의 비밀번호
 EMAIL_USE_TLS = True
 # TLS 보안 방법
@@ -192,6 +191,6 @@ TWITTER_API_KEY = 'ccnRjWAWBTlLT4kkFXHrDJ6PT'
 TWITTER_API_SECRET_KEY = 'Fc5Kmlo73eThr9O9na5xZMdYtGj477MLdcwRiIfW7Nug5l0dKJ'
 TWITTER_AUTH_CALLBACK_URL = 'http://158.247.227.73:8000/callback/twitter/'
 TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAO0xQAEAAAAAd2KCkP9bRPDIjzd4uM4f9ceF%2Bso%3D9jrvq42TSQOQ3aFpMkuCmMoNparRqYe3aqYElJSaRS7hbyXew7'
-TWITTER_ACCESS_TOKEN = '1397186084178743306-XSavdhMvF8YmLzKJ2Rhfyqq53xNE2g'
-TWITTER_ACCESS_SECRET = 'LwrbOyzaNj17VFLKkxZBuTF0dJIDEML7zIxbpATeLaiQV'
+TWITTER_ACCESS_TOKEN = '1397186084178743306-kMpa4meojaC72HKIQS3xYXishvkrTx'
+TWITTER_ACCESS_SECRET = 'svuUkvNXWVvG0jNJl6C6AGpSkSj0bmrUOe3pjkbYVYg7p'
 

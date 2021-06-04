@@ -1,6 +1,12 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.expressions import Case
+from django.db.models.fields import DateField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from datetime import date
+import time
+#from .models import Plant_Info
 
 # Create your models here.
 class Device_Info(models.Model):
@@ -12,20 +18,33 @@ class Device_Info(models.Model):
     device_ip_address = models.CharField(max_length = 40, default="0.0.0.0")
     device_password = models.CharField(max_length = 20, default="0000")
 
+
 class Farm_Info(models.Model):
+    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID', unique=True)
     device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)
     farm_type = models.CharField(max_length=15)
-    farm_name = models.CharField(default="", max_length = 20)
+    farm_name = models.CharField(max_length = 30, null=False, default="farm"+time.strftime('%Y-%m-%d-%I:%M:%S-%p'))
     farm_capacity = models.IntegerField(default=1, null=False)
-    farm_no = models.IntegerField(primary_key=True)
+    farm_plant_num = models.IntegerField(default = 0)
+    farm_model_no = models.CharField(max_length = 15, default = "Smart farm 20")
 
+     
 class Plant_Info(models.Model):
     farm_info = models.ForeignKey(Farm_Info, on_delete=CASCADE)
-    crop_group = models.IntegerField() #0:lettuce 1:leafy green, 2:herbs, 3:fruits
+    crop_group = models.CharField(max_length = 15) 
     crop_name = models.CharField(max_length = 20, null=True)
-    life_stage = models.IntegerField() #0:seed planting 1:germination 2:seeding 3:growth 4:harvest
+    life_stage = models.CharField(max_length = 15) 
     planting_date = models.DateField() #first date to plant seed
 
+@receiver(pre_save, sender = Plant_Info)
+def plant_info_pre_save(sender, instance, **kwargs):
+    plant_info = instance
+    try:
+        plant_info.farm_info
+    except Farm_Info.DoesNotExist:
+        print("Farm_Info does not Exist error, when create Plant_Info")
+
+        
 class Growth_Params(models.Model):
     device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)
     germination_time = models.IntegerField()

@@ -25,7 +25,6 @@ from urllib.parse import urlencode
 from rest_framework.views import APIView
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.conf import settings
-
 import requests
 from django.views.decorators.csrf import csrf_exempt
 
@@ -165,5 +164,5 @@ class TwitterCallbackEndpoint(APIView):
 
         except:
             return HttpResponse(
-                "<html><body>Something went wrong.Try again.</body></html>", status=403
+                "<html><body>Something went wrong.Try again. redirect problem</body></html>", status=403
             )

@@ -25,10 +25,10 @@
         <strong style="margin-bottom: 15px; font-size : 20px;">
             <a href="javascript:" class="txt_white txt_18">Feed</a>
         </strong>
-        <button type="button" class="twit_share_btn"
-                onclick="location.href = 'https://twitter.com/intent/tweet?button_hashtag=krishian_1_0_0&ref_src=twsrc%5Etfw'">
-            Create Post
-        </button>
+        <a href="https://twitter.com/intent/tweet?button_hashtag=krishian_1_0_0&ref_src=twsrc%5Etfw"
+                class="twitter-hashtag-button" id="twitter-share-btn" data-size="large"
+                data-text="{{ data_text }}" data-lang="en" data-show-count="false">
+        </a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </header>
     <div class="twit_form">
         <button type="button" onclick="location.href = '/twitter/post/'">All</button>
