@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from django.core import serializers
 # Create your views here.
-from .models import Device_Info, Farm_Info, Growth_Params, Plant_Info
+from .models import Device_Info, Farm_Info, Growth_Params, Plant_Info, mock_params
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
@@ -88,6 +89,10 @@ def farm_info_setting(request):
 def status(request):
     return render(request, 'device_management/status.html')
 
+def mypage_status(request):
+    return render(request, 'device_management/mypage.html')
+
+
 def history_detail(request):
     '''
     if request.method == 'GET':
@@ -141,7 +146,20 @@ def crop_info_reg_f(request):
             planting_date = planting_date, \
             )
         plant_information.save()
-        context = {"plant_info": plant_information}
+
+        device_serial = farm_info_inst.device_info_id
+        
+        mock_status_list = []
+
+        # filter method returns "QuerySet" object, so Must serialize using from django.core import serializers.serialize()
+        # Structure is not normal json, like this
+        '''
+        {"model": "device_management.mock_params", "pk": 11, "fields": {{"serial": "22222222", "ph": 5.0, "temp": 53, ...}}
+        '''
+        mock_status = serializers.serialize('json',mock_params.objects.filter(serial = str(device_serial)).order_by('date'))
+        print(mock_status)
+
+        context = {'mock_status':mock_status, 'farm_info_inst':farm_info_inst, 'plant_info_inst':plant_information}
         return render(request, "device_management/status.html", context=context) 
     except Exception as ex:
         plant_information = None
@@ -182,7 +200,17 @@ class create_plant_params(APIView):
         serializer = POST_Mock(data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=201)
+            return render(serializer.data)
         return Response(serializer.errors, status=400)
 
-    
+
+class get_mock_plant_status(APIView):
+
+    def get(self, request, serial):
+        status_saved = mock_params.objects.filter(serial = str(serial)).order_by('date')
+        status_serialized = serializers.serialize('json',status_saved)
+
+        if status_serialized:
+            return render(request, 'device_management/history_detail.html', {"status":status_serialized})
+        return Response(status_serialized, status=400)
+

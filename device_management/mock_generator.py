@@ -5,11 +5,13 @@ from random import *
 datas = []
 dates = []
 num = 10
-device_serial = 43221234112
+
+
+device_serial = int(input())
 plant_info_id = 9
 
 for i in range(num):
-    dates[i] = "2021-01-1" + str(i)
+    dates.append("2021-01-1" + str(i))
 
 for i in range(num):
     file_data = OrderedDict()
