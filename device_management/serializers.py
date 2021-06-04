@@ -15,3 +15,8 @@ class POST_Farm_Info(serializers.ModelSerializer):
     class Meta :
         model = Farm_Info
         fields = '__all__'
+
+class POST_Plant_Info(serializers.ModelSerializer):
+    class Meta : 
+        model = Plant_Info
+        fields = '__all__'
