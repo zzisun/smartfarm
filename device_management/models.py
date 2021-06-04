@@ -57,6 +57,11 @@ class Growth_Params(models.Model):
     date = models.DateField() #very important, to draw time-cordinate graph
     plant_info = models.ForeignKey(Plant_Info, on_delete=CASCADE)
     light_hr = models.IntegerField() # light hour
+    nutrientA = models.FloatField()
+    nutrientB = models.FloatField()
+    nutrientC = models.FloatField()
+    nutrientD = models.FloatField()
+    light_lux = models.IntegerField()
 
     def __str__(self):
         return f"{self.ph} {self.humidity} {self.ec}"
@@ -65,9 +70,13 @@ class mock_params(models.Model):
     serial = models.CharField(max_length = 15)
     ph = models.FloatField()
     temp = models.IntegerField()
+    ec = models.FloatField()
+    nutrientA = models.FloatField()
+    light_lux = models.IntegerField()
+    date = models.DateField(default = date.today())
 
     def __str__(self):
-        return f"{self.serial} {self.ph} {self.temp}"
+        return f"{self.date} {self.serial} {self.ph} {self.temp} {self.ec} {self.light_lux}"
 
 
 class Interface(models.Model):
