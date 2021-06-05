@@ -92,13 +92,6 @@ def userAPI(request):
     serializer = UserSerializer(userlist, many=True)
     return Response(serializer.data)
 
-def send_email():
-    subject = "메시지" 
-    to = ['aaa@bbb.com'] 
-    from_email = 'myaccount@gmail.com' 
-    message = "메시지를 성공적으로 전송" 
-    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
-
 @api_view(['GET'])
 def userAPI(request):
     userlist = list(Users.objects.all())
