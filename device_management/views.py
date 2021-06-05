@@ -1,13 +1,14 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.core import serializers
+from rest_framework.serializers import Serializer
 # Create your views here.
 from .models import Device_Info, Farm_Info, Growth_Params, Plant_Info, mock_params
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info
+from .serializers import GET_MOCK_Interface, POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info
 from .forms import Farm_Info_Form
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -215,3 +216,34 @@ class get_mock_plant_status(APIView):
             return render(request, 'device_management/history_detail.html', {"status":status_serialized})
         return Response(status_serialized, status=400)
 
+
+class GET_Interface_To_Device_Manual(APIView):
+    def get(self, request):
+        interface_manual_serializer = GET_MOCK_Interface(data = request.data)
+
+        if interface_manual_serializer.is_valid():
+            return Response(interface_manual_serializer.data, status=200)
+        return Response(interface_manual_serializer.errors, status=400)
+
+
+
+# sending data with address, you should add parameter of function, cannot get with request.GET
+def goto_control_device(request, device_serial, farm_id):
+    if request.method == 'GET':
+        #device_serial = request.GET.get('device_serial')
+        #farm_info_id = request.GET.get('farm_id')
+        device_serial = device_serial
+        farm_info_id = farm_id
+
+    if request.method == 'POST':
+        device_serial = request.POST['device_serial']
+        farm_info_id = request.POST['farm_id']
+
+    print("url requests")
+    print(device_serial, farm_info_id)
+
+    farm_info_inst = Farm_Info.objects.get(pk=int(farm_info_id))
+    crop_name = Plant_Info.objects.get(farm_info_id = int(farm_info_id)).crop_name
+
+    context = {'device_serial':device_serial, "farm_info":farm_info_inst, "crop_name":crop_name}
+    return render(request, "device_management/control.html", context)
