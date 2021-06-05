@@ -30,19 +30,19 @@
                     <li>
                         <p class="input_tit">Farm Name</p>
                         <div class="input_box">
-                            <input type="text" class="">
+                            <input type="text" class="" value={{farm_info_inst.farm_name}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Crop Group</p>
                         <div class="input_box">
-                            <input type="text">
+                            <input type="text" value={{plant_info_inst.crop_group}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Farm Capacity</p>
                         <div class="input_box plants_box">
-                            <input type="text">
+                            <input type="text" value={{farm_info_inst.farm_capacity}} readonly>
                             <span class="">Plants</span>
                         </div>
                     </li>
@@ -234,6 +234,15 @@
             </button>
         </div>
     </div>
+
+    <script type="text/javascript">
+        window.onload = function(){
+            var mock_status = JSON.parse("{{mock_status|escapejs}}")
+            for (var x in mock_status){   
+                console.log(x);
+            }
+        }
+    </script>
     <!-- //dash_wrap -->
     <!-- footer_gnb -->
     <footer class="footer_gnb">

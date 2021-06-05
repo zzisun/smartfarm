@@ -1,15 +1,19 @@
-import json
+import json, requests
 from collections import OrderedDict
 from random import *
+
 
 datas = []
 dates = []
 num = 10
-device_serial = 43221234112
+
+
+device_serial = int(input())
 plant_info_id = 9
+url = "http://127.0.0.1:8000/device_management/create_plant_params"
 
 for i in range(num):
-    dates[i] = "2021-01-1" + str(i)
+    dates.append("2021-01-1" + str(i))
 
 for i in range(num):
     file_data = OrderedDict()
@@ -26,3 +30,7 @@ for i in range(num):
     datas.append(file_data)
 
 print(json.dumps(datas, ensure_ascii=False, indent="\t"))
+
+for i in range(num):
+    res = requests.post(url, headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'}, data=json.dumps(datas[i]))
+    print(res.raise_for_status())

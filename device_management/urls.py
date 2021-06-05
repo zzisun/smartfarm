@@ -34,8 +34,9 @@ urlpatterns = [
     path('create_plant_params', views.create_plant_params.as_view(), name='create_plant_params'),
     path('create_farm_info', views.create_farm_info.as_view(), name='Create_farm_info'),
     path('crop_info_registeration', views.crop_info_registeration.as_view(), name='crop_info_registeration'),
+    path('my_page', views.mypage_status, name='my_page'),
     #path('crop_info_reg/<int:farm_info>', views.crop_info_reg_f, name='crop_info_reg'),
     path('crop_info_reg', views.crop_info_reg_f, name='crop_info_reg'),
     path('status', views.status, name='status'),
-    path('history_detail',views.history_detail, name='history_detail'),
+    path('history_detail/<int:serial>',views.get_mock_plant_status.as_view(), name='history_detail'),
 ]
