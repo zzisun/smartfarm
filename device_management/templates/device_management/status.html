@@ -120,8 +120,8 @@
             <div class="inner_box progress_box">
                 <h2 class="title bold">Progress</h2>
                 <div class="ul_box">
-                    <ul class="top_ul">
-                        <li class="on">
+                    <ul class="top_ul" id="stage_bar">
+                        <li class="">
                             <p class="txt_medium txt_gray_cc">Seedling</h5>
                             <p class="circle"></p>
                         </li>
@@ -160,7 +160,7 @@
                             <li class="fl"></li>
                             <li class="fl"></li>
                         </ul>
-                        <p style="width: 10.526%;"></p>
+                        <p style="width: 55%;" id="stage_colorline"></p>
                         <h6 class=" txt_gray66">20 Days left</h6>
                     </div>
                 </div>
@@ -222,6 +222,20 @@
             </button>
         </div>
     </div>
+    <script>
+        let life_stage_list = ['Seed Planting', 'Germination', 'Seedling', 'Growth', 'Hervest'];
+        let line_width_list = ['0%', '5%', '10%', '30%', '100%'];
+        let stage_colorline = document.querySelector("#stage_colorline");
+        let text_cursor = document.querySelector("#stage_bar").children;
+        for (let i=0; i<life_stage_list.length; i++){
+            if(life_stage_list[i] == "{{ plant.life_stage }}"){
+                stage_colorline.style.width = line_width_list[i];
+                if (i < 3) text_cursor[0].classList.add("on");
+                else if(i == 3) text_cursor[1].classList.add("on");
+                else text_cursor[3].classList.add("on");
+            }
+        }
+    </script>
 
 </body>
 {% endblock %}
