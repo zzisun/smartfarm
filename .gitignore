@@ -370,3 +370,6 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/django,pycharm,python,windows
 
 device_management/static/
+
+# setting file
+secrets.json
