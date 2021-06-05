@@ -18,19 +18,19 @@
                     <li>
                         <p class="input_tit">Farm Name</p>
                         <div class="input_box">
-                            <input type="text" class="">
+                            <input type="text" class="" value={{ farm.farm_name }}>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Crop Group</p>
                         <div class="input_box">
-                            <input type="text">
+                            <input type="text" value={{ plant.crop_name }}>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Farm Capacity</p>
                         <div class="input_box plants_box">
-                            <input type="text">
+                            <input type="text" value="{{ farm.farm_capacity }}">
                             <span class="">Plants</span>
                         </div>
                     </li>
@@ -59,9 +59,9 @@
                     <div class="right_txt">
                         <p class="txt_medium"><img src={% static "images/img_warter.png" %} alt="warter image">Water Level</p>
                         <ul class="clear tp8">
-                            <li class="fl rm20">Temp 75˚</li>
-                            <li class="fl rm20">PH 6.2</li>
-                            <li class="fl rm20">EC 1.0</li>
+                            <li class="fl rm20">Temp {{ grow_param.temparature }}˚</li>
+                            <li class="fl rm20">PH {{ grow_param.ph }}</li>
+                            <li class="fl rm20">EC {{ grow_param.ec }}</li>
                             <li class="fl">DO 7</li>
                         </ul>
                     </div>
@@ -72,11 +72,11 @@
                 <ul class="air_ul">
                     <li>
                         <h5 class="">Temp</h5>
-                        <p class="">75˚</p>
+                        <p class="">{{ grow_param.temparature }}˚</p>
                     </li>
                     <li>
                         <h5 class="">Humidity</h5>
-                        <p class="">85%</p>
+                        <p class="">{{ grow_param.humidity }}%</p>
                     </li>
                     <li>
                         <h5 class="">CO2</h5>
@@ -166,7 +166,7 @@
                 </div>
             </div>
             <div class="inner_box light_box">
-                <h2 class="title bold">Light<img src="images/img_sun.png" alt="sun image" class="lm3"></h2>
+                <h2 class="title bold">Light<img src={% static "images/img_sun.png" %} alt="sun image" class="lm3"></h2>
                 <table class="tm27">
                     <caption>Light table</caption>
                     <colgroup>
@@ -187,7 +187,7 @@
                         <tr>
                             <td class="">ON</td>
                             <td class="">20000</td>
-                            <td class="">12</td>
+                            <td class="">{{ grow_param.light_hr }}</td>
                             <td class="">7 PM</td>
                         </tr>
                     </tbody>
@@ -198,7 +198,7 @@
                         <h5 class="bold txt_15">80%</h5>
                     </div>
                     <div class="bar_box">
-                        <p class="bar" style="width:80%"></p>
+                        <p class="bar" style="width:10%"></p>
                     </div>
                 </div>
             </div>
@@ -216,8 +216,8 @@
                 </div>
                 <div class="img_box"></div>
             </div>
-            <button type="button" class="share_btn">
-                <img src="images/ic_sharing.png" alt="sharing icon" class="fl">
+            <button type="button" onclick="location.href='/twitter/post'" class="share_btn">
+                <img src={% static "images/ic_sharing.png" %} alt="sharing icon" class="fl">
                 <span class=" fr">Share farm status</span>
             </button>
         </div>

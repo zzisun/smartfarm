@@ -98,11 +98,11 @@ def status(request, pk):
     device_info = Device_Info.objects.filter(device_user=request.user)[0]
     farm = Farm_Info.objects.get(id=pk)
     plant = Plant_Info.objects.get(farm_info=farm)
+    grow_param = Growth_Params.objects.filter(plant_info=plant)
     if request.method == 'POST':
         form = Growth_Params_Form(request.POST)
         if form.is_valid():
             param = form.save(commit=False)
-            print(param.ph)
             param.device_info = device_info
             param.plant_info = plant
             param.date = timezone.now()
@@ -122,7 +122,8 @@ def status(request, pk):
         #    light_hr=request.data["light_hr"],
         #)
     return render(request, 'device_management/status.html', {'farm':farm,
-                                                             'plant':plant})
+                                                             'plant':plant,
+                                                             'grow_param':grow_param[len(grow_param)-1]})
 
 class crop_info_registeration(APIView):
     def post(self, request):
