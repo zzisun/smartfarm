@@ -3,6 +3,7 @@ from .tweepy import tweet_scrap
 from .data_share import parameter_send, parameter_get
 from .macro import background_posting
 from users.models import Users
+from device_management.forms import Growth_Params_Form
 
 def TwitterShare(request):
     # category를 나눌 수 있음
@@ -32,8 +33,7 @@ def TwitterGet(request, pk):
             break
     if gp:
         print(gp)
-    return redirect('twitter-post')
-
+    return render(request, 'twitter_http_post.html', {'gp': gp})
 
 def TwitterBackground(request):
     background_posting()

@@ -33,6 +33,5 @@ urlpatterns = [
     path('create_plant_params', views.create_plant_params.as_view(), name='create_plant_params'),
     path('create_farm_info', views.create_farm_info.as_view(), name='Create_farm_info'),
     path('crop_info_registeration', views.crop_info_registeration.as_view(), name='crop_info_registeration'),
-    path('status', views.status, name='status'),
-
+    path('status/<int:pk>', views.status, name='status'),
 ]

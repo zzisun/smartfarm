@@ -31,7 +31,7 @@ class Farm_Info(models.Model):
 
      
 class Plant_Info(models.Model):
-    farm_info = models.ForeignKey(Farm_Info, on_delete=CASCADE)
+    farm_info = models.ForeignKey(Farm_Info, on_delete=CASCADE, related_name='plants')
     crop_group = models.CharField(max_length = 15) 
     crop_name = models.CharField(max_length = 20, null=True)
     life_stage = models.CharField(max_length = 15) 
@@ -47,7 +47,7 @@ def plant_info_pre_save(sender, instance, **kwargs):
 
         
 class Growth_Params(models.Model):
-    device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)
+    device_info = models.ForeignKey(Device_Info, on_delete=CASCADE, related_name='params')
     germination_time = models.IntegerField()
     seeding_ec = models.FloatField()
     ec = models.FloatField()

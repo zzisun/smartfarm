@@ -66,38 +66,41 @@
                     <p class="txt_12 fr">4 pm</p>
                 </div>
             </div>
-            {% for farm in farm_list %}
+            {% for farm, farm_param in farm_list.items %}
             <div class="inner_box garden_box">
-                <h2 class="title bold">{{ farm.farm_name }}</h2>
+                <h2 class="title bold">
+                    <a href={% url 'device_management:status' farm.id %}>{{ farm.farm_name }}</a>
+                </h2>
+                {% if farm_param != None %}
                 <ul class="clear">
                     <li class="fl">
                         <div class="graph_wrap">
                             <h4 class="txt_12 txt_black33 txt_medium bm7">Progress</h4>
                             <div class="bar_box">
-                                <div class="bar" style="width:20%"></div>
+                                <div class="bar" style="width:{{ farm_param.progress_date }}%"></div>
                             </div>
-                            <p class="tx_c txt_12 txt_gray88 tm8">20 days to harvest !</p>
+                            <p class="tx_c txt_12 txt_gray88 tm8">{{ farm_param.progress_date }} days to harvest !</p>
                         </div>
                         <ul class="air_ul">
                             <li>
                                 <h5 class="txt_12 txt_gray88 txt_medium">Temp</h5>
-                                <p class="txt_12 txt_gray66">55˚</p>
+                                <p class="txt_12 txt_gray66">{{ farm_param.temparature }}˚</p>
                             </li>
                             <li>
                                 <h5 class="txt_12 txt_gray88 txt_medium">PH</h5>
-                                <p class="txt_12 txt_gray66">6.2</p>
+                                <p class="txt_12 txt_gray66">{{ farm_param.ph }}</p>
                             </li>
                             <li>
                                 <h5 class="txt_12 txt_gray88 txt_medium">EC</h5>
-                                <p class="txt_12 txt_gray66">1.0</p>
+                                <p class="txt_12 txt_gray66">{{ farm_param.ec }}</p>
                             </li>
                         </ul>
                         <div class="graph_wrap">
                             <h4 class="txt_12 txt_black33 txt_medium bm7">LIGHT</h4>
                             <div class="bar_box">
-                                <div class="bar bg_yellow" style="width:70%"></div>
+                                <div class="bar bg_yellow" style="width:{{ farm_param.light_hr }}%"></div>
                             </div>
-                            <p class="tx_c txt_12 txt_gray88 tm8">8 hr more</p>
+                            <p class="tx_c txt_12 txt_gray88 tm8">{{ farm_param.light_hr }} hr more</p>
                         </div>
                     </li>
                     <li class="fr">
@@ -134,6 +137,11 @@
                         </ul>
                     </li>
                 </ul>
+                {% else %}
+                    <br>
+                    Parameters have not been delivered yet.
+                    <br>
+                {% endif %}
             </div>
             {% endfor %}
             <button type="button" onclick="location.href = '/device_management/device4'" class="add_new_btn">Add new farm</button>
