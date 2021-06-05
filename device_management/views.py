@@ -141,7 +141,7 @@ def crop_info_reg_f(request):
             planting_date = planting_date, \
             )
         plant_information.save()
-        context = {"plant_info": plant_information}
+        context = {"plant_info": plant_information, "farm_info_id":farm_info_id, "device_serial" : farm_info_inst.device_info_id}
         return render(request, "device_management/status.html", context=context) 
     except Exception as ex:
         plant_information = None
