@@ -83,7 +83,7 @@ def logoutUser(request):
 def mypage(request):
     current_user = request.user
     messages.info(request, 'user: '+current_user.email)
-    return render(request, 'users/status.html')
+    return redirect('device_management:mypage')
 
 
 @api_view(['GET'])
