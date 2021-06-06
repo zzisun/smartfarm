@@ -5,6 +5,7 @@
     <!-- device -->
     <div class="device_wrap footer_on">
         <form action={% url 'device_management:crop_info_registeration' %} method="post">
+            {% csrf_token %}
             <div class="cont tx_c">
                 <div class = "hide_form" id="hide_1" style="display: block;">
                     <h2 class="top_title re_tp10 bm20">Select your crop group</h2>
@@ -117,7 +118,7 @@
                         <input type="text" class="date_input fl" id="datepicker" value="2021-01-01" name="planting_date">
                     </div>
                 </div>
-                <a href="#" class="next_btn tm170 re_tm20" id="toggle">{{ farm_info.id }}</a>
+                <a href="#" class="next_btn tm170 re_tm20" id="toggle">Next</a>
                 <button id = "tmp_store" style="display: none;" class="next_btn tm100 re_tm10"> Next</button>
             </div>
         </form>

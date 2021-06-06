@@ -6,11 +6,12 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from datetime import date
 import time
+from django.utils.translation import ugettext_lazy as _
 #from .models import Plant_Info
 
 # Create your models here.
 class Device_Info(models.Model):
-    #device_serial = models.IntegerField()
+    device_user = models.ForeignKey('users.Users', verbose_name="user", on_delete=models.CASCADE, default='')
     device_serial = models.IntegerField(primary_key=True)
     device_model = models.CharField(default="", null=False, max_length=15)
     device_name = models.CharField(default="", max_length=15)
@@ -21,7 +22,7 @@ class Device_Info(models.Model):
 
 class Farm_Info(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID', unique=True)
-    device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)
+    device_info = models.ForeignKey(Device_Info, on_delete=CASCADE, related_name='farms')
     farm_type = models.CharField(max_length=15)
     farm_name = models.CharField(max_length = 30, null=False, default="farm"+time.strftime('%Y-%m-%d-%I:%M:%S-%p'))
     farm_capacity = models.IntegerField(default=1, null=False)
@@ -30,7 +31,7 @@ class Farm_Info(models.Model):
 
      
 class Plant_Info(models.Model):
-    farm_info = models.ForeignKey(Farm_Info, on_delete=CASCADE)
+    farm_info = models.ForeignKey(Farm_Info, on_delete=CASCADE, related_name='plants')
     crop_group = models.CharField(max_length = 15) 
     crop_name = models.CharField(max_length = 20, null=True)
     life_stage = models.CharField(max_length = 15) 
@@ -46,7 +47,7 @@ def plant_info_pre_save(sender, instance, **kwargs):
 
         
 class Growth_Params(models.Model):
-    device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)
+    device_info = models.ForeignKey(Device_Info, on_delete=CASCADE, related_name='params')
     germination_time = models.IntegerField()
     seeding_ec = models.FloatField()
     ec = models.FloatField()

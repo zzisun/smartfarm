@@ -1,0 +1,28 @@
+{% extends 'base_back_noti.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <header class="header" style="background-color: #1DA1F2">
+        <strong style="margin-bottom: 15px; font-size : 20px;">
+            <a href="javascript:" class="txt_white txt_18">Choose Your Farm</a>
+        </strong>
+    </header>
+    <br>
+    <br>
+    {% for farm in farm_list %}
+    <form action={% url 'device_management:status' farm.id %} method="post">
+        {% csrf_token %}
+        <input type="hidden" name="germination_time" value={{ gp.germination_time }}>
+        <input type="hidden" name="seeding_ec" value={{ gp.seeding_ec }}>
+        <input type="hidden" name="ec" value={{ gp.ec }}>
+        <input type="hidden" name="progress_date" value={{ gp.progress_date }}>
+        <input type="hidden" name="temparature" value={{ gp.temparature }}>
+        <input type="hidden" name="ph" value={{ gp.ph }}>
+        <input type="hidden" name="humidity" value={{ gp.humidity }}>
+        <input type="hidden" name="light_hr" value={{ gp.light_hr }}>
+        <button type="submit" class="btn btn-primary">farm name : {{ farm.farm_name }}</button>
+    </form>
+        <br>
+    {% endfor %}
+</body>
+{% endblock %}
