@@ -121,9 +121,13 @@ def status(request, pk):
         #    date=timezone.now(),#already exist
         #    light_hr=request.data["light_hr"],
         #)
+    if grow_param:
+        grow_param = grow_param[len(grow_param) - 1]
+    else:
+        grow_param = None
     return render(request, 'device_management/status.html', {'farm':farm,
                                                              'plant':plant,
-                                                             'grow_param':grow_param[len(grow_param)-1]})
+                                                             'grow_param': grow_param})
 
 class crop_info_registeration(APIView):
     def post(self, request):

@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 class Device_Info(models.Model):
-    device_user = models.ForeignKey('users.Users', verbose_name="user", on_delete=models.CASCADE)
+    device_user = models.ForeignKey('users.Users', verbose_name="user", on_delete=models.CASCADE, default='')
     device_serial = models.IntegerField(primary_key=True)
     device_model = models.CharField(default="", null=False, max_length=15)
     device_name = models.CharField(default="", max_length=15)
