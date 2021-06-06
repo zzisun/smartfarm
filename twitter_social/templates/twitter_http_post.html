@@ -1,29 +1,17 @@
+{% extends 'base_back_noti.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krishian</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
-    <link href="//db.onlinewebfonts.com/c/d4d6e1a6527a21185217393c427a52cb?family=Segoe+UI+Semibold" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href={% static "css/default.css" %}>
-    <script type="text/javascript" src={% static "js/jquery-3.5.1.min.js" %}></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript" src={% static "js/main.js" %}></script>
-</head>
+{% block content %}
 <body>
-    <header class="header">
-            <a href="javascript:window.history.back();" class="back_btn txt_medium">BACK</a>
-            <a href="javascript:" class="noti">Notification</a>
+    <header class="header" style="background-color: #1DA1F2">
+        <strong style="margin-bottom: 15px; font-size : 20px;">
+            <a href="javascript:" class="txt_white txt_18">Choose Your Farm</a>
+        </strong>
     </header>
-    <form action={% url 'device_management:status' 1 %} method="post">
+    <br>
+    <br>
+    {% for farm in farm_list %}
+    <form action={% url 'device_management:status' farm.id %} method="post">
         {% csrf_token %}
-        {{ gp }}
         <input type="hidden" name="germination_time" value={{ gp.germination_time }}>
         <input type="hidden" name="seeding_ec" value={{ gp.seeding_ec }}>
         <input type="hidden" name="ec" value={{ gp.ec }}>
@@ -32,19 +20,9 @@
         <input type="hidden" name="ph" value={{ gp.ph }}>
         <input type="hidden" name="humidity" value={{ gp.humidity }}>
         <input type="hidden" name="light_hr" value={{ gp.light_hr }}>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">farm name : {{ farm.farm_name }}</button>
     </form>
-    <footer class="footer_gnb">
-        <ul class="gnb_ul">
-            <li>
-                <a href="#"><img src="{% static "images/ic_store.png" %}" alt="store icon"></a>
-            </li>
-            <li>
-                <a href="#"><img src="{% static "images/ic_community.png" %}" alt="community icon"></a>
-            </li>
-        </ul>
-        <a href="javascript:;" class="gnb_home"><img src="{% static "images/ic_monitor.png" %}" alt="monitor icon"></a>
-    </footer>
-
+        <br>
+    {% endfor %}
 </body>
-</html>
+{% endblock %}
