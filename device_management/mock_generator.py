@@ -17,15 +17,21 @@ for i in range(num):
 
 for i in range(num):
     file_data = OrderedDict()
-    #file_data['device_info_id'] = device_serial
-    file_data['serial'] = device_serial
-    #file_data['plant_info_id'] = plant_info_id
-    file_data['ph'] = round(5 + uniform(-3.9, 3.9), 1)
-    file_data['temp'] = 50 + randint(-30, 30)
+    file_data['device_info'] = device_serial
+    file_data['germination_time'] = 15 + randint(-15, 15)
+    file_data['seeding_ec'] = round(uniform(0.1, 2.0), 1)
     file_data['ec'] = round(uniform(0.1, 2.0), 1)
+    file_data['ph'] = round(5 + uniform(-3.9, 3.9), 1)
+    file_data['temparature'] = 50 + randint(-30, 30)
+    file_data['date'] = dates[i]
+    file_data['plant_info_id'] = plant_info_id
+    file_data['light_hr'] = 10 + randint(-10, 5)
     file_data['light_lux'] = 200 + randint(-50, 50)
     file_data['nutrientA'] = round(1.0 + uniform(-0.5, 0.5), 1)
-    file_data['date'] = dates[i]
+    file_data['nutrientB'] = round(1.0 + uniform(-0.5, 0.5), 1)
+    file_data['nutrientC'] = round(1.0 + uniform(-0.5, 0.5), 1)
+    file_data['nutrientD'] = round(1.0 + uniform(-0.5, 0.5), 1)
+    
     #print(json.dumps(file_data, ensure_ascii=False, indent="\t"))
     datas.append(file_data)
 

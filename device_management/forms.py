@@ -14,4 +14,4 @@ class Farm_Info_Form(forms.ModelForm):
 class Growth_Params_Form(forms.ModelForm):
     class Meta:
         model = Growth_Params
-        fields = ['germination_time', 'seeding_ec', 'ec', 'progress_date', 'temparature', 'ph', 'humidity','light_hr']
+        fields = ['germination_time', 'seeding_ec', 'ec', 'progress_date', 'temparature', 'ph', 'humidity','light_hr','nutrientA', 'nutrientB', 'nutrientC', 'nutrientD', 'light_lux', 'do', 'co2']

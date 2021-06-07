@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.deletion import CASCADE
+from django.db.models.deletion import CASCADE, DO_NOTHING
 from django.db.models.expressions import Case
 from django.db.models.fields import DateField
 from django.db.models.signals import pre_save
@@ -67,6 +67,9 @@ class Growth_Params(models.Model):
     nutrientC = models.FloatField()
     nutrientD = models.FloatField()
     light_lux = models.IntegerField()
+    do = models.FloatField()
+    co2 = models.IntegerField()
+    
 
     def __str__(self):
         return f"{self.ph} {self.humidity} {self.ec}"

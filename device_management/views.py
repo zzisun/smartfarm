@@ -1,16 +1,16 @@
-from datetime import timezone
+from django.utils import timezone
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.core import serializers
 from rest_framework.serializers import Serializer
 # Create your views here.
 
-from .models import Device_Info, Farm_Info, Growth_Params, Plant_Info, mock_params
+from .models import Device_Info, Farm_Info, Growth_Params, Plant_Info, mock_params 
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import GET_MOCK_Interface, POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info
+from .serializers import GET_MOCK_Interface, POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info, Serial_Interface
 from .forms import Farm_Info_Form,Growth_Params_Form
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -206,10 +206,10 @@ def crop_info_reg_f(request):
         '''
         {"model": "device_management.mock_params", "pk": 11, "fields": {{"serial": "22222222", "ph": 5.0, "temp": 53, ...+}
         '''
-        mock_status = serializers.serialize('json',mock_params.objects.filter(serial = str(device_serial)).order_by('date'))
-        print(mock_status)
+        status = serializers.serialize('json',Growth_Params.objects.filter(deivce_info = str(device_serial)).order_by('date'))
+        print(status)
 
-        context = {'mock_status':mock_status, 'farm':farm_info_inst, 'plant_info_inst':plant_information}
+        context = {'status':status, 'farm':farm_info_inst, 'plant':plant_information}
 
         return render(request, "device_management/status.html", context=context) 
     except Exception as ex:
@@ -252,7 +252,7 @@ class create_farm_info(APIView):
 class create_plant_params(APIView):
 
     def post(self, request):
-        serializer = POST_Mock(data = request.data)
+        serializer = POST_Growth_Param_Serializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=200)
@@ -261,8 +261,8 @@ class create_plant_params(APIView):
 
 class get_mock_plant_status(APIView):
 
-    def get(self, request, serial):
-        status_saved = mock_params.objects.filter(serial = str(serial)).order_by('date')
+    def get(self, request, device_serial, plant_id):
+        status_saved = Growth_Params.objects.filter(device_info = str(device_serial)).filter(plant_info = plant_id).order_by('date')
         status_serialized = serializers.serialize('json',status_saved)
 
         if status_serialized:
@@ -272,7 +272,7 @@ class get_mock_plant_status(APIView):
 
 class GET_Interface_To_Device_Manual(APIView):
     def get(self, request):
-        interface_manual_serializer = GET_MOCK_Interface(data = request.data)
+        interface_manual_serializer = Serial_Interface(data = request.data)
 
         if interface_manual_serializer.is_valid():
             return Response(interface_manual_serializer.data, status=200)

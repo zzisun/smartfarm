@@ -11,31 +11,24 @@
                     <li>
                         <p class="input_tit">Farm Name</p>
                         <div class="input_box">
-<<<<<<< HEAD
-                            <input type="text" class="" value={{ farm.farm_name }}>
-=======
-                            <input type="text" class="" value={{farm_info_inst.farm_name}} readonly>
->>>>>>> origin/device
+
+                            <input type="text" class="" value={{ farm.farm_name }} readonly>
+
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Crop Group</p>
                         <div class="input_box">
-<<<<<<< HEAD
-                            <input type="text" value={{ plant.crop_name }}>
-=======
-                            <input type="text" value={{plant_info_inst.crop_group}} readonly>
->>>>>>> origin/device
+
+                            <input type="text" value={{ plant.crop_name }} readonly>
+
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Farm Capacity</p>
-                        <div class="input_box plants_box">
-<<<<<<< HEAD
-                            <input type="text" value="{{ farm.farm_capacity }}">
-=======
-                            <input type="text" value={{farm_info_inst.farm_capacity}} readonly>
->>>>>>> origin/device
+                        <div class="input_box">
+                            <input type="text" value="{{ farm.farm_capacity }}" readonly>
+
                             <span class="">Plants</span>
                         </div>
                     </li>
@@ -64,7 +57,7 @@
                     <div class="right_txt">
                         <p class="txt_medium"><img src={% static "images/img_warter.png" %} alt="warter image">Water Level</p>
                         <ul class="clear tp8">
-                            <li class="fl rm20">Temp {{ grow_param.temparature }}˚</li>
+                            <li class="fl rm20">Temp {{ grow_param.temparature }}</li>
                             <li class="fl rm20">PH {{ grow_param.ph }}</li>
                             <li class="fl rm20">EC {{ grow_param.ec }}</li>
                             <li class="fl">DO 7</li>
@@ -93,7 +86,7 @@
                 <h2 class="title bold">Nutrient Level - Fertigation Device</h2>
                 <ul class="level_ul clear">
                     <li class="fl">
-                        <h5 class="bold txt_gray88 txt_16">95%</h5>
+                        <h5 class="bold txt_gray88 txt_16">{{grow_param.nutrientA}</h5>
                         <div class="bar_box">
                             <div class="bar" style="height: 95%;"></div>
                         </div>
