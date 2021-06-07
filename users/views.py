@@ -1,3 +1,4 @@
+from config.settings import DEFAULT_FROM_EMAIL
 from django.contrib import auth
 from django.http import request
 from django.http.response import HttpResponseRedirect
@@ -80,16 +81,24 @@ def mypage(request):
     messages.info(request, 'user: '+current_user.email)
     return redirect('device_management:mypage')
 
+@login_required(login_url='login')
+def editProfile(request):
+    #  if request.method == 'POST':
+    #      form = ChangeUserForm(request.POST, instance=request.user)
+    #      if form.is_valid():
+    #          form.save()
+    #          return redirect("users/edit_profile.html", request.user)
+    #  else:
+ 	#     form = ChangeUserForm(instance = request.user)
+ 	    # return render(request, "users/edit_profile.html", {'form':form})
+    return render(request, "users/edit_profile.html")
+
+def billingInfo(request):
+     return render(request, "users/billing_info.html")
 
 @api_view(['GET'])
 def userAPI(request):
     userlist = list(User.objects.all())
-    serializer = UserSerializer(userlist, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def userAPI(request):
-    userlist = list(Users.objects.all())
     serializer = UserSerializer(userlist, many=True)
     return Response(serializer.data)
 
@@ -154,3 +163,11 @@ class TwitterCallbackEndpoint(APIView):
             return HttpResponse(
                 "<html><body>Something went wrong.Try again. redirect problem</body></html>", status=403
             )
+
+# testcode
+def send_email(request):
+    subject = "message"
+    to = ["kimjisun2020@gmail.com"]
+    from_email = DEFAULT_FROM_EMAIL
+    message = "hi"
+    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
