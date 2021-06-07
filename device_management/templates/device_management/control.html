@@ -7,6 +7,7 @@
         <!-- top_box -->
         <div class="top_box">
             <form action="">
+                {% csrf_token %}
                 <ul>
                     <li>
                         <p class="input_tit ">Farm Name</p>
@@ -249,11 +250,125 @@
 
     <script type="text/javascript">
         window.onload = function(){
-            cooler_manual = document.getElementById("air_Check1");
-            fan_manual = document.getElementById("air_check2");
-            humidifier_manual = document.getElementById('air_check3');
-            co2_manual = document.getElementById('air_check4');
-            
+            let device_ip_addr = "{{ device_ip | escapejs}}";
+            let csrf_token = "{{ csrf_token | escapejs}}";
+            console.log(device_ip_addr);
+            console.log()
+            let manual_buttons = [];
+
+            let pumpA_manual = document.getElementById('ferti_check1');
+            let pumpB_manual = document.getElementById('ferti_check2');
+            let pumpC_manual = document.getElementById('ferti_check3');
+            let pumpD_manual = document.getElementById('ferti_check4');
+
+            let water_pump_manual = document.getElementById('warter_check1');
+
+            let air_pump_manual = document.getElementById('oxygen_check1');
+
+            let cooler_manual = document.getElementById("air_check1");
+            let fan_manual = document.getElementById("air_check2");
+            let humidifier_manual = document.getElementById('air_check3');
+            let co2_manual = document.getElementById('air_check4');
+
+            manual_buttons.push(pumpA_manual);
+            manual_buttons.push(pumpB_manual);
+            manual_buttons.push(pumpC_manual);
+            manual_buttons.push(pumpD_manual);
+            manual_buttons.push(water_pump_manual);
+            manual_buttons.push(air_pump_manual);
+            manual_buttons.push(cooler_manual);
+            manual_buttons.push(fan_manual);
+            manual_buttons.push(humidifier_manual);
+            manual_buttons.push(co2_manual);
+
+            let manual_obj = new Object();
+            manual_obj.heater = -1;
+            manual_obj.pumpA = -1;
+            manual_obj.pumpB = -1;
+            manual_obj.pumpC= -1;
+            manual_obj.pumpD = -1;
+            manual_obj.pump_water = -1;
+            manual_obj.air_pump = -1;
+            manual_obj.cooler = -1;
+            manual_obj.fan = -1;
+            manual_obj.humidifier = -1;
+            manual_obj.co2_gen = -1;
+            manual_obj.light = -1;
+            manual_obj.device_info = "{{ device_serial | escapejs}}"
+
+            let fetch_obj = {
+                method : "POST",
+                headers : {
+                    'Content-Type':'application/json',
+                    "X-CSRFToken" : csrf_token
+                },
+                'mode':'cors',
+                
+            };
+            //i don't know why, but when use for-in loop, it cannot bring html DOM element.....
+            for (let i=0; i< manual_buttons.length; i++){
+                //console.log(i);
+                manual_buttons[i].addEventListener('click',async function(){
+                    let test_url = "http://127.0.0.1:8000/device_management/send_action";
+                    let url = device_ip_addr;
+                    if (manual_buttons[i].id == 'ferti_check1'){
+                        manual_obj.pumpA *= -1;
+                    }
+                    if (manual_buttons[i].id == 'ferti_check2'){
+                        manual_obj.pumpB *= -1;
+                    }
+                    if (manual_buttons[i].id == 'ferti_check3'){
+                        manual_obj.pumpC *= -1;
+                    }
+                    if (manual_buttons[i].id == 'ferti_check4'){
+                        manual_obj.pumpD *= -1;
+                    }
+                    if (manual_buttons[i].id == 'warter_check1'){
+                        manual_obj.pump_water *= -1;
+                    }
+                    if (manual_buttons[i].id == 'oxygen_check1'){
+                        manual_obj.air_pump *= -1;
+                    }
+                    if (manual_buttons[i].id == 'air_check1'){
+                        manual_obj.cooler *= -1;
+                    }
+                    if (manual_buttons[i].id == 'air_check2'){
+                        manual_obj.fan *= -1;
+                    }
+                    if (manual_buttons[i].id == 'air_check3'){
+                        manual_obj.humidifier *= -1;
+                    }
+                    if (manual_buttons[i].id == 'air_check4'){
+                        manual_obj.co2_gen *= -1;
+                    }
+                    let manual_action_json = JSON.stringify(manual_obj);
+                    fetch_obj['body'] = manual_action_json;
+
+                    console.log(manual_action_json);
+                    let req = new Request(test_url, fetch_obj);
+
+                    let response = await fetch(req);
+
+                    let commits = await response.json(); // 응답 본문을 읽고 JSON 형태로 파싱함
+                    console.debug(commits);
+                    alert(JSON.stringify(commits));
+                    /*
+                    fetch(req).then(response => {
+                        if (response.status === 200) {
+                            return response.json();
+                        } else {
+                            
+                            return response.json();
+                        }
+                    }).then(response => {
+                        console.debug(response);
+                        
+                        // ...
+                    }).catch(error => {
+                        console.error(error);
+                    });*/
+                });
+            }
         }
     </script>
     <!-- //dash_wrap -->

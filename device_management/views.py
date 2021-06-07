@@ -5,7 +5,7 @@ from django.core import serializers
 from rest_framework.serializers import Serializer
 # Create your views here.
 
-from .models import Device_Info, Farm_Info, Growth_Params, Plant_Info, mock_params 
+from .models import Device_Info, Farm_Info, Growth_Params, Plant_Info, mock_params, Device_Interface 
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
@@ -271,13 +271,13 @@ class get_mock_plant_status(APIView):
 
 
 class GET_Interface_To_Device_Manual(APIView):
-    def get(self, request):
+
+    def post(self, request):
         interface_manual_serializer = Serial_Interface(data = request.data)
 
         if interface_manual_serializer.is_valid():
             return Response(interface_manual_serializer.data, status=200)
         return Response(interface_manual_serializer.errors, status=400)
-
 
 
 # sending data with address, you should add parameter of function, cannot get with request.GET
@@ -295,8 +295,9 @@ def goto_control_device(request, device_serial, farm_id):
     print("url requests")
     print(device_serial, farm_info_id)
 
+    device_ip = Device_Info.objects.get(pk = device_serial).device_ip_address
     farm_info_inst = Farm_Info.objects.get(pk=int(farm_info_id))
     crop_name = Plant_Info.objects.get(farm_info_id = int(farm_info_id)).crop_name
 
-    context = {'device_serial':device_serial, "farm_info":farm_info_inst, "crop_name":crop_name}
+    context = {'device_serial':device_serial, "farm_info":farm_info_inst, "crop_name":crop_name, "device_ip" : device_ip}
     return render(request, "device_management/control.html", context)

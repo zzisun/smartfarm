@@ -31,7 +31,7 @@ for i in range(num):
     file_data['nutrientB'] = round(1.0 + uniform(-0.5, 0.5), 1)
     file_data['nutrientC'] = round(1.0 + uniform(-0.5, 0.5), 1)
     file_data['nutrientD'] = round(1.0 + uniform(-0.5, 0.5), 1)
-
+    
     #print(json.dumps(file_data, ensure_ascii=False, indent="\t"))
     datas.append(file_data)
 

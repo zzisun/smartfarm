@@ -1,4 +1,4 @@
-from .models import Growth_Params, mock_params, Farm_Info,  Device_Info, Plant_Info, mock_interface, Interface
+from .models import Growth_Params, mock_params, Farm_Info,  Device_Info, Plant_Info, mock_interface, Device_Interface
 from rest_framework import serializers
 
 class POST_Growth_Param_Serializer(serializers.ModelSerializer):
@@ -24,10 +24,10 @@ class POST_Plant_Info(serializers.ModelSerializer):
 
 class GET_MOCK_Interface(serializers.ModelSerializer):
     class Meta : 
-        model : mock_interface
+        model = mock_interface
         fields = ['device_info', 'cooler', 'humidifier', 'co2_gen', 'air_pump']
 
 class Serial_Interface(serializers.ModelSerializer):
     class Meta : 
-        model : Interface
+        model = Device_Interface
         fields = "__all__"
