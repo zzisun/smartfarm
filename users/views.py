@@ -30,6 +30,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     return render(request, "users/sign_in1.html")
+def menu(request):
+    return render(request, "users/menu.html")
 
 def resetPassword(request):
     return render(request, "users/sign_in3.html")

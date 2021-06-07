@@ -1,5 +1,5 @@
 {% load static %}
-<a href=""><img src="{% static 'images/ic_menu_on.png' %}" alt="menu icon"></a>
+<a href="{% url 'menu' %}"><img src="{% static 'images/ic_menu_on.png' %}" alt="menu icon"></a>
 {% for message in messages %}
 <p id="messages">{{message}}</p>
 {% endfor %}

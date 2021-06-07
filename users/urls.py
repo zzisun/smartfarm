@@ -6,7 +6,8 @@ from users.views import userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEnd
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('mypage/', views.mypage, name='mypage'),
+    path('menu', views.menu, name='menu'),
+
     path('signup/', views.registerPage, name='signup'),
     path('verify/',views.verifyAccount, name='verify'),
     path('login/', views.loginPage, name='login'),
