@@ -44,7 +44,6 @@ def plant_info_pre_save(sender, instance, **kwargs):
         plant_info.farm_info
     except Farm_Info.DoesNotExist:
         print("Farm_Info does not Exist error, when create Plant_Info")
-
         
 class Growth_Params(models.Model):
     device_info = models.ForeignKey(Device_Info, on_delete=CASCADE, related_name='params')
