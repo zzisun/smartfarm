@@ -40,7 +40,6 @@ class Plant_Info(models.Model):
 
     planting_date = models.DateField(default = date.today()) #first date to plant seed
 '''
->>>>>>> origin/device
 @receiver(pre_save, sender = Plant_Info)
 def plant_info_pre_save(sender, instance, **kwargs):
     plant_info = instance
@@ -61,11 +60,11 @@ class Growth_Params(models.Model):
     humidity = models.FloatField()
     date = models.DateField() #very important, to draw time-cordinate graph
     plant_info = models.ForeignKey(Plant_Info, on_delete=CASCADE)
-    light_hr = models.IntegerField() # light hour
     nutrientA = models.FloatField()
     nutrientB = models.FloatField()
     nutrientC = models.FloatField()
     nutrientD = models.FloatField()
+    light_hr = models.IntegerField() # light hour
     light_lux = models.IntegerField()
     do = models.FloatField()
     co2 = models.IntegerField()

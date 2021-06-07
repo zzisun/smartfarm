@@ -60,7 +60,7 @@
                             <li class="fl rm20">Temp {{ grow_param.temparature }}</li>
                             <li class="fl rm20">PH {{ grow_param.ph }}</li>
                             <li class="fl rm20">EC {{ grow_param.ec }}</li>
-                            <li class="fl">DO 7</li>
+                            <li class="fl">DO {{ grow_param.do }}</li>
                         </ul>
                     </div>
                 </div>
@@ -78,7 +78,11 @@
                     </li>
                     <li>
                         <h5 class="">CO2</h5>
+
                         <p class="">{{grow_param.co2}}</p>
+
+                        
+
                     </li>
                 </ul>
             </div>
@@ -184,7 +188,9 @@
                     <tbody>
                         <tr>
                             <td class="">ON</td>
+
                             <td class="">{{grow_param.light_lux}}</td>
+
                             <td class="">{{ grow_param.light_hr }}</td>
                             <td class="">7 PM</td>
                         </tr>
