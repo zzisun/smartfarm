@@ -1,0 +1,42 @@
+import json, requests
+from collections import OrderedDict
+from random import *
+
+
+datas = []
+dates = []
+num = 10
+
+
+device_serial = int(input())
+plant_info_id = 9
+url = "http://127.0.0.1:8000/device_management/create_plant_params"
+
+for i in range(num):
+    dates.append("2021-01-1" + str(i))
+
+for i in range(num):
+    file_data = OrderedDict()
+    file_data['device_info'] = device_serial
+    file_data['germination_time'] = 15 + randint(-15, 15)
+    file_data['seeding_ec'] = round(uniform(0.1, 2.0), 1)
+    file_data['ec'] = round(uniform(0.1, 2.0), 1)
+    file_data['ph'] = round(5 + uniform(-3.9, 3.9), 1)
+    file_data['temparature'] = 50 + randint(-30, 30)
+    file_data['date'] = dates[i]
+    file_data['plant_info_id'] = plant_info_id
+    file_data['light_hr'] = 10 + randint(-10, 5)
+    file_data['light_lux'] = 200 + randint(-50, 50)
+    file_data['nutrientA'] = round(1.0 + uniform(-0.5, 0.5), 1)
+    file_data['nutrientB'] = round(1.0 + uniform(-0.5, 0.5), 1)
+    file_data['nutrientC'] = round(1.0 + uniform(-0.5, 0.5), 1)
+    file_data['nutrientD'] = round(1.0 + uniform(-0.5, 0.5), 1)
+    
+    #print(json.dumps(file_data, ensure_ascii=False, indent="\t"))
+    datas.append(file_data)
+
+print(json.dumps(datas, ensure_ascii=False, indent="\t"))
+
+for i in range(num):
+    res = requests.post(url, headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'}, data=json.dumps(datas[i]))
+    print(res.raise_for_status())

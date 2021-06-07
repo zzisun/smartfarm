@@ -11,19 +11,24 @@
                     <li>
                         <p class="input_tit">Farm Name</p>
                         <div class="input_box">
-                            <input type="text" class="" value={{ farm.farm_name }}>
+
+                            <input type="text" class="" value={{ farm.farm_name }} readonly>
+
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Crop Group</p>
                         <div class="input_box">
-                            <input type="text" value={{ plant.crop_name }}>
+
+                            <input type="text" value={{ plant.crop_name }} readonly>
+
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Farm Capacity</p>
-                        <div class="input_box plants_box">
-                            <input type="text" value="{{ farm.farm_capacity }}">
+                        <div class="input_box">
+                            <input type="text" value="{{ farm.farm_capacity }}" readonly>
+
                             <span class="">Plants</span>
                         </div>
                     </li>
@@ -41,7 +46,7 @@
                     <a href="#" class="txt_medium">History</a>
                 </li>
                 <li>
-                    <a href="#" class="txt_medium">Control</a>
+                    <a href="device_control/{{farm.device_info_id}}/{{farm.id}}" class="txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->
@@ -52,7 +57,7 @@
                     <div class="right_txt">
                         <p class="txt_medium"><img src={% static "images/img_warter.png" %} alt="warter image">Water Level</p>
                         <ul class="clear tp8">
-                            <li class="fl rm20">Temp {{ grow_param.temparature }}˚</li>
+                            <li class="fl rm20">Temp {{ grow_param.temparature }}</li>
                             <li class="fl rm20">PH {{ grow_param.ph }}</li>
                             <li class="fl rm20">EC {{ grow_param.ec }}</li>
                             <li class="fl">DO {{ grow_param.do }}</li>
@@ -209,12 +214,15 @@
                 </div>
                 <div class="img_box"></div>
             </div>
+
             <button type="button" onclick="location.href='/twitter/post?farmid={{ farm.id }}'" class="share_btn">
+
                 <img src={% static "images/ic_sharing.png" %} alt="sharing icon" class="fl">
                 <span class=" fr">Share farm status</span>
             </button>
         </div>
     </div>
+
     <script>
         let life_stage_list = ['Seed Planting', 'Germination', 'Seedling', 'Growth', 'Hervest'];
         let line_width_list = ['0%', '5%', '10%', '30%', '100%'];
@@ -229,6 +237,5 @@
             }
         }
     </script>
-
 </body>
 {% endblock %}
