@@ -1,5 +1,5 @@
 
-{% include 'base_w.html' %}
+{% include 'base_noti.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +30,7 @@
                 <a href="javascript:;">Contact us</a>
             </li>
             <li>
-                <a href="javascript:;">Log out</a>
+                <a href="{% url 'logout' %}">Log out</a>
             </li>
         </ul>
     </div>
