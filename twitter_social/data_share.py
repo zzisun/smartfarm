@@ -17,6 +17,13 @@ def parameter_send(grow_param, farm_name):
     gp["date"] = grow_param.date #str(year)+ "/" + ...
     gp["light_hr"] = grow_param.light_hr
     gp["ph"] = grow_param.ph
+    gp["nutrientA"] = grow_param.nutrientA
+    gp["nutrientB"] = grow_param.nutrientB
+    gp["nutrientC"] = grow_param.nutrientC
+    gp["nutrientD"] = grow_param.nutrientD
+    gp["light_lux"] = grow_param.light_lux
+    gp["do"] = grow_param.do
+    gp["co2"] = grow_param.co2
     text = "device name : " + device_name + "/"
     for _, param in gp.items():
         if type(param) != str:
@@ -46,6 +53,13 @@ def parameter_get(text):
     #gp["date"] = text[8]
     gp["light_hr"] = text[7]
     gp["ph"] = text[8]
+    gp["nutrientA"] = text[9]
+    gp["nutrientB"] = text[10]
+    gp["nutrientC"] = text[11]
+    gp["nutrientD"] = text[12]
+    gp["light_lux"] = text[13]
+    gp["do"] = text[14]
+    gp["co2"] = text[15]
     print(gp)
 
     # POST WITH CSRF

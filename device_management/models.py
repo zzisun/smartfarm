@@ -57,7 +57,15 @@ class Growth_Params(models.Model):
     humidity = models.FloatField()
     date = models.DateField() #very important, to draw time-cordinate graph
     plant_info = models.ForeignKey(Plant_Info, on_delete=CASCADE)
+    nutrientA = models.FloatField()
+    nutrientB = models.FloatField()
+    nutrientC = models.FloatField()
+    nutrientD = models.FloatField()
     light_hr = models.IntegerField() # light hour
+    light_lux = models.IntegerField()
+    do = models.FloatField()
+    co2 = models.IntegerField()
+
 
     def __str__(self):
         return f"{self.ph} {self.humidity} {self.ec}"
