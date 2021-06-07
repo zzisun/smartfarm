@@ -69,7 +69,7 @@ class Growth_Params(models.Model):
     light_lux = models.IntegerField()
     do = models.FloatField()
     co2 = models.IntegerField()
-    
+
 
     def __str__(self):
         return f"{self.ph} {self.humidity} {self.ec}"
@@ -98,6 +98,7 @@ class Interface(models.Model):
     pumpC = models.IntegerField()
     pumpD = models.IntegerField()
     pump_water = models.IntegerField()
+    
     ################ #0:off, 1:on ###############################
 
 
