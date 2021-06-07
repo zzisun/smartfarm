@@ -11,19 +11,31 @@
                     <li>
                         <p class="input_tit">Farm Name</p>
                         <div class="input_box">
+<<<<<<< HEAD
                             <input type="text" class="" value={{ farm.farm_name }}>
+=======
+                            <input type="text" class="" value={{farm_info_inst.farm_name}} readonly>
+>>>>>>> origin/device
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Crop Group</p>
                         <div class="input_box">
+<<<<<<< HEAD
                             <input type="text" value={{ plant.crop_name }}>
+=======
+                            <input type="text" value={{plant_info_inst.crop_group}} readonly>
+>>>>>>> origin/device
                         </div>
                     </li>
                     <li>
                         <p class="input_tit">Farm Capacity</p>
                         <div class="input_box plants_box">
+<<<<<<< HEAD
                             <input type="text" value="{{ farm.farm_capacity }}">
+=======
+                            <input type="text" value={{farm_info_inst.farm_capacity}} readonly>
+>>>>>>> origin/device
                             <span class="">Plants</span>
                         </div>
                     </li>
@@ -41,7 +53,7 @@
                     <a href="#" class="txt_medium">History</a>
                 </li>
                 <li>
-                    <a href="#" class="txt_medium">Control</a>
+                    <a href="device_control/{{farm.device_info_id}}/{{farm.id}}" class="txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->
@@ -209,12 +221,15 @@
                 </div>
                 <div class="img_box"></div>
             </div>
+
             <button type="button" onclick="location.href='/twitter/post?farmid={{ farm.id }}'" class="share_btn">
+
                 <img src={% static "images/ic_sharing.png" %} alt="sharing icon" class="fl">
                 <span class=" fr">Share farm status</span>
             </button>
         </div>
     </div>
+
     <script>
         let life_stage_list = ['Seed Planting', 'Germination', 'Seedling', 'Growth', 'Hervest'];
         let line_width_list = ['0%', '5%', '10%', '30%', '100%'];
@@ -229,6 +244,5 @@
             }
         }
     </script>
-
 </body>
 {% endblock %}

@@ -1,0 +1,92 @@
+[
+        {
+                "serial": 1111111111,
+                "ph": 2.5,
+                "temp": 54,
+                "ec": 1.8,
+                "light_lux": 159,
+                "nutrientA": 0.7,
+                "date": "2021-01-10"
+        },
+        {
+                "serial": 1111111111,
+                "ph": 6.8,
+                "temp": 37,
+                "ec": 1.1,
+                "light_lux": 175,
+                "nutrientA": 0.8,
+                "date": "2021-01-11"
+        },
+        {
+                "serial": 1111111111,
+                "ph": 3.4,
+                "temp": 48,
+                "ec": 1.2,
+                "light_lux": 216,
+                "nutrientA": 1.3,
+                "date": "2021-01-12"
+        },
+        {
+                "serial": 1111111111,
+                "ph": 7.1,
+                "temp": 63,
+                "ec": 1.0,
+                "light_lux": 214,
+                "nutrientA": 0.7,
+                "date": "2021-01-13"
+        },
+        {
+                "serial": 1111111111,
+                "ph": 6.7,
+                "temp": 41,
+                "ec": 1.4,
+                "light_lux": 198,
+                "nutrientA": 1.4,
+                "date": "2021-01-14"
+        },
+        {
+                "serial": 1111111111,
+                "ph": 4.6,
+                "temp": 26,
+                "ec": 1.8,
+                "light_lux": 190,
+                "nutrientA": 0.7,
+                "date": "2021-01-15"
+        },
+        {
+                "serial": 1111111111,
+                "ph": 2.6,
+                "temp": 76,
+                "ec": 1.8,
+                "light_lux": 157,
+                "nutrientA": 0.8,
+                "date": "2021-01-16"
+        },
+        {
+                "serial": 1111111111,
+                "ph": 6.9,
+                "temp": 55,
+                "ec": 1.6,
+                "light_lux": 224,
+                "nutrientA": 0.6,
+                "date": "2021-01-17"
+        },
+        {
+                "serial": 1111111111,
+                "ph": 6.7,
+                "temp": 57,
+                "ec": 0.6,
+                "light_lux": 250,
+                "nutrientA": 1.4,
+                "date": "2021-01-18"
+        },
+        {
+                "serial": 1111111111,
+                "ph": 5.0,
+                "temp": 53,
+                "ec": 0.4,
+                "light_lux": 177,
+                "nutrientA": 0.9,
+                "date": "2021-01-19"
+        }
+]
