@@ -60,7 +60,7 @@
                     <a href="#" class="txt_medium">History</a>
                 </li>
                 <li>
-                    <a href="#" class="txt_medium">Control</a>
+                    <a href="device_control/{{farm_info_inst.device_info_id}}/{{farm_info_inst.id}}" class="txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->
@@ -178,7 +178,7 @@
                 </div>
             </div>
             <div class="inner_box light_box">
-                <h2 class="title bold">Light<img src="images/img_sun.png" alt="sun image" class="lm3"></h2>
+                <h2 class="title bold">Light<img src={% static "images/img_sun.png" %} alt="sun image" class="lm3"></h2>
                 <table class="tm27">
                     <caption>Light table</caption>
                     <colgroup>
@@ -229,7 +229,7 @@
                 <div class="img_box"></div>
             </div>
             <button type="button" class="share_btn">
-                <img src="images/ic_sharing.png" alt="sharing icon" class="fl">
+                <img src={% static "images/ic_sharing.png" %} alt="sharing icon" class="fl">
                 <span class=" fr">Share farm status</span>
             </button>
         </div>
@@ -241,6 +241,8 @@
             for (var x in mock_status){   
                 console.log(x);
             }
+
+            
         }
     </script>
     <!-- //dash_wrap -->
