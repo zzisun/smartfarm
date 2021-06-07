@@ -346,13 +346,14 @@
 
                     console.log(manual_action_json);
                     let req = new Request(test_url, fetch_obj);
-
+                    //async, await사용 버전.
                     let response = await fetch(req);
-
                     let commits = await response.json(); // 응답 본문을 읽고 JSON 형태로 파싱함
                     console.debug(commits);
                     alert(JSON.stringify(commits));
                     /*
+                    Promise 사용 버전.
+
                     fetch(req).then(response => {
                         if (response.status === 200) {
                             return response.json();
