@@ -33,13 +33,6 @@ def home(request):
 def menu(request):
     return render(request, "users/menu.html")
 
-def resetPassword(request):
-    return render(request, "users/sign_in3.html")
-def checkEmail(request):
-    return render(request, "users/sign_in4.html")
-def createPassword(request):
-    return render(request, "users/sign_in5.html")
-
 def verifyAccount(request):
     return render(request, "users/sign_up2.html")
 def success(request):

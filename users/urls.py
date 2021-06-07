@@ -6,7 +6,7 @@ from users.views import userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEnd
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('menu', views.menu, name='menu'),
+    path('menu/', views.menu, name='menu'),
 
     path('signup/', views.registerPage, name='signup'),
     path('verify/',views.verifyAccount, name='verify'),
@@ -15,21 +15,16 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('mypage/', views.mypage, name='mypage'),
 
-    path('resetPassword/', views.resetPassword, name='resetPassword'),
-    path('createPassword/', views.createPassword, name='createPassword'),
 
     path('reset_password/',
      auth_views.PasswordResetView.as_view(template_name="users/password_reset.html"),
      name="reset_password"),
-
     path('reset_password_sent/', 
         auth_views.PasswordResetDoneView.as_view(template_name="users/password_reset_sent.html"), 
         name="password_reset_done"),
-
     path('reset/<uidb64>/<token>/',
      auth_views.PasswordResetConfirmView.as_view(template_name="users/password_reset_form.html"), 
      name="password_reset_confirm"),
-
     path('reset_password_complete/', 
         auth_views.PasswordResetCompleteView.as_view(template_name="users/password_reset_done.html"), 
         name="password_reset_complete"),
