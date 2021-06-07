@@ -89,7 +89,7 @@ class mock_params(models.Model):
 class Interface(models.Model):
     device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)
     ################ #0:off, 1:on ###############################
-    fan = models.IntegerField() 
+    fan = models.IntegerField()
     heater = models.IntegerField()
     light = models.IntegerField()
     pumpA = models.IntegerField()
@@ -97,6 +97,11 @@ class Interface(models.Model):
     pumpC = models.IntegerField()
     pumpD = models.IntegerField()
     pump_water = models.IntegerField()
+    air_pump = models.IntegerField()
+    cooler = models.IntegerField()
+    humidifier = models.IntegerField()
+    co2_gen = models.IntegerField()
+    air_pump = models.IntegerField()
     
     ################ #0:off, 1:on ###############################
 
