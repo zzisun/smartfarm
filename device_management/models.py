@@ -101,7 +101,7 @@ class Interface(models.Model):
     cooler = models.IntegerField()
     humidifier = models.IntegerField()
     co2_gen = models.IntegerField()
-    air_pump = models.IntegerField()
+    
     
     ################ #0:off, 1:on ###############################
 
