@@ -1,5 +1,7 @@
+from functools import partial
+from django.http.response import Http404
 from django.utils import timezone
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.core import serializers
 from rest_framework.serializers import Serializer
@@ -155,6 +157,12 @@ def history_detail(request, device_serial, plant_id):
     #print(status.data)
     return render(request, 'device_management/history_detail.html', {"status":status.data})
 
+
+@csrf_exempt
+def catch_flying_status(request):
+    status = get_mock_plant_status.post(get_mock_plant_status, request)
+    return status
+
 class crop_info_registeration(APIView):
     def post(self, request):
         print(request.data)
@@ -209,7 +217,7 @@ def crop_info_reg_f(request):
         '''
         {"model": "device_management.mock_params", "pk": 11, "fields": {{"serial": "22222222", "ph": 5.0, "temp": 53, ...+}
         '''
-        status = serializers.serialize('json',Growth_Params.objects.filter(deivce_info = str(device_serial)).order_by('date'))
+        status = serializers.serialize('json',Growth_Params.objects.filter(deivce_info = device_serial).order_by('date'))
         print(status)
 
         context = {'status':status, 'farm':farm_info_inst, 'plant':plant_information}
@@ -262,10 +270,25 @@ class create_plant_params(APIView):
         return Response(serializer.errors, status=400)
 
 
+
+
+
 class get_mock_plant_status(APIView):
 
+    def get_object(self, info):
+        try:
+            device_serial = info['device_info']
+            plant_info = info['plant_info']
+            date = info['date']
+            growth_param_obj = Growth_Params.objects.filter(device_info = (device_serial)).filter(plant_info = plant_info).filter(date=date)
+            if len(growth_param_obj) >= 1:
+                return growth_param_obj[len(growth_param_obj)-1]
+        except Growth_Params.DoesNotExist:
+            print(Growth_Params.DoesNotExist)
+            return -1
+
     def get(self, request, device_serial, plant_id):
-        status_saved = Growth_Params.objects.filter(device_info = str(device_serial)).filter(plant_info = plant_id).order_by('date')
+        status_saved = Growth_Params.objects.filter(device_info = str(device_serial)).filter(plant_info = plant_id).order_by('-date')[:10]
         status_serialized = serializers.serialize('json',status_saved)
 
         if status_serialized:
@@ -273,36 +296,70 @@ class get_mock_plant_status(APIView):
             return Response(status_serialized, status=200)
         return Response(status_serialized, status=400)
 
+    def post(self, request):
+        
+        json_Req_body = json.loads(request.body)
+        info = dict(device_info = json_Req_body['device_info'], plant_info = json_Req_body['plant_info'], date = json_Req_body['date'])
+        
+        growth_status = self.get_object(info)
+        if growth_status == -1:
+            growth_status_serialized = POST_Growth_Param_Serializer(data = json_Req_body)
+
+        growth_status_serialized = POST_Growth_Param_Serializer(growth_status, data=json_Req_body, partial=True)
+        
+        if growth_status_serialized.is_valid():
+            #print(growth_status_serialized.data)
+            growth_status_serialized.save()
+            return Response(growth_status_serialized.data, status=200)
+        return Response(growth_status_serialized.errors, status=400)
+
 
 class GET_Interface_To_Device_Manual(APIView):
 
-    def post(self, request):
-        interface_manual_serializer = Serial_Interface(data = request.data)
+    def get_object(self, device_info):
+        try: 
+            interface_obj = Device_Interface.objects.get(device_info = device_info)
+            return interface_obj
+        except Device_Interface.DoesNotExist:
+            print(Device_Interface.DoesNotExist)
+            return -1
 
-        if interface_manual_serializer.is_valid():
-            if interface_manual_serializer.data['nut_pump_auto'] == 1:
+    def post(self, request):
+        
+        #why can't i get value with key "device_info" when use request.POST['device_info'] ??????????
+        print(int(request.data['device_info']))
+        catch_interface = self.get_object(device_info = int(request.data['device_info']))
+
+        if catch_interface == -1: #foolish but, we should make new instance for Interface...
+            interface_serializer = Serial_Interface(data = request.data)
+        else:
+            interface_serializer = Serial_Interface(catch_interface, data = request.data)
+
+        if interface_serializer.is_valid():
+            if interface_serializer.validated_data['nut_pump_auto'] == 1:
                 print("nutrient automode activated")
             else:
                 print("nutrient automode de-activated")
             
-            if interface_manual_serializer.data['water_pump_auto'] == 1:
+            if interface_serializer.validated_data['water_pump_auto'] == 1:
                 print("water-pump automode activated")
             else:
                 print("water-pump automode de-activated")
             
-            if interface_manual_serializer.data['oxy_pump_auto'] == 1:
+            if interface_serializer.validated_data['oxy_pump_auto'] == 1:
                 print("oxygen automode activated")
             else:
                 print("oxygen automode de-activated")
 
-            if interface_manual_serializer.data['auto_air_contiditon_pump'] == 1:
+            if interface_serializer.validated_data['auto_air_contiditon_pump'] == 1:
                 print("air condition automode activated")
             else:
                 print("air condition automode de-activated")
-            return Response(interface_manual_serializer.data, status=200)
-        return Response(interface_manual_serializer.errors, status=400)
+            
+            interface_serializer.save()
 
-
+            return Response(interface_serializer.data, status=200)
+        return Response(interface_serializer.errors, status=400)
 
 
 # sending data with address, you should add parameter of function, cannot get with request.GET

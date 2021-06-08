@@ -307,7 +307,7 @@
             interface_obj.humidifier = -1;
             interface_obj.co2_gen = -1;
             interface_obj.light = -1;
-            interface_obj.device_info = "{{ device_serial | escapejs}}"
+            interface_obj.device_info = {{ device_serial | escapejs}}
 
             let fetch_obj = {
                 method : "POST",
@@ -318,6 +318,7 @@
                 'mode':'cors',
                 
             };
+            console.log(interface_obj.device_info)
             //i don't know why, but when use for-in loop, it cannot bring html DOM element.....
             for (let i=0; i< manual_buttons.length; i++){
                 //console.log(i);

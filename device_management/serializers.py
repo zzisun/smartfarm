@@ -5,6 +5,9 @@ class POST_Growth_Param_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Growth_Params
         fields = '__all__'
+    def create(self, validated_data):
+        return Growth_Params.objects.create(**validated_data)
+    
 
 class POST_Mock(serializers.ModelSerializer):
     class Meta :
