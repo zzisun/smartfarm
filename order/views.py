@@ -118,7 +118,7 @@ def order_list(request, pk):
             ongoing.append(i)
             fo = False
     context = {'history':history, 'fh':fh,'ongoing':ongoing, 'fo':fo}
-    return render(request, 'account3.html',context)
+    return render(request, 'order_list.html', context)
 
 def cart_list(request, pk):
     user = Users.objects.get(pk=pk)

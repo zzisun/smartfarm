@@ -1,4 +1,4 @@
-{% extends 'base_back.html' %}
+{% extends 'base_back_noti.html' %}
 {% load static %}
 {% load humanize %}
 {% block content %}
@@ -15,7 +15,7 @@
                 <a href="{% url 'billingInfo' %}">Billing info</a>
             </li>
             <li>
-                <a href="{% url 'editProfile' %}">Order history</a>
+                <a href={% url 'order_list' pk=request.user.pk %}>Order history</a>
             </li>
         </ul>
         <form action="">
