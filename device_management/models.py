@@ -92,12 +92,19 @@ class Device_Interface(models.Model):
     
     heater = models.IntegerField()
     light = models.IntegerField()
+    nut_pump_auto = models.IntegerField()
     pumpA = models.IntegerField()
     pumpB = models.IntegerField()
     pumpC = models.IntegerField()
     pumpD = models.IntegerField()
+    
+    water_pump_auto = models.IntegerField()
     pump_water = models.IntegerField()
+    
+    oxy_pump_auto = models.IntegerField()
     air_pump = models.IntegerField()
+
+    auto_air_contiditon_pump = models.IntegerField()
     cooler = models.IntegerField()
     fan = models.IntegerField()
     humidifier = models.IntegerField()

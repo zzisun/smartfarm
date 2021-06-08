@@ -253,23 +253,32 @@
             let device_ip_addr = "{{ device_ip | escapejs}}";
             let csrf_token = "{{ csrf_token | escapejs}}";
             console.log(device_ip_addr);
-            console.log()
             let manual_buttons = [];
+            let automode_buttons = [];
 
+            let auto_nutrient_pump = document.getElementById('ferti_toggle');
             let pumpA_manual = document.getElementById('ferti_check1');
             let pumpB_manual = document.getElementById('ferti_check2');
             let pumpC_manual = document.getElementById('ferti_check3');
             let pumpD_manual = document.getElementById('ferti_check4');
 
+            let water_pump_auto = document.getElementById('warter_toggle');
             let water_pump_manual = document.getElementById('warter_check1');
 
+            let oxy_pump_auto = document.getElementById('oxygen_toggle')
             let air_pump_manual = document.getElementById('oxygen_check1');
 
+            let air_condition_auto = document.getElementById('air_toggle');
             let cooler_manual = document.getElementById("air_check1");
             let fan_manual = document.getElementById("air_check2");
             let humidifier_manual = document.getElementById('air_check3');
             let co2_manual = document.getElementById('air_check4');
 
+
+            automode_buttons.push(auto_nutrient_pump);
+            automode_buttons.push(water_pump_auto);
+            automode_buttons.push(oxy_pump_auto);
+            automode_buttons.push(air_condition_auto);
             manual_buttons.push(pumpA_manual);
             manual_buttons.push(pumpB_manual);
             manual_buttons.push(pumpC_manual);
@@ -281,20 +290,24 @@
             manual_buttons.push(humidifier_manual);
             manual_buttons.push(co2_manual);
 
-            let manual_obj = new Object();
-            manual_obj.heater = -1;
-            manual_obj.pumpA = -1;
-            manual_obj.pumpB = -1;
-            manual_obj.pumpC= -1;
-            manual_obj.pumpD = -1;
-            manual_obj.pump_water = -1;
-            manual_obj.air_pump = -1;
-            manual_obj.cooler = -1;
-            manual_obj.fan = -1;
-            manual_obj.humidifier = -1;
-            manual_obj.co2_gen = -1;
-            manual_obj.light = -1;
-            manual_obj.device_info = "{{ device_serial | escapejs}}"
+            let interface_obj = new Object();
+            interface_obj.heater = -1;
+            interface_obj.nut_pump_auto = -1;
+            interface_obj.pumpA = -1;
+            interface_obj.pumpB = -1;
+            interface_obj.pumpC= -1;
+            interface_obj.pumpD = -1;
+            interface_obj.water_pump_auto = -1;
+            interface_obj.pump_water = -1;
+            interface_obj.oxy_pump_auto = -1;
+            interface_obj.air_pump = -1;
+            interface_obj.auto_air_contiditon_pump = -1;
+            interface_obj.cooler = -1;
+            interface_obj.fan = -1;
+            interface_obj.humidifier = -1;
+            interface_obj.co2_gen = -1;
+            interface_obj.light = -1;
+            interface_obj.device_info = "{{ device_serial | escapejs}}"
 
             let fetch_obj = {
                 method : "POST",
@@ -312,45 +325,47 @@
                     let test_url = "http://127.0.0.1:8000/device_management/send_action";
                     let url = device_ip_addr;
                     if (manual_buttons[i].id == 'ferti_check1'){
-                        manual_obj.pumpA *= -1;
+                        interface_obj.pumpA *= -1;
                     }
                     if (manual_buttons[i].id == 'ferti_check2'){
-                        manual_obj.pumpB *= -1;
+                        interface_obj.pumpB *= -1;
                     }
                     if (manual_buttons[i].id == 'ferti_check3'){
-                        manual_obj.pumpC *= -1;
+                        interface_obj.pumpC *= -1;
                     }
                     if (manual_buttons[i].id == 'ferti_check4'){
-                        manual_obj.pumpD *= -1;
+                        interface_obj.pumpD *= -1;
                     }
                     if (manual_buttons[i].id == 'warter_check1'){
-                        manual_obj.pump_water *= -1;
+                        interface_obj.pump_water *= -1;
                     }
                     if (manual_buttons[i].id == 'oxygen_check1'){
-                        manual_obj.air_pump *= -1;
+                        interface_obj.air_pump *= -1;
                     }
                     if (manual_buttons[i].id == 'air_check1'){
-                        manual_obj.cooler *= -1;
+                        interface_obj.cooler *= -1;
                     }
                     if (manual_buttons[i].id == 'air_check2'){
-                        manual_obj.fan *= -1;
+                        interface_obj.fan *= -1;
                     }
                     if (manual_buttons[i].id == 'air_check3'){
-                        manual_obj.humidifier *= -1;
+                        interface_obj.humidifier *= -1;
                     }
                     if (manual_buttons[i].id == 'air_check4'){
-                        manual_obj.co2_gen *= -1;
+                        interface_obj.co2_gen *= -1;
                     }
-                    let manual_action_json = JSON.stringify(manual_obj);
+                    let manual_action_json = JSON.stringify(interface_obj);
                     fetch_obj['body'] = manual_action_json;
 
                     console.log(manual_action_json);
                     let req = new Request(test_url, fetch_obj);
                     //async, await사용 버전.
                     let response = await fetch(req);
-                    let commits = await response.json(); // 응답 본문을 읽고 JSON 형태로 파싱함
-                    console.debug(commits);
-                    alert(JSON.stringify(commits));
+                    let comments = await response.json(); // 응답 본문을 읽고 JSON 형태로 파싱함
+                    console.debug(comments);
+                    alert(JSON.stringify(comments));
+
+
                     /*
                     Promise 사용 버전.
 
@@ -367,8 +382,14 @@
                         // ...
                     }).catch(error => {
                         console.error(error);
-                    });*/
+                    });
+                    
+                    */
                 });
+            }
+
+            for (let i=0; i<automode_buttons.length; i++){
+                
             }
         }
     </script>

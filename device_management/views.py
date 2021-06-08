@@ -145,12 +145,15 @@ def mypage_status(request):
     return render(request, 'device_management/mypage.html')
 
 
-def history_detail(request):
+def history_detail(request, device_serial, plant_id):
     '''
     if request.method == 'GET':
         device_serial = request.GET['device_info']
-'''
-    return render(request, 'device_management/history_detail.html')
+    ''' 
+    
+    status = get_mock_plant_status.get(get_mock_plant_status, request, device_serial, plant_id)
+    #print(status.data)
+    return render(request, 'device_management/history_detail.html', {"status":status.data})
 
 class crop_info_registeration(APIView):
     def post(self, request):
@@ -266,7 +269,8 @@ class get_mock_plant_status(APIView):
         status_serialized = serializers.serialize('json',status_saved)
 
         if status_serialized:
-            return render(request, 'device_management/history_detail.html', {"status":status_serialized})
+            #return render(request, 'device_management/history_detail.html', {"status":status_serialized})
+            return Response(status_serialized, status=200)
         return Response(status_serialized, status=400)
 
 
@@ -276,8 +280,29 @@ class GET_Interface_To_Device_Manual(APIView):
         interface_manual_serializer = Serial_Interface(data = request.data)
 
         if interface_manual_serializer.is_valid():
+            if interface_manual_serializer.data['nut_pump_auto'] == 1:
+                print("nutrient automode activated")
+            else:
+                print("nutrient automode de-activated")
+            
+            if interface_manual_serializer.data['water_pump_auto'] == 1:
+                print("water-pump automode activated")
+            else:
+                print("water-pump automode de-activated")
+            
+            if interface_manual_serializer.data['oxy_pump_auto'] == 1:
+                print("oxygen automode activated")
+            else:
+                print("oxygen automode de-activated")
+
+            if interface_manual_serializer.data['auto_air_contiditon_pump'] == 1:
+                print("air condition automode activated")
+            else:
+                print("air condition automode de-activated")
             return Response(interface_manual_serializer.data, status=200)
         return Response(interface_manual_serializer.errors, status=400)
+
+
 
 
 # sending data with address, you should add parameter of function, cannot get with request.GET
