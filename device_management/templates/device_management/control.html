@@ -11,19 +11,19 @@
                     <li>
                         <p class="input_tit ">Farm Name</p>
                         <div class="input_box">
-                            <input type="text">
+                            <input type="text", value={{farm_info.farm_name}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit ">Crop Group</p>
                         <div class="input_box">
-                            <input type="text">
+                            <input type="text" value={{crop_name}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit ">Farm Capacity</p>
                         <div class="input_box plants_box">
-                            <input type="text">
+                            <input type="text" value={{farm_info.farm_capacity}} readonly>
                             <span>Plants</span>
                         </div>
                     </li>
@@ -245,5 +245,31 @@
             </div>
         </div>
     </div>
+
+
+    <script type="text/javascript">
+        window.onload = function(){
+            cooler_manual = document.getElementById("air_Check1");
+            fan_manual = document.getElementById("air_check2");
+            humidifier_manual = document.getElementById('air_check3');
+            co2_manual = document.getElementById('air_check4');
+            
+        }
+    </script>
+    <!-- //dash_wrap -->
+    <!-- footer_gnb
+    <footer class="footer_gnb">
+        <ul class="gnb_ul">
+            <li>
+                <a href="#"><img src={% static "images/ic_store.png" %} alt="store icon"></a>
+            </li>
+            <li>
+                <a href="#"><img src={% static "images/ic_community.png" %} alt="community icon"></a>
+            </li>
+        </ul>
+        <a href="javascript:;" class="gnb_home"><img src={% static "images/ic_monitor.png" %} alt="monitor icon"></a>
+    </footer>
+     //footer_gnb -->
+
 </body>
 {% endblock %}
