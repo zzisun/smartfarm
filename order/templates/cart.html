@@ -16,6 +16,7 @@
                         <p class="txt_black33">{{ product.product.name }}</p>
                         <p class="txt_black33 tm6">BDT {{ product.amount | intcomma }}</p>
                         <ul class="choice_wrap tm9">
+                            <!-- demo
                             <li class="clear fl">
                                 <span class="rm7">Size</span>
                                 <div class="select_wrap">
@@ -26,7 +27,7 @@
                                         <li>L</li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li>-->
                             <li class="clear fr">
                                 <span class="rm10">Qty</span>
                                 <div class="choice_input">
@@ -56,7 +57,7 @@
                          form.submit();
                      }
                      function down_click(name,id){
-                         if(document.getElementById(name).value > 1) {
+
                              document.getElementById(name).value--;
                              var form = document.createElement('form');
                              form.setAttribute('method', 'Post');
@@ -69,7 +70,7 @@
                              form.appendChild(hiddenField);
                              document.body.appendChild(form);
                              form.submit();
-                         }
+
                      }
                 </script>
             </ul>
@@ -101,7 +102,9 @@
                         <p class="fr txt_black33 bold">BDT {{ total | intcomma }}</p>
                     </li>
                 </ul>
-                <a href="{% url 'payment' %}" class="btn">Checkout</a>
+                <a href="{% url 'cartbuy' %}" class="btn">Checkout</a>
+                <!-- <a href={% url 'payment' %} class="btn">Checkout</a> >
+                -->
             </div>
         </div>
     </div>

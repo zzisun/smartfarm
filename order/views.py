@@ -136,9 +136,13 @@ def cart_list(request, pk):
 @csrf_exempt
 def modify_cart(request,pk):
     cart = Cart.objects.get(pk=pk)
-    cart.quantity = int(request.POST.get('quantity'))
-    cart.amount = cart.product.price * cart.quantity
-    cart.save()
+
+    if(int(request.POST.get('quantity')) > 0) :
+        cart.quantity = int(request.POST.get('quantity'))
+        cart.amount = cart.product.price * cart.quantity
+        cart.save()
+    else:
+        cart.delete()
     user = Users.objects.get(email=request.user.email)
 
     return redirect('cartlist',user.pk)
