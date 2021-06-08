@@ -122,3 +122,4 @@ class mock_interface(models.Model):
     air_pump = models.IntegerField()
 
 
+## add default status data for each crops later......

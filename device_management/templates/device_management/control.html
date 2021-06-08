@@ -307,7 +307,7 @@
             interface_obj.humidifier = -1;
             interface_obj.co2_gen = -1;
             interface_obj.light = -1;
-            interface_obj.device_info = {{ device_serial | escapejs}}
+            interface_obj.device_info = {{ device_serial | escapejs}} ;
 
             let fetch_obj = {
                 method : "POST",
@@ -320,11 +320,16 @@
             };
             console.log(interface_obj.device_info)
             //i don't know why, but when use for-in loop, it cannot bring html DOM element.....
+
+
+            
             for (let i=0; i< manual_buttons.length; i++){
                 //console.log(i);
                 manual_buttons[i].addEventListener('click',async function(){
                     let test_url = "http://127.0.0.1:8000/device_management/send_action";
                     let url = device_ip_addr;
+
+
                     if (manual_buttons[i].id == 'ferti_check1'){
                         interface_obj.pumpA *= -1;
                     }
@@ -390,7 +395,49 @@
             }
 
             for (let i=0; i<automode_buttons.length; i++){
-                
+                automode_buttons[i].addEventListener('click',async function(){
+                    let control_url = "http://127.0.0.1:8000/device_management/send_action";
+                    let url = device_ip_addr;
+                    if (automode_buttons[i].id == 'ferti_toggle'){
+                        interface_obj.nut_pump_auto *= -1;
+                    }
+                    if (automode_buttons[i].id == 'warter_toggle'){
+                        interface_obj.water_pump_auto *= -1;
+                    }
+                    if (automode_buttons[i].id == 'oxygen_toggle'){
+                        interface_obj.oxy_pump_auto *= -1;
+                    }
+                    if (automode_buttons[i].id == 'air_toggle'){
+                        interface_obj.auto_air_contiditon_pump *= -1;
+                    }
+
+                    let auto_action_json = JSON.stringify(interface_obj);
+                    fetch_obj['body'] = auto_action_json;
+
+                    console.log(auto_action_json);
+                    let req = new Request(control_url, fetch_obj);
+                    //async, await사용 버전.
+                    let response = await fetch(req);
+                    let comments = await response.json(); // 응답 본문을 읽고 JSON 형태로 파싱함
+                    console.debug(comments);
+                    alert(JSON.stringify(comments));
+
+                    let compare_url = "http://127.0.0.1:8000/device_management/compare";
+                    device_info = {{device_serial | escapejs}};
+                    plant_id = {{plant_id | escapejs}};
+                    compare_req = {'device_info' : device_info, 'plant_id' : plant_id};
+
+                    fetch_obj['body'] = JSON.stringify(compare_req);
+                    
+                    let req_comp = new Request(compare_url, fetch_obj);
+                    
+                    //async, await사용 버전.
+                    let res_comp = await fetch(req_comp);
+                    let comments_comp = await res_comp.json(); // 응답 본문을 읽고 JSON 형태로 파싱함
+                    console.debug(comments_comp);
+                    alert(JSON.stringify(comments_comp));
+
+                });
             }
         }
     </script>

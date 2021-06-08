@@ -380,6 +380,87 @@ def goto_control_device(request, device_serial, farm_id):
     device_ip = Device_Info.objects.get(pk = device_serial).device_ip_address
     farm_info_inst = Farm_Info.objects.get(pk=int(farm_info_id))
     crop_name = Plant_Info.objects.get(farm_info_id = int(farm_info_id)).crop_name
+    plant_id = Plant_Info.objects.get(farm_info_id = int(farm_info_id)).id
 
-    context = {'device_serial':device_serial, "farm_info":farm_info_inst, "crop_name":crop_name, "device_ip" : device_ip}
+    context = {'device_serial':device_serial, "farm_info":farm_info_inst, "crop_name":crop_name, "device_ip" : device_ip, "plant_id" : plant_id}
     return render(request, "device_management/control.html", context)
+
+
+
+class compare_currentState_with_default(APIView):
+    def post(self,request):
+
+        default_temp = {'min':55, 'max':75}
+        default_ph = {'min':6.0, 'max':7.5}
+        default_ec = {'min':0.8, 'max':1.2}
+        default_humidity = {'min':50, 'max':70}
+        default_do = {'min':5, 'max':8}
+        default_co2 = {'min':400, 'max':410}
+        default_light_hr = {'min':12, 'max':18}
+
+        diff_co2 = 0
+        diff_do = 0
+        diff_ec = 0
+        diff_humidity = 0
+        diff_ph = 0
+        diff_light_hr = 0
+        diff_temp = 0 
+
+        '''
+        req_json = json.loads(request.body)
+        device_info = req_json['device_info']
+        plant_info = req_json['plant_id']
+'''
+
+        device_info = request.data['device_info']
+        plant_info = request.data['plant_id']
+
+        
+        latest_status = Growth_Params.objects.filter(device_info = device_info).filter(plant_info = plant_info).order_by('-date')[0]
+        print(latest_status.date)
+
+        if latest_status.temparature < default_temp["min"]:
+            diff_temp = latest_status.temparature - default_temp["min"]
+        elif latest_status.temparature > default_temp["max"]:
+            diff_temp = latest_status.temparature - default_temp['max']
+        
+        if latest_status.ph < default_ph["min"]:
+            diff_ph = latest_status.ph - default_ph["min"]
+        elif latest_status.ph > default_ph["max"]:
+            diff_ph = latest_status.ph - default_ph['max']
+
+        if latest_status.ec < default_ec["min"]:
+            diff_ec = latest_status.ec - default_ec["min"]
+        elif latest_status.ec > default_ec["max"]:
+            diff_ec = latest_status.ec - default_ec['max']
+
+        if latest_status.humidity < default_humidity["min"]:
+            diff_humidity = latest_status.humidity - default_humidity["min"]
+        elif latest_status.humidity > default_humidity["max"]:
+            diff_humidity = latest_status.humidity - default_humidity['max']
+
+        if latest_status.do < default_do["min"]:
+            diff_do = latest_status.do - default_do["min"]
+        elif latest_status.do > default_do["max"]:
+            diff_do = latest_status.do - default_do['max']
+
+        if latest_status.co2 < default_co2["min"]:
+            diff_co2 = latest_status.co2 - default_co2["min"]
+        elif latest_status.co2 > default_co2["max"]:
+            diff_co2 = latest_status.co2 - default_co2['max']
+
+        if latest_status.light_hr < default_light_hr["min"]:
+            diff_light_hr = latest_status.light_hr - default_light_hr["min"]
+        elif latest_status.light_hr > default_light_hr["max"]:
+            diff_light_hr = latest_status.light_hr - default_light_hr['max']
+
+        context = {
+            'diff_light_hr' : diff_light_hr,
+            'diff_do' : round(diff_do,1),
+            'diff_co2' : diff_co2,
+            'diff_ec' : round(diff_ec,1),
+            'diff_humidity' : round(diff_humidity,1),
+            'diff_temp' : diff_temp,
+            'diff_ph' : round(diff_ph,1)
+        }
+        return Response(context, status=200)

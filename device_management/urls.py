@@ -47,4 +47,5 @@ urlpatterns = [
     path('device_control/<int:device_serial>/<int:farm_id>', views.goto_control_device, name="device_control"),
     path('send_action', views.GET_Interface_To_Device_Manual.as_view(), name="send_action"),
     path('catch_flying_status', views.get_mock_plant_status.as_view(), name="catch_flying_status"),
+    path('compare', views.compare_currentState_with_default.as_view(), name="compare"),
 ]
