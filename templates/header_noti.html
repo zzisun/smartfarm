@@ -1,7 +1,6 @@
 {% load static %}
-<a href=""><img src="{% static 'images/ic_menu_on.png' %}" alt="menu icon"></a>
+<a href="{% url 'menu' %}"><img src="{% static 'images/ic_menu_on.png' %}" alt="menu icon"></a>
 {% for message in messages %}
 <p id="messages">{{message}}</p>
 {% endfor %}
-<a href="{% url 'logout' %}" class="Roboto txt_medium txt_white txt_18">Logout</a>
 <a href="javascript:;" class="noti Segoe">Notification</a>
