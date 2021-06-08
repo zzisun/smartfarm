@@ -43,3 +43,8 @@ class LoginForm(forms.ModelForm):
             password = self.cleaned_data.get('password')
             if not authenticate(email=email, password=password):
                 raise forms.ValidationError('Invalid Login')
+
+class ChangeUserForm(UserChangeForm):
+     class Meta: 
+         models = Users
+         fields = ['first_name', 'last_name', 'mobile_number','email']
