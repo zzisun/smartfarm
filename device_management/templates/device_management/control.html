@@ -1,48 +1,30 @@
+{% extends 'base_noti.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard_1</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
-    <link href="//db.onlinewebfonts.com/c/d4d6e1a6527a21185217393c427a52cb?family=Segoe+UI+Semibold" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href={% static 'css/default.css' %}>
-    <script type="text/javascript" src={% static "js/jquery-3.5.1.min.js" %}></script>
-    <script type="text/javascript" src={% static "js/main.js" %}></script>
-</head>
+{% block content %}
 <body>
-    <!-- header -->
-    <header class="header header_dash">
-        <a href="javascript:;"><img src={% static "images/ic_menu_on.png" %} alt="menu icon"></a>
-        <p class="Segoe">Notification</p>
-    </header>
-    <!-- //header -->
     <!-- dash_wrap -->
     <div class="dash_wrap footer_on">
         <!-- top_box -->
         <div class="top_box">
             <form action="">
+                {% csrf_token %}
                 <ul>
                     <li>
                         <p class="input_tit ">Farm Name</p>
                         <div class="input_box">
-                            <input type="text">
+                            <input type="text", value={{farm_info.farm_name}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit ">Crop Group</p>
                         <div class="input_box">
-                            <input type="text">
+                            <input type="text" value={{crop_name}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit ">Farm Capacity</p>
                         <div class="input_box plants_box">
-                            <input type="text">
+                            <input type="text" value={{farm_info.farm_capacity}} readonly>
                             <span>Plants</span>
                         </div>
                     </li>
@@ -54,13 +36,13 @@
             <!-- tab_ul -->
             <ul class="tab_ul clear">
                 <li>
-                    <a href="#" class=" txt_medium">Status</a>
+                    <a href="{% url 'device_management:status' farm_info.id %}" class="txt_medium">Status</a>
                 </li>
                 <li>
-                    <a href="#" class=" txt_medium">History</a>
+                    <a href="{% url 'device_management:history_detail' device_serial farm_info.id plant_id %}" class="txt_medium">History</a>
                 </li>
                 <li class="on">
-                    <a href="#" class=" txt_medium">Control</a>
+                    <a href="{% url 'device_management:device_control' device_serial farm_info.id %}" class="txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->
@@ -264,8 +246,203 @@
             </div>
         </div>
     </div>
+
+
+    <script type="text/javascript">
+        window.onload = function(){
+            let device_ip_addr = "{{ device_ip | escapejs}}";
+            let csrf_token = "{{ csrf_token | escapejs}}";
+            console.log(device_ip_addr);
+            let manual_buttons = [];
+            let automode_buttons = [];
+
+            let auto_nutrient_pump = document.getElementById('ferti_toggle');
+            let pumpA_manual = document.getElementById('ferti_check1');
+            let pumpB_manual = document.getElementById('ferti_check2');
+            let pumpC_manual = document.getElementById('ferti_check3');
+            let pumpD_manual = document.getElementById('ferti_check4');
+
+            let water_pump_auto = document.getElementById('warter_toggle');
+            let water_pump_manual = document.getElementById('warter_check1');
+
+            let oxy_pump_auto = document.getElementById('oxygen_toggle')
+            let air_pump_manual = document.getElementById('oxygen_check1');
+
+            let air_condition_auto = document.getElementById('air_toggle');
+            let cooler_manual = document.getElementById("air_check1");
+            let fan_manual = document.getElementById("air_check2");
+            let humidifier_manual = document.getElementById('air_check3');
+            let co2_manual = document.getElementById('air_check4');
+
+
+            automode_buttons.push(auto_nutrient_pump);
+            automode_buttons.push(water_pump_auto);
+            automode_buttons.push(oxy_pump_auto);
+            automode_buttons.push(air_condition_auto);
+            manual_buttons.push(pumpA_manual);
+            manual_buttons.push(pumpB_manual);
+            manual_buttons.push(pumpC_manual);
+            manual_buttons.push(pumpD_manual);
+            manual_buttons.push(water_pump_manual);
+            manual_buttons.push(air_pump_manual);
+            manual_buttons.push(cooler_manual);
+            manual_buttons.push(fan_manual);
+            manual_buttons.push(humidifier_manual);
+            manual_buttons.push(co2_manual);
+
+            let interface_obj = new Object();
+            interface_obj.heater = -1;
+            interface_obj.nut_pump_auto = -1;
+            interface_obj.pumpA = -1;
+            interface_obj.pumpB = -1;
+            interface_obj.pumpC= -1;
+            interface_obj.pumpD = -1;
+            interface_obj.water_pump_auto = -1;
+            interface_obj.pump_water = -1;
+            interface_obj.oxy_pump_auto = -1;
+            interface_obj.air_pump = -1;
+            interface_obj.auto_air_contiditon_pump = -1;
+            interface_obj.cooler = -1;
+            interface_obj.fan = -1;
+            interface_obj.humidifier = -1;
+            interface_obj.co2_gen = -1;
+            interface_obj.light = -1;
+            interface_obj.device_info = {{ device_serial | escapejs}} ;
+
+            let fetch_obj = {
+                method : "POST",
+                headers : {
+                    'Content-Type':'application/json',
+                    "X-CSRFToken" : csrf_token
+                },
+                'mode':'cors',
+                
+            };
+            console.log(interface_obj.device_info)
+            //i don't know why, but when use for-in loop, it cannot bring html DOM element.....
+
+
+            
+            for (let i=0; i< manual_buttons.length; i++){
+                //console.log(i);
+                manual_buttons[i].addEventListener('click',async function(){
+                    let test_url = "http://127.0.0.1:8000/device_management/send_action";
+                    let url = device_ip_addr;
+
+
+                    if (manual_buttons[i].id == 'ferti_check1'){
+                        interface_obj.pumpA *= -1;
+                    }
+                    if (manual_buttons[i].id == 'ferti_check2'){
+                        interface_obj.pumpB *= -1;
+                    }
+                    if (manual_buttons[i].id == 'ferti_check3'){
+                        interface_obj.pumpC *= -1;
+                    }
+                    if (manual_buttons[i].id == 'ferti_check4'){
+                        interface_obj.pumpD *= -1;
+                    }
+                    if (manual_buttons[i].id == 'warter_check1'){
+                        interface_obj.pump_water *= -1;
+                    }
+                    if (manual_buttons[i].id == 'oxygen_check1'){
+                        interface_obj.air_pump *= -1;
+                    }
+                    if (manual_buttons[i].id == 'air_check1'){
+                        interface_obj.cooler *= -1;
+                    }
+                    if (manual_buttons[i].id == 'air_check2'){
+                        interface_obj.fan *= -1;
+                    }
+                    if (manual_buttons[i].id == 'air_check3'){
+                        interface_obj.humidifier *= -1;
+                    }
+                    if (manual_buttons[i].id == 'air_check4'){
+                        interface_obj.co2_gen *= -1;
+                    }
+                    let manual_action_json = JSON.stringify(interface_obj);
+                    fetch_obj['body'] = manual_action_json;
+
+                    console.log(manual_action_json);
+                    let req = new Request(test_url, fetch_obj);
+                    //async, await사용 버전.
+                    let response = await fetch(req);
+                    let comments = await response.json(); // 응답 본문을 읽고 JSON 형태로 파싱함
+                    console.debug(comments);
+                    alert(JSON.stringify(comments));
+
+
+                    /*
+                    Promise 사용 버전.
+
+                    fetch(req).then(response => {
+                        if (response.status === 200) {
+                            return response.json();
+                        } else {
+                            
+                            return response.json();
+                        }
+                    }).then(response => {
+                        console.debug(response);
+                        
+                        // ...
+                    }).catch(error => {
+                        console.error(error);
+                    });
+                    
+                    */
+                });
+            }
+
+            for (let i=0; i<automode_buttons.length; i++){
+                automode_buttons[i].addEventListener('click',async function(){
+                    let control_url = "http://127.0.0.1:8000/device_management/send_action";
+                    let url = device_ip_addr;
+                    if (automode_buttons[i].id == 'ferti_toggle'){
+                        interface_obj.nut_pump_auto *= -1;
+                    }
+                    if (automode_buttons[i].id == 'warter_toggle'){
+                        interface_obj.water_pump_auto *= -1;
+                    }
+                    if (automode_buttons[i].id == 'oxygen_toggle'){
+                        interface_obj.oxy_pump_auto *= -1;
+                    }
+                    if (automode_buttons[i].id == 'air_toggle'){
+                        interface_obj.auto_air_contiditon_pump *= -1;
+                    }
+
+                    let auto_action_json = JSON.stringify(interface_obj);
+                    fetch_obj['body'] = auto_action_json;
+
+                    console.log(auto_action_json);
+                    let req = new Request(control_url, fetch_obj);
+                    //async, await사용 버전.
+                    let response = await fetch(req);
+                    let comments = await response.json(); // 응답 본문을 읽고 JSON 형태로 파싱함
+                    console.debug(comments);
+                    alert(JSON.stringify(comments));
+
+                    let compare_url = "http://127.0.0.1:8000/device_management/compare";
+                    device_info = {{device_serial | escapejs}};
+                    plant_id = {{plant_id | escapejs}};
+                    compare_req = {'device_info' : device_info, 'plant_id' : plant_id};
+
+                    fetch_obj['body'] = JSON.stringify(compare_req);
+                    
+                    let req_comp = new Request(compare_url, fetch_obj);
+                    
+                    //async, await사용 버전.
+                    let res_comp = await fetch(req_comp);
+                    let comments_comp = await res_comp.json(); // 응답 본문을 읽고 JSON 형태로 파싱함
+                    console.debug(comments_comp);
+                    alert(JSON.stringify(comments_comp));
+
+                });
+            }
+        }
+    </script>
     <!-- //dash_wrap -->
-    <!-- footer_gnb -->
+    <!-- footer_gnb
     <footer class="footer_gnb">
         <ul class="gnb_ul">
             <li>
@@ -277,6 +454,7 @@
         </ul>
         <a href="javascript:;" class="gnb_home"><img src={% static "images/ic_monitor.png" %} alt="monitor icon"></a>
     </footer>
-    <!-- //footer_gnb -->
+     //footer_gnb -->
+
 </body>
-</html>
+{% endblock %}

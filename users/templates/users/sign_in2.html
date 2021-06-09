@@ -5,7 +5,7 @@
 {% include 'head.html' %}
 <body>
     <!-- header -->
-    {% include 'back_header.html' %}
+    {% include 'base_back.html' %}
     <!-- //header -->
     <div class="sign_wrap">
         <h2 class="title tm95 re_tm20">Welcome back !</h2>
@@ -27,7 +27,7 @@
                 </li>
             </ul>
             <div class="tx_r tm18">
-                <a href="/password_reset" class="txt_14 txt_green Roboto txt_medium">forget password?</a>
+                <a href="/reset_password" class="txt_14 txt_green Roboto txt_medium">forget password?</a>
             </div>
             {% for message in messages %}
 			<p id="messages">{{message}}</p>

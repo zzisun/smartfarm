@@ -1,0 +1,17 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+    {% include 'head.html' %}
+    <body>
+        <header class="header">
+            {% include 'header_back.html' %}
+            <a href="{%  url 'cartlist' pk=user.id%}" class="noti Segoe">({{ cart }}) Cart</a>
+        </header>
+        <hr>
+        {% block content %}
+        {% endblock %}
+        <hr>
+        {% include 'footer.html' %}
+    </body>
+</html>

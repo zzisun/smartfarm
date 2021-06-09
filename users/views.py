@@ -1,3 +1,4 @@
+from config.settings import DEFAULT_FROM_EMAIL
 from django.contrib import auth
 from django.http import request
 from django.http.response import HttpResponseRedirect
@@ -30,13 +31,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
     return render(request, "users/sign_in1.html")
-
-def resetPassword(request):
-    return render(request, "users/sign_in3.html")
-def checkEmail(request):
-    return render(request, "users/sign_in4.html")
-def createPassword(request):
-    return render(request, "users/sign_in5.html")
+def menu(request):
+    return render(request, "users/menu.html")
 
 def verifyAccount(request):
     return render(request, "users/sign_up2.html")
@@ -83,25 +79,26 @@ def logoutUser(request):
 def mypage(request):
     current_user = request.user
     messages.info(request, 'user: '+current_user.email)
-    return render(request, 'users/status.html')
+    return redirect('device_management:mypage')
 
+@login_required(login_url='login')
+def editProfile(request):
+    #  if request.method == 'POST':
+    #      form = ChangeUserForm(request.POST, instance=request.user)
+    #      if form.is_valid():
+    #          form.save()
+    #          return redirect("users/edit_profile.html", request.user)
+    #  else:
+ 	#     form = ChangeUserForm(instance = request.user)
+ 	    # return render(request, "users/edit_profile.html", {'form':form})
+    return render(request, "users/edit_profile.html")
+
+def billingInfo(request):
+     return render(request, "users/billing_info.html")
 
 @api_view(['GET'])
 def userAPI(request):
     userlist = list(User.objects.all())
-    serializer = UserSerializer(userlist, many=True)
-    return Response(serializer.data)
-
-def send_email():
-    subject = "메시지" 
-    to = ['aaa@bbb.com'] 
-    from_email = 'myaccount@gmail.com' 
-    message = "메시지를 성공적으로 전송" 
-    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
-
-@api_view(['GET'])
-def userAPI(request):
-    userlist = list(Users.objects.all())
     serializer = UserSerializer(userlist, many=True)
     return Response(serializer.data)
 
@@ -166,3 +163,11 @@ class TwitterCallbackEndpoint(APIView):
             return HttpResponse(
                 "<html><body>Something went wrong.Try again. redirect problem</body></html>", status=403
             )
+
+# testcode
+def send_email(request):
+    subject = "message"
+    to = ["kimjisun2020@gmail.com"]
+    from_email = DEFAULT_FROM_EMAIL
+    message = "hi"
+    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()

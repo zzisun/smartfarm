@@ -1,0 +1,84 @@
+@charset "utf-8";
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700&subset=korean");
+/* 2020-10-30 likeweb.co.kr WebPublisher */
+
+
+/*기본태그 정의*/
+html, body {padding:0;margin:0;height:100%; color:#666; letter-spacing:-0.05em;}
+body, td, select, textarea, input {font-size:12px; font-family: 'Roboto','Montserrat','맑은 고딕','malgun gothic',sans-serif; color:#666; font-weight:400}
+*:focus { outline:none; }
+::-moz-selection{background:#0e559b;color:#fff;}
+::selection{background:#0e559b;color:#fff;}
+
+/* 마진과 패딩의 초기화 */
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input,  blockquote {margin:0;padding:0;}
+
+
+/* 헤더 폰트 사이즈 초기화 */
+h1, h2, h3, h4, h5, h6 {font-size:100%;}
+
+/* 리스트의 스타일 제거 */
+ol, ul {list-style:none;}
+
+/* 테이블 스타일 초기화 */
+table {border-collapse:collapse;border-spacing:0px;}
+
+/* 이미지 및 필드셋에서 보더 표시 초기화 */
+fieldset, img,iframe{border:0; vertical-align:top;}
+img{vertical-align:top; max-width:100%}
+iframe{padding:0;margin:0}
+
+/* 캡션 텍스트 정렬 초기화 */
+caption {text-align:left;}
+
+/* 폼태그의 초기화 */
+input,radio {vertical-align:middle;}
+a{color:#666; text-decoration:none; padding:0; margin:0;}
+a:link    {text-decoration:none; }
+a:active    {text-decoration:none; }
+a:visited    {text-decoration:none;}
+a:hover    {text-decoration:none; }
+
+/* hidden 처리 */
+caption{width:0;height:0;font-size:0;line-height:0;overflow:hidden;visibility:hidden;}
+.hide_con,hr{position:absolute;top:0;width:0;height:0;font-size:0;line-height:0;overflow:hidden;visibility:hidden;}
+
+.Roboto{font-family:'Roboto'}
+.Noto{font-weight:400}
+.Noto_B{font-weight:700}
+.Noto_M{font-weight:500}
+.Noto_L{font-weight:300}
+.Segoe{font-family: 'Segoe UI Semibold';}
+
+
+.clear::after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html,body {height: 100%;}
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,address,code,em,img,strong,sub,sup,b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figure,figcaption,footer,header,hgroup,menu,nav,section,main,audio,video {margin: 0; padding: 0; -webkit-tap-highlight-color: rgba(0,0,0,.1)}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,main {display: block}
+body {line-height: 1.5; -webkit-text-size-adjust:none;}
+table {border-collapse: collapse; border-spacing: 0; width: 100%; table-layout: fixed;}
+iframe {overflow: hidden; border: 0}
+address,em,i {font-style: normal}
+h1,h2,h3,h4,h5,h6 {font-weight: normal; font-size: 100%}
+legend,.blind {position: absolute; overflow: hidden; clip: rect(0 0 0 0); margin: -1px; width: 1px; height: 1px}
+caption {width: 1px; height: 1px; font-size:1px; line-height: normal; visibility: visible; clip: rect(0 0 0 0); overflow: hidden; color: transparent;}
+textarea {width: 100%; border: 1px solid #ddd; background: none; box-sizing: border-box; resize: none;}
+textarea:focus {outline: none;}
+select {-webkit-appearance: none;  -moz-appearance: none; appearance: none;}
+input,select,textarea,button {vertical-align: middle; margin: 0; padding: 0; box-sizing: border-box;}
+button, input {border-radius: none;}
+em,i {font-style: normal;}
+p {margin: 0;}
+button {background: none; cursor: pointer;}

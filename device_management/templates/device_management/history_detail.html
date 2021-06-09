@@ -1,5 +1,13 @@
+
+{% extends 'base_noti.html' %}
+{% load static %}
+{% block content %}
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,14 +20,11 @@
     <link rel="stylesheet" href={% static "css/default.css" %}>
     <script type="text/javascript" src={% static "js/jquery-3.5.1.min.js" %}></script>
     <script type="text/javascript" src={% static "js/main.js" %}></script>
+    
 </head>
+-->
+
 <body>
-    <!-- header -->
-    <header class="header header_dash">
-        <a href="javascript:;"><img src={% static "images/ic_menu_on.png" %} alt="menu icon"></a>
-        <a href="javascript:;" class="noti Segoe">Notification</a>
-    </header>
-    <!-- //header -->
     <!-- dash_wrap -->
     <div class="dash_wrap footer_on">
         <!-- top_box -->
@@ -29,20 +34,20 @@
                     <li>
                         <p class="input_tit ">Farm Name</p>
                         <div class="input_box">
-                            <input type="text" class="">
+                            <input type="text", value={{farm_info.farm_name}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit ">Crop Group</p>
                         <div class="input_box">
-                            <input type="text">
+                            <input type="text" value={{plant_info.crop_name}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit ">Farm Capacity</p>
                         <div class="input_box plants_box">
-                            <input type="text">
-                            <span class="">Plants</span>
+                            <input type="text" value={{farm_info.farm_capacity}} readonly>
+                            <span>Plants</span>
                         </div>
                     </li>
                 </ul>
@@ -53,13 +58,13 @@
             <!-- tab_ul -->
             <ul class="tab_ul clear">
                 <li>
-                    <a href="#" class=" txt_medium">Status</a>
+                    <a href={% url 'device_management:status' farm_info.id %} class="txt_medium">Status</a>
                 </li>
                 <li class="on">
                     <a href="#" class=" txt_medium">History</a>
                 </li>
                 <li>
-                    <a href="#" class=" txt_medium">Control</a>
+                    <a href={% url 'device_management:device_control' device_info.device_serial farm_info.id %} class="txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->
@@ -67,24 +72,33 @@
                 <h2 class="title  bold">Lettuce Garden</h2>
                 <div class="graph_box tm30">
                     <h4 class=" bold txt_gray66  lp6">PH</h4>
-                    <div class="graph"></div>
+                    <div class="graph" style="height: 160px;">
+                        <canvas id="chart_PH" class="graph" width="100%" height="100%"></canvas>
+                    </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">EC</h4>
-                    <div class="graph"></div>
+                    <div class="graph" style="height: 160px;">
+                        <canvas id="chart_EC" class="graph" width="100%" height="100%"></canvas>
+                    </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">Temp</h4>
-                    <div class="graph"></div>
+                    <div class="graph" style="height: 160px;">
+                        <canvas id="chart_TEMP" class="graph" width="100%" height="100%"></canvas>
+                    </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">Nutrient</h4>
-                    <div class="graph"></div>
+                    <div class="graph" style="height: 160px;">
+                        <canvas id="chart_NUT" class="graph" width="100%" height="100%"></canvas>
+
+                    </div>
                     <ul class="txt_ul">
-                        <li>A=1.5L</li>
-                        <li>B=1.5L</li>
-                        <li>C=1L</li>
-                        <li>D=1L</li>
+                        <li class=nutrient_litter></li>
+                        <li class=nutrient_litter></li>
+                        <li class=nutrient_litter></li>
+                        <li class=nutrient_litter></li>
                     </ul>
                 </div>
                 <div class="tm47">
@@ -95,25 +109,150 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="share_btn">
+
+            <script type="text/javascript">
+
+                let ctx_ph = document.getElementById('chart_PH').getContext('2d');
+                let ctx_ec = document.getElementById('chart_EC').getContext('2d');
+                let ctx_temp = document.getElementById('chart_TEMP').getContext('2d');
+                let ctx_nut = document.getElementById('chart_NUT').getContext('2d');
+
+                let status_json_list = JSON.parse("{{status|escapejs}}");
+                console.log(status_json_list[0]["model"]);
+                let status_list = [];
+                
+                
+                let chart_coord_x = [];
+                let data_ph = [];
+                let data_ec = [];
+                let data_temp = [];
+                let data_nutA = [];
+                let data_nutB = [];
+                let data_nutC = [];
+                let data_nutD = [];
+
+                for (let i=0; i<status_json_list.length; i++){
+                    
+                    console.log(status_json_list[i]);
+                    status_list.push(status_json_list[i]['fields']);
+                    chart_coord_x.push(status_json_list[i]['fields']['date']);
+                    data_ph.push(status_json_list[i]['fields']['ph']);
+                    data_ec.push(status_json_list[i]['fields']['ec']);
+                    data_temp.push(status_json_list[i]['fields']['temparature']);
+                    data_nutA.push(status_json_list[i]['fields']['nutrientA']);
+                    data_nutB.push(status_json_list[i]['fields']['nutrientB']);
+                    data_nutC.push(status_json_list[i]['fields']['nutrientC']);
+                    data_nutD.push(status_json_list[i]['fields']['nutrientD']);
+                }
+
+                let ph_color = 'rgb(255,0,51)'
+                let ec_color = 'rgb(102, 52, 255)';
+                let temp_color = 'rgb(255,255,0)';
+
+                var chart_ph = new Chart(ctx_ph,{
+                    type : 'line',
+                    data : {
+                        labels : chart_coord_x,
+                        datasets:[{
+                            label : "PH",
+                            backgroundColor:ph_color,
+                            fill : false, 
+                            borderColor : ph_color,
+                            lineTension : 0.1, 
+                            data : data_ph,
+                        }]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    },
+                    
+                });
+                var chart_ec = new Chart(ctx_ec, 
+                {
+                    type : 'line',
+                    data : {
+                        labels : chart_coord_x,
+                        datasets:[{
+                            label : "EC",
+                            backgroundColor:ec_color,
+                            fill : false, 
+                            borderColor : ec_color,
+                            lineTension : 0.1, 
+                            data : data_ec,
+                        }]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    }
+                });
+                var chart_temp = new Chart(ctx_temp,{
+                    type : 'line',
+                    data : {
+                        labels : chart_coord_x,
+                        datasets:[{
+                            label : "TEMP",
+                            backgroundColor:temp_color,
+                            fill : false, 
+                            borderColor : temp_color,
+                            lineTension : 0.1, 
+                            data : data_temp,
+                        }]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    }
+                });
+                var chart_nut= new Chart(ctx_nut,{
+                    type : 'line',
+                    data : {
+                        labels : chart_coord_x,
+                        datasets:[{
+                            label : "nt_A",
+                            backgroundColor:'rgb(255, 94, 0)',
+                            fill : false, 
+                            borderColor : 'rgb(255, 94, 0)',
+                            lineTension : 0.1, 
+                            data : data_nutA,
+                        },
+                        {
+                            label : "nt_B",
+                            backgroundColor:'rgb(155, 90, 102)',
+                            fill : false, 
+                            borderColor : 'rgb(155, 90, 102)',
+                            lineTension : 0.1, 
+                            data : data_nutB,
+                        },
+                        {
+                            label : "nt_C",
+                            backgroundColor:'rgb(55, 59, 60)',
+                            fill : false, 
+                            borderColor : 'rgb(55, 59, 60)',
+                            lineTension : 0.1, 
+                            data : data_nutC,
+                        },
+                        {
+                            label : "nt_D",
+                            backgroundColor:'rgb(105, 39, 102)',
+                            fill : false, 
+                            borderColor : 'rgb(105, 39,102)',
+                            lineTension : 0.1, 
+                            data : data_nutD,
+                        }
+                        ]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    },
+                    
+                });
+
+            </script>
+            <button type="button" onclick="location.href='/twitter/post?farmid={{ farm_info.id }}'" class="share_btn">
                 <img src={% static "images/ic_sharing.png" %} alt="sharing icon" class="fl">
-                <span class="  fr">Share farm status</span>
+                <span class=" fr">Share farm status</span>
             </button>
         </div>
     </div>
     <!-- //dash_wrap -->
-    <!-- footer_gnb -->
-    <footer class="footer_gnb">
-        <ul class="gnb_ul">
-            <li>
-                <a href="#"><img src={% static "images/ic_store.png" %} alt="store icon"></a>
-            </li>
-            <li>
-                <a href="#"><img src={% static "images/ic_community.png" %} alt="community icon"></a>
-            </li>
-        </ul>
-        <a href="javascript:;" class="gnb_home"><img src={% static "images/ic_home.png" %} alt="home icon"></a>
-    </footer>
-    <!-- //footer_gnb -->
 </body>
-</html>
+{% endblock %}

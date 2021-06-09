@@ -1,3 +1,4 @@
+
 @charset "utf-8";
 
 /* ---------------- 공통 ------------------*/
@@ -15,7 +16,7 @@
 .toggle_box .toggle_btn .slider::before {position: absolute;content: "";border:1px solid #cccccc; height: 16px;width: 16px;left: 0px;bottom: 0px;box-sizing: border-box; background-color: #fff;-webkit-transition: .4s;transition: .4s; border-radius: 50%;}
 .toggle_box .toggle_btn input:checked + .slider {background-color: #d8e8ca;}
 .toggle_box .toggle_btn input:checked + .slider::before {border-color: #7eb34f; background-color: #7eb34f; -webkit-transform: translateX(16px);-ms-transform: translateX(16px);transform: translateX(16px);}
-.toggle_box p {line-height: .8;}
+.toggle_box p {line-height: .8;} 
 
 .share_btn {padding: 0 20px; display: block; color: #111111; width: 180px; height: 40px; margin:30px auto 0; background-color: #fff; border-radius: 50px; box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);}
 .share_btn span{color: #111111;}
@@ -40,12 +41,12 @@
 	width: 3px;
 }
 .scroll_box::-webkit-scrollbar-track {
-	background-color: rgb(221,221,221);
+	background-color: rgb(221,221,221); 
     border-radius: 10px;
 }
 
 .scroll_box::-webkit-scrollbar-thumb {
-	background-color: rgb(102,102,102);
+	background-color: rgb(102,102,102); 
     border-radius: 10px;
 }
 
@@ -98,7 +99,7 @@
 .group_ul li:nth-of-type(3) label{background: url(../images/ic_group3.png) no-repeat;background-size: contain;}
 .group_ul li input:checked + label{background: url(../images/ic_group1_on.png) no-repeat;background-size: contain;}
 .group_ul li:nth-of-type(2) input:checked + label{background: url(../images/ic_group2_on.png) no-repeat;background-size: contain;}
-.group_ul li:nth-of-type(3) input:checked + label{background: url(../ic_group3_on.png) no-repeat;background-size: contain;}
+.group_ul li:nth-of-type(3) input:checked + label{background: url(../images/ic_group3_on.png) no-repeat;background-size: contain;}
 .group_ul li span{color: #818181; font-size: 14px;position: absolute;bottom: -35px;width: 100%;left: 0;}
 .group_ul li input:checked + label + span{color: #7eb34f;font-weight: 500;}
 .device_wrap .crop_box {max-width: 325px;margin-right: auto;margin-left: auto;}
@@ -341,8 +342,9 @@
 .edit_box{width: 230px;height: 160px;border-radius: 10px;margin:40px auto 30px;background: #f8f8f8 url(../images/ic_edit.png) no-repeat center top 50px;color: #999;padding-top: 90px;}
 .conti_btn {width: 230px;height: 40px;border:1px solid #dddddd;border-radius: 50px;color: #333;}
 /* //share */
-.twit_form{display: flex; justify-content: left; flex-direction: row; padding-top: 20px;}
-.twit_form button{background: #1DA1F2; width: 100px; height: 40px; border-radius: 50px; color: #fff; font-size: 18px; text-align: center;}
+
 
 .twit_share_btn{background: #fff; width: 200px; height: 40px; border-radius: 50px; color: #1DA1F2; font-size: 18px; text-align: center;}
 /* self made */
+
+

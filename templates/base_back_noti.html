@@ -1,0 +1,17 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+    {% include 'head.html' %}
+    <body>
+        <header class="header">
+            {% include 'header_back.html' %}
+            {% include 'header_noti.html' %}
+        </header>
+        <hr>
+        {% block content %}
+        {% endblock %}
+        <hr>
+        {% include 'footer.html' %}
+    </body>
+</html>

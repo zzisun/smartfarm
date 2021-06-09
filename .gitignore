@@ -372,3 +372,8 @@ $RECYCLE.BIN/
 migrations/
 
 device_management/static/
+users/static/
+migrations/
+
+# setting file
+secrets.json

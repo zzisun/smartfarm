@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 from order.form import OrderForm, CartForm
+from order.models import Cart
 from users.models import Users
 from product.models import Product, Category, Addfeature
 from .form import RegisterForm
@@ -14,6 +15,7 @@ from users.decorators import admin_required
 
 def category_list(request, pk):
     user = Users.objects.get(email=request.user.email)
+    cart = Cart.objects.filter(user=user)
     if Category.objects.count() > 0:
         while True:
             try:
@@ -27,6 +29,7 @@ def category_list(request, pk):
     else:
         message = "No Product"
         context = {'message':message}
+    context['cart'] = cart.count()
     return render(request, 'catagory.html',context)
 
 
@@ -55,9 +58,11 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
 
     def get_context_data(self, **kwargs):
+        user = Users.objects.get(email=self.request.user.email)
         context = super().get_context_data(**kwargs)
         context['orderform'] = OrderForm(self.request)
         context['cartform'] = CartForm(self.request)
-        context['users'] = Users.objects.get(email=self.request.user.email)
+        context['users'] = user
         context['option'] = Addfeature.objects.filter(product=self.kwargs['pk'])
+        context['cart'] = Cart.objects.filter(user=user).count()
         return context
