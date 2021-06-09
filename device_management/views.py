@@ -141,7 +141,8 @@ def status(request, pk):
         grow_param = None
     return render(request, 'device_management/status.html', {'farm':farm,
                                                              'plant':plant,
-                                                             'grow_param': grow_param})
+                                                             'grow_param': grow_param,
+                                                             'device_info': device_info})
 
 def mypage_status(request):
     return render(request, 'device_management/mypage.html')

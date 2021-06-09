@@ -36,13 +36,13 @@
             <!-- tab_ul -->
             <ul class="tab_ul clear">
                 <li>
-                    <a href="#" class=" txt_medium">Status</a>
+                    <a href="{% url 'device_management:status' farm_info.id %}" class="txt_medium">Status</a>
                 </li>
                 <li>
-                    <a href="#" class=" txt_medium">History</a>
+                    <a href="{% url 'device_management:history_detail' device_serial farm_info.id plant_id %}" class="txt_medium">History</a>
                 </li>
                 <li class="on">
-                    <a href="#" class=" txt_medium">Control</a>
+                    <a href="{% url 'device_management:device_control' device_serial farm_info.id %}" class="txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->

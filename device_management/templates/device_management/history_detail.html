@@ -34,20 +34,20 @@
                     <li>
                         <p class="input_tit ">Farm Name</p>
                         <div class="input_box">
-                            <input type="text" class="">
+                            <input type="text", value={{farm_info.farm_name}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit ">Crop Group</p>
                         <div class="input_box">
-                            <input type="text">
+                            <input type="text" value={{plant_info.crop_name}} readonly>
                         </div>
                     </li>
                     <li>
                         <p class="input_tit ">Farm Capacity</p>
                         <div class="input_box plants_box">
-                            <input type="text">
-                            <span class="">Plants</span>
+                            <input type="text" value={{farm_info.farm_capacity}} readonly>
+                            <span>Plants</span>
                         </div>
                     </li>
                 </ul>
@@ -58,13 +58,13 @@
             <!-- tab_ul -->
             <ul class="tab_ul clear">
                 <li>
-                    <a href={% url 'device_management:status' farm_info.id %} class=" txt_medium">Status</a>
+                    <a href={% url 'device_management:status' farm_info.id %} class="txt_medium">Status</a>
                 </li>
                 <li class="on">
                     <a href="#" class=" txt_medium">History</a>
                 </li>
                 <li>
-                    <a href={ % url 'device_control:history_detail' device_info.device_serial farm_info.id %} class=" txt_medium">Control</a>
+                    <a href={% url 'device_management:device_control' device_info.device_serial farm_info.id %} class="txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->
@@ -205,9 +205,9 @@
 
 
             </script>
-            <button type="button" class="share_btn">
+            <button type="button" onclick="location.href='/twitter/post?farmid={{ farm_info.id }}'" class="share_btn">
                 <img src={% static "images/ic_sharing.png" %} alt="sharing icon" class="fl">
-                <span class="  fr">Share farm status</span>
+                <span class=" fr">Share farm status</span>
             </button>
         </div>
     </div>

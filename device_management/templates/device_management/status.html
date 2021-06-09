@@ -26,10 +26,9 @@
                     </li>
                     <li>
                         <p class="input_tit">Farm Capacity</p>
-                        <div class="input_box">
+                        <div class="input_box plants_box">
                             <input type="text" value="{{ farm.farm_capacity }}" readonly>
-
-                            <span class="">Plants</span>
+                            <span>Plants</span>
                         </div>
                     </li>
                 </ul>
@@ -40,13 +39,13 @@
             <!-- tab_ul -->
             <ul class="tab_ul clear">
                 <li class="on">
-                    <a href="#" class="txt_medium">Status</a>
+                    <a href="{% url 'device_management:status' farm.id %}" class="txt_medium">Status</a>
                 </li>
                 <li>
-                    <a href="#" class="txt_medium">History</a>
+                    <a href="{% url 'device_management:history_detail' device_info.device_serial farm.id plant.id %}" class="txt_medium">History</a>
                 </li>
                 <li>
-                    <a href="device_control/{{farm.device_info_id}}/{{farm.id}}" class="txt_medium">Control</a>
+                    <a href="{% url 'device_management:device_control' device_info.device_serial farm.id %}" class="txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->
