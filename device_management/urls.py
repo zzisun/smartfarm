@@ -41,8 +41,7 @@ urlpatterns = [
     path('my_page', views.mypage_status, name='my_page'),
     #path('crop_info_reg/<int:farm_info>', views.crop_info_reg_f, name='crop_info_reg'),
     path('crop_info_reg', views.crop_info_reg_f, name='crop_info_reg'),
-    path('status', views.status, name='status'),
-    path('history_detail/<int:device_serial>/<int:plant_id>',views.history_detail, name='history_detail'),
+    path('history_detail/<int:device_serial>/<int:farm_id>/<int:plant_id>',views.history_detail, name='history_detail'),
     
     path('device_control/<int:device_serial>/<int:farm_id>', views.goto_control_device, name="device_control"),
     path('send_action', views.GET_Interface_To_Device_Manual.as_view(), name="send_action"),

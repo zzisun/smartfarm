@@ -113,6 +113,7 @@ def status(request, pk):
     farm = Farm_Info.objects.get(id=pk)
     plant = Plant_Info.objects.get(farm_info=farm)
     grow_param = Growth_Params.objects.filter(plant_info=plant)
+
     if request.method == 'POST':
         form = Growth_Params_Form(request.POST)
         if form.is_valid():
@@ -139,15 +140,17 @@ def status(request, pk):
         grow_param = grow_param[len(grow_param) - 1]
     else:
         grow_param = None
+
     return render(request, 'device_management/status.html', {'farm':farm,
                                                              'plant':plant,
-                                                             'grow_param': grow_param})
+                                                             'grow_param': grow_param,
+                                                             'device_info': device_info})
 
 def mypage_status(request):
     return render(request, 'device_management/mypage.html')
 
 
-def history_detail(request, device_serial, plant_id):
+def history_detail(request, device_serial, farm_id, plant_id):
     '''
     if request.method == 'GET':
         device_serial = request.GET['device_info']
@@ -155,13 +158,14 @@ def history_detail(request, device_serial, plant_id):
     
     status = get_mock_plant_status.get(get_mock_plant_status, request, device_serial, plant_id)
     #print(status.data)
-    return render(request, 'device_management/history_detail.html', {"status":status.data})
+    farm_info = Farm_Info.objects.get(pk=farm_id)
+    plant_info = Plant_Info.objects.get(pk = plant_id)
+    device_info = Device_Info.objects.get(pk = device_serial)
+
+    return render(request, 'device_management/history_detail.html', {"status":status.data, "device_info":device_info,\
+        "farm_info":farm_info, "plant_info":plant_info })
 
 
-@csrf_exempt
-def catch_flying_status(request):
-    status = get_mock_plant_status.post(get_mock_plant_status, request)
-    return status
 
 class crop_info_registeration(APIView):
     def post(self, request):

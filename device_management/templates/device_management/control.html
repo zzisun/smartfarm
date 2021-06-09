@@ -36,13 +36,13 @@
             <!-- tab_ul -->
             <ul class="tab_ul clear">
                 <li>
-                    <a href="#" class=" txt_medium">Status</a>
+                    <a href="{% url 'device_management:status' farm_info.id %}" class="txt_medium">Status</a>
                 </li>
                 <li>
-                    <a href="#" class=" txt_medium">History</a>
+                    <a href="{% url 'device_management:history_detail' device_serial farm_info.id plant_id %}" class="txt_medium">History</a>
                 </li>
                 <li class="on">
-                    <a href="#" class=" txt_medium">Control</a>
+                    <a href="{% url 'device_management:device_control' device_serial farm_info.id %}" class="txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->
@@ -326,7 +326,7 @@
             for (let i=0; i< manual_buttons.length; i++){
                 //console.log(i);
                 manual_buttons[i].addEventListener('click',async function(){
-                    let test_url = "http://127.0.0.1:8000/device_management/send_action";
+                    let test_url = "http://158.247.227.73:8000/device_management/send_action";
                     let url = device_ip_addr;
 
 
@@ -396,7 +396,7 @@
 
             for (let i=0; i<automode_buttons.length; i++){
                 automode_buttons[i].addEventListener('click',async function(){
-                    let control_url = "http://127.0.0.1:8000/device_management/send_action";
+                    let control_url = "http://158.247.227.73:8000/device_management/send_action";
                     let url = device_ip_addr;
                     if (automode_buttons[i].id == 'ferti_toggle'){
                         interface_obj.nut_pump_auto *= -1;
@@ -422,7 +422,7 @@
                     console.debug(comments);
                     alert(JSON.stringify(comments));
 
-                    let compare_url = "http://127.0.0.1:8000/device_management/compare";
+                    let compare_url = "http://158.247.227.73:8000/device_management/compare";
                     device_info = {{device_serial | escapejs}};
                     plant_id = {{plant_id | escapejs}};
                     compare_req = {'device_info' : device_info, 'plant_id' : plant_id};
