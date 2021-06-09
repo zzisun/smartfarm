@@ -86,19 +86,27 @@ class mock_params(models.Model):
         return f"{self.date} {self.serial} {self.ph} {self.temp} {self.ec} {self.light_lux}"
 
 
-class Interface(models.Model):
+class Device_Interface(models.Model):
     device_info = models.ForeignKey(Device_Info, on_delete=CASCADE)
-    ################ #0:off, 1:on ###############################
-    fan = models.IntegerField()
+    ################ #-1:off, 1:on ###############################
+    
     heater = models.IntegerField()
     light = models.IntegerField()
+    nut_pump_auto = models.IntegerField()
     pumpA = models.IntegerField()
     pumpB = models.IntegerField()
     pumpC = models.IntegerField()
     pumpD = models.IntegerField()
+    
+    water_pump_auto = models.IntegerField()
     pump_water = models.IntegerField()
+    
+    oxy_pump_auto = models.IntegerField()
     air_pump = models.IntegerField()
+
+    auto_air_contiditon_pump = models.IntegerField()
     cooler = models.IntegerField()
+    fan = models.IntegerField()
     humidifier = models.IntegerField()
     co2_gen = models.IntegerField()
     
@@ -114,3 +122,4 @@ class mock_interface(models.Model):
     air_pump = models.IntegerField()
 
 
+## add default status data for each crops later......
