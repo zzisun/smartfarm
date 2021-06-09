@@ -10,7 +10,7 @@ num = 10
 
 device_serial = int(input())
 plant_info_id = int(input())
-url = "http://127.0.0.1:8000/device_management/create_plant_params"
+url = "http://158.247.227.73:8000/device_management/create_plant_params"
 
 for i in range(num):
     stand_date = datetime(2021,2,5)
