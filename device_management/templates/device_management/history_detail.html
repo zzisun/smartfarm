@@ -72,26 +72,26 @@
                 <h2 class="title  bold">Lettuce Garden</h2>
                 <div class="graph_box tm30">
                     <h4 class=" bold txt_gray66  lp6">PH</h4>
-                    <div class="graph">
-                        <canvas id="chart_PH" class="graph" width="100%" height="85px"></canvas>
+                    <div class="graph" style="height: 160px;">
+                        <canvas id="chart_PH" class="graph" width="100%" height="100%"></canvas>
                     </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">EC</h4>
-                    <div class="graph">
-                        <canvas id="chart_EC" class="graph" width="100%" height="85px"></canvas>
+                    <div class="graph" style="height: 160px;">
+                        <canvas id="chart_EC" class="graph" width="100%" height="100%"></canvas>
                     </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">Temp</h4>
-                    <div class="graph">
-                        <canvas id="chart_TEMP" class="graph" width="100%" height="85px"></canvas>
+                    <div class="graph" style="height: 160px;">
+                        <canvas id="chart_TEMP" class="graph" width="100%" height="100%"></canvas>
                     </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">Nutrient</h4>
-                    <div class="graph">
-                        
+                    <div class="graph" style="height: 160px;">
+                        <canvas id="chart_NUT" class="graph" width="100%" height="100%"></canvas>
 
                     </div>
                     <ul class="txt_ul">
@@ -115,7 +115,7 @@
                 let ctx_ph = document.getElementById('chart_PH').getContext('2d');
                 let ctx_ec = document.getElementById('chart_EC').getContext('2d');
                 let ctx_temp = document.getElementById('chart_TEMP').getContext('2d');
-                //let ctx_nt = document.getElementById('chart_NT').getContext('2d');
+                let ctx_nut = document.getElementById('chart_NUT').getContext('2d');
 
                 let status_json_list = JSON.parse("{{status|escapejs}}");
                 console.log(status_json_list[0]["model"]);
@@ -126,8 +126,10 @@
                 let data_ph = [];
                 let data_ec = [];
                 let data_temp = [];
-                let data_nut = [];
-                let data_nutrient_container = [];
+                let data_nutA = [];
+                let data_nutB = [];
+                let data_nutC = [];
+                let data_nutD = [];
 
                 for (let i=0; i<status_json_list.length; i++){
                     
@@ -137,16 +139,15 @@
                     data_ph.push(status_json_list[i]['fields']['ph']);
                     data_ec.push(status_json_list[i]['fields']['ec']);
                     data_temp.push(status_json_list[i]['fields']['temparature']);
-                    data_nutrient_container.push(status_json_list[i]['fields']['nutrientA']);
-                    data_nutrient_container.push(status_json_list[i]['fields']['nutrientB']);
-                    data_nutrient_container.push(status_json_list[i]['fields']['nutrientC']);
-                    data_nutrient_container.push(status_json_list[i]['fields']['nutrientD']);
-                    data_nut.push(data_nutrient_container);
-                    data_nutrient_container = [];
+                    data_nutA.push(status_json_list[i]['fields']['nutrientA']);
+                    data_nutB.push(status_json_list[i]['fields']['nutrientB']);
+                    data_nutC.push(status_json_list[i]['fields']['nutrientC']);
+                    data_nutD.push(status_json_list[i]['fields']['nutrientD']);
                 }
 
-                
-
+                let ph_color = 'rgb(255,0,51)'
+                let ec_color = 'rgb(102, 52, 255)';
+                let temp_color = 'rgb(255,255,0)';
 
                 var chart_ph = new Chart(ctx_ph,{
                     type : 'line',
@@ -154,13 +155,12 @@
                         labels : chart_coord_x,
                         datasets:[{
                             label : "PH",
-                            backgroundColor:'rgb(255, 99, 132)',
+                            backgroundColor:ph_color,
                             fill : false, 
-                            borderColor : 'rgb(255, 99,132)',
+                            borderColor : ph_color,
                             lineTension : 0.1, 
                             data : data_ph,
-                        }
-                        ]
+                        }]
                     },
                     options : {
                         maintainAspectRatio : false
@@ -174,9 +174,9 @@
                         labels : chart_coord_x,
                         datasets:[{
                             label : "EC",
-                            backgroundColor:'rgb(255, 99, 132)',
+                            backgroundColor:ec_color,
                             fill : false, 
-                            borderColor : 'rgb(255, 99,132)',
+                            borderColor : ec_color,
                             lineTension : 0.1, 
                             data : data_ec,
                         }]
@@ -191,9 +191,9 @@
                         labels : chart_coord_x,
                         datasets:[{
                             label : "TEMP",
-                            backgroundColor:'rgb(255, 99, 132)',
+                            backgroundColor:temp_color,
                             fill : false, 
-                            borderColor : 'rgb(255, 99,132)',
+                            borderColor : temp_color,
                             lineTension : 0.1, 
                             data : data_temp,
                         }]
@@ -202,7 +202,49 @@
                         maintainAspectRatio : false
                     }
                 });
-
+                var chart_nut= new Chart(ctx_nut,{
+                    type : 'line',
+                    data : {
+                        labels : chart_coord_x,
+                        datasets:[{
+                            label : "nt_A",
+                            backgroundColor:'rgb(255, 94, 0)',
+                            fill : false, 
+                            borderColor : 'rgb(255, 94, 0)',
+                            lineTension : 0.1, 
+                            data : data_nutA,
+                        },
+                        {
+                            label : "nt_B",
+                            backgroundColor:'rgb(155, 90, 102)',
+                            fill : false, 
+                            borderColor : 'rgb(155, 90, 102)',
+                            lineTension : 0.1, 
+                            data : data_nutB,
+                        },
+                        {
+                            label : "nt_C",
+                            backgroundColor:'rgb(55, 59, 60)',
+                            fill : false, 
+                            borderColor : 'rgb(55, 59, 60)',
+                            lineTension : 0.1, 
+                            data : data_nutC,
+                        },
+                        {
+                            label : "nt_D",
+                            backgroundColor:'rgb(105, 39, 102)',
+                            fill : false, 
+                            borderColor : 'rgb(105, 39,102)',
+                            lineTension : 0.1, 
+                            data : data_nutD,
+                        }
+                        ]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    },
+                    
+                });
 
             </script>
             <button type="button" class="share_btn">

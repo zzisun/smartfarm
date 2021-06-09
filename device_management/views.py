@@ -113,6 +113,7 @@ def status(request, pk):
     farm = Farm_Info.objects.get(id=pk)
     plant = Plant_Info.objects.get(farm_info=farm)
     grow_param = Growth_Params.objects.filter(plant_info=plant)
+
     if request.method == 'POST':
         form = Growth_Params_Form(request.POST)
         if form.is_valid():
@@ -139,9 +140,11 @@ def status(request, pk):
         grow_param = grow_param[len(grow_param) - 1]
     else:
         grow_param = None
+
     return render(request, 'device_management/status.html', {'farm':farm,
                                                              'plant':plant,
-                                                             'grow_param': grow_param})
+                                                             'grow_param': grow_param
+                                                            })
 
 def mypage_status(request):
     return render(request, 'device_management/mypage.html')
