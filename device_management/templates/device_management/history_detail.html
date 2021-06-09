@@ -58,13 +58,13 @@
             <!-- tab_ul -->
             <ul class="tab_ul clear">
                 <li>
-                    <a href="device_management:status/{{device_info.device_serial}}" class=" txt_medium">Status</a>
+                    <a href={% url 'device_management:status' farm_info.id %} class=" txt_medium">Status</a>
                 </li>
                 <li class="on">
                     <a href="#" class=" txt_medium">History</a>
                 </li>
                 <li>
-                    <a href="device_control:history_detail/{{device_info.device_serial}}/{{farm_info.id}}" class=" txt_medium">Control</a>
+                    <a href={ % url 'device_control:history_detail' device_info.device_serial farm_info.id %} class=" txt_medium">Control</a>
                 </li>
             </ul>
             <!-- //tab_ul -->
@@ -159,11 +159,13 @@
                             borderColor : 'rgb(255, 99,132)',
                             lineTension : 0.1, 
                             data : data_ph,
-                        }]
+                        }
+                        ]
                     },
                     options : {
                         maintainAspectRatio : false
-                    }
+                    },
+                    
                 });
                 var chart_ec = new Chart(ctx_ec, 
                 {
