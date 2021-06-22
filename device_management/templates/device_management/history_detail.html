@@ -1,6 +1,28 @@
+<<<<<<< HEAD
 {% extends 'base_noti.html' %}
 {% load static %}
 {% block content %}
+=======
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <link href="//db.onlinewebfonts.com/c/d4d6e1a6527a21185217393c427a52cb?family=Segoe+UI+Semibold" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href={% static "css/default.css" %}>
+    <script type="text/javascript" src={% static "js/jquery-3.5.1.min.js" %}></script>
+    <script type="text/javascript" src={% static "js/main.js" %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+-->
+
 <body>
     <!-- dash_wrap -->
     <div class="dash_wrap footer_on">
@@ -49,19 +71,28 @@
                 <h2 class="title  bold">Lettuce Garden</h2>
                 <div class="graph_box tm30">
                     <h4 class=" bold txt_gray66  lp6">PH</h4>
-                    <div class="graph"></div>
+                    <div class="graph">
+                        <canvas id="chart_PH" class="graph" width="100%" height="85px"></canvas>
+                    </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">EC</h4>
-                    <div class="graph"></div>
+                    <div class="graph">
+                        <canvas id="chart_EC" class="graph" width="100%" height="85px"></canvas>
+                    </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">Temp</h4>
-                    <div class="graph"></div>
+                    <div class="graph">
+                        <canvas id="chart_TEMP" class="graph" width="100%" height="85px"></canvas>
+                    </div>
                 </div>
                 <div class="graph_box tm40">
                     <h4 class=" bold txt_gray66  lp6">Nutrient</h4>
-                    <div class="graph"></div>
+                    <div class="graph">
+                        
+
+                    </div>
                     <ul class="txt_ul">
                         <li>A=1.5L</li>
                         <li>B=1.5L</li>
@@ -77,6 +108,94 @@
                     </div>
                 </div>
             </div>
+
+            <script type="text/javascript">
+
+                let ctx_ph = document.getElementById('chart_PH').getContext('2d');
+                let ctx_ec = document.getElementById('chart_EC').getContext('2d');
+                let ctx_temp = document.getElementById('chart_TEMP').getContext('2d');
+                //let ctx_nt = document.getElementById('chart_NT').getContext('2d');
+
+                let status_json_list = JSON.parse("{{status|escapejs}}");
+                console.log(status_json_list[0]["model"]);
+                let status_list = [];
+                
+                
+                let chart_coord_x = [];
+                let data_ph = [];
+                let data_ec = [];
+                let data_temp = [];
+                let data_nut = [];
+
+                for (let i=0; i<status_json_list.length; i++){
+                    
+                    console.log(status_json_list[i]);
+                    status_list.push(status_json_list[i]['fields']);
+                    chart_coord_x.push(status_json_list[i]['fields']['date']);
+                    data_ph.push(status_json_list[i]['fields']['ph']);
+                    data_ec.push(status_json_list[i]['fields']['ec']);
+                    data_temp.push(status_json_list[i]['fields']['temp']);
+                    data_nut.push(status_json_list[i]['fields']['nut']);
+                }
+
+                
+
+
+                var chart_ph = new Chart(ctx_ph,{
+                    type : 'line',
+                    data : {
+                        labels : chart_coord_x,
+                        datasets:[{
+                            label : "PH",
+                            backgroundColor:'rgb(255, 99, 132)',
+                            fill : false, 
+                            borderColor : 'rgb(255, 99,132)',
+                            lineTension : 0.1, 
+                            data : data_ph,
+                        }]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    }
+                });
+                var chart_ec = new Chart(ctx_ec, 
+                {
+                    type : 'line',
+                    data : {
+                        labels : chart_coord_x,
+                        datasets:[{
+                            label : "EC",
+                            backgroundColor:'rgb(255, 99, 132)',
+                            fill : false, 
+                            borderColor : 'rgb(255, 99,132)',
+                            lineTension : 0.1, 
+                            data : data_ec,
+                        }]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    }
+                });
+                var chart_temp = new Chart(ctx_temp,{
+                    type : 'line',
+                    data : {
+                        labels : chart_coord_x,
+                        datasets:[{
+                            label : "TEMP",
+                            backgroundColor:'rgb(255, 99, 132)',
+                            fill : false, 
+                            borderColor : 'rgb(255, 99,132)',
+                            lineTension : 0.1, 
+                            data : data_temp,
+                        }]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    }
+                });
+
+
+            </script>
             <button type="button" class="share_btn">
                 <img src={% static "images/ic_sharing.png" %} alt="sharing icon" class="fl">
                 <span class="  fr">Share farm status</span>
