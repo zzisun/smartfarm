@@ -49,7 +49,6 @@ def registerPage(request):
 			form = CreateUserForm(request.POST)
 			if form.is_valid():
 				form.save()
-
 				return redirect('verify')
 		context = {'form':form}
 		return render(request, 'users/sign_up1.html', context)
@@ -121,7 +120,6 @@ def change_password(request):
             return redirect('change_password')
     else:
         form = PasswordChangeForm(user=request.user)
-
         args = {'form': form}
         return render(request, 'users/change_password.html', args)
 

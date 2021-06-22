@@ -35,5 +35,4 @@ urlpatterns = [
     path('userlist/',userAPI),
     path("auth/twitter/redirect/", TwitterAuthRedirectEndpoint.as_view(), name="twitter-login-redirect"),
     path("callback/twitter/", TwitterCallbackEndpoint.as_view(), name="twitter-login-callback"),
-
 ]
