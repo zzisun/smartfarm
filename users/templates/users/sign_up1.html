@@ -43,16 +43,12 @@
                 <li>
                     <p class="input_tit">Password</p>
                     <div class="input_box">
-                        <!-- <input type="text" placeholder="Email address" class="form-control" name="email" id="email"
-                        value="{{ form.email.value|default_if_none:'' }}"> -->
                         {{form.password1}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Password Confirm</p>
                     <div class="input_box">
-                        <!-- <input type="password" placeholder="" class="form-control" name="password2" id="password2"
-                        value="{{ form.password2.value|default_if_none:'' }}"> -->
                         {{form.password2}}
                     </div>
                     <div class="custom_check tm20 clear">
@@ -66,7 +62,7 @@
                         <br>{{form.errors}}<br>
                    
                     <div class="d-flex justify-content-center mt-3 login_container">
-                        <input class="btn login_btn" type="submit" value="Register Account">
+                        <button class="btn login_btn">Register Account</button>
                       </div>
                 </li>
             </ul>
@@ -82,11 +78,7 @@
                 <img src="{%static 'images/ic_google.png' %}" alt="google icon" class="rm10">
                 <span>Connect with Google</span>
             </a>
-        </div>
-        
-        
-        <!-- <a href="#" class="btn tm42">Sign up</a> -->
-        
+        </div> 
     </div>
     <script>
         var form_fields = document.getElementsByTagName('input')

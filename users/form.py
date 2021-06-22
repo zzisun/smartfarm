@@ -1,5 +1,5 @@
 from users.models import Users
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.db import models
@@ -44,7 +44,12 @@ class LoginForm(forms.ModelForm):
             if not authenticate(email=email, password=password):
                 raise forms.ValidationError('Invalid Login')
 
-class ChangeUserForm(UserChangeForm):
-     class Meta: 
-         models = Users
-         fields = ['first_name', 'last_name', 'mobile_number','email']
+class EditProfileForm(UserChangeForm):
+    class Meta: 
+        model = Users
+        fields = [
+            'first_name', 
+            'last_name',
+            'email', 
+            'mobile_number'
+            ]

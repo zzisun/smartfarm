@@ -39,3 +39,21 @@ class Users(AbstractUser):
 
     def __str__(self):
         return self.email
+
+from django.db.models.signals import post_save
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(Users, on_delete=models.CASCADE)
+    billing_address = models.CharField(max_length=100, default='')
+    shipping_address = models.CharField(max_length=100, default='')
+    image = models.ImageField(upload_to='profile_image', blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+def create_profile(sender, **kwargs):
+    if kwargs['created']:
+        user_profile = UserProfile.objects.create(user=kwargs['instance'])
+
+post_save.connect(create_profile, sender=Users)

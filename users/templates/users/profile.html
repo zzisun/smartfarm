@@ -16,8 +16,8 @@
                 <a href="#">Order history</a>
             </li>
         </ul>
-        <form action="" method="POST">
-            {% csrf_token %}
+        <!-- <form action="" method="POST"> -->
+        <form action="">
             <div class="profile_box">
                 <button type="button" class="camera_btn"><img src="{% static 'images/ic_camera.png' %}" alt="camera icon"></button>
                 <input type="file" id="file_up" class="dn appearance" accept="">
@@ -31,28 +31,19 @@
             <ul class="form_ul">
                 <li>
                     <p class="input_tit">First name</p>
-                    <div class="input_box">
-                        {{form.first_name}}
-                    </div>
+                    <p>{{ user.first_name }}</p>
                 </li>
                 <li>
                     <p class="input_tit">Last name</p>
-                    <div class="input_box">
-                        <!-- <input type="text" placeholder=""> -->
-                        {{form.last_name}}
-                    </div>
+                    <p>{{ user.last_name }}</p>
                 </li>
                 <li>
                     <p class="input_tit">Mobile number</p>
-                    <div class="input_box">
-                        {{form.mobile_number}}
-                    </div>
+                    <p>{{ user.mobile_number }}</p>
                 </li>
                 <li>
                     <p class="input_tit">Email address</p>
-                    <div class="input_box">
-                        {{form.email}}
-                    </div>
+                    <p>{{ user.email }}</p>
                 </li>
                 <!-- <li>
                     <p class="input_tit">Password</p>
@@ -61,7 +52,9 @@
                     </div>
                 </li> -->
             </ul>
-            <button class="btn tm30">Save</button>
+            <br>
+            <a href="/profile/edit" class="btn tm30">Edit</a>
+            <!-- <button class="btn tm30">Save</button> -->
         </form>
     </div>
 </body>

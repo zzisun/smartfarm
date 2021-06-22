@@ -77,24 +77,29 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def mypage(request):
-    current_user = request.user
-    messages.info(request, 'user: '+current_user.email)
+    # current_user = request.user
+    # messages.info(request, 'user: '+current_user.email)
     return redirect('device_management:mypage')
 
 @login_required(login_url='login')
+def viewProfile(request):
+    args = {'user': request.user}
+    return render(request, 'users/profile.html', args)
+
+@login_required(login_url='login')
 def editProfile(request):
-    #  if request.method == 'POST':
-    #      form = ChangeUserForm(request.POST, instance=request.user)
-    #      if form.is_valid():
-    #          form.save()
-    #          return redirect("users/edit_profile.html", request.user)
-    #  else:
- 	#     form = ChangeUserForm(instance = request.user)
- 	    # return render(request, "users/edit_profile.html", {'form':form})
-    return render(request, "users/edit_profile.html")
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('menu')   
+    else:
+        form = EditProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request, "users/edit_profile.html", args)
 
 def billingInfo(request):
-     return render(request, "users/billing_info.html")
+    return render(request, "users/billing_info.html")
 
 @api_view(['GET'])
 def userAPI(request):
@@ -164,10 +169,3 @@ class TwitterCallbackEndpoint(APIView):
                 "<html><body>Something went wrong.Try again. redirect problem</body></html>", status=403
             )
 
-# testcode
-def send_email(request):
-    subject = "message"
-    to = ["kimjisun2020@gmail.com"]
-    from_email = DEFAULT_FROM_EMAIL
-    message = "hi"
-    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
