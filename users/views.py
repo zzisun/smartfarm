@@ -100,15 +100,18 @@ def editProfile(request):
 
 @login_required(login_url='login')
 def billingInfo(request):
+    try:
+        profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        profile = UserProfile(user=request.user)
+
     if request.method == 'POST':
-        form = UserAddressForm(request.POST)
-        if form.is_valid():
-            address = form.save(commit=False)
-            address.user = request.user
-            address.save()
-            return redirect('billingInfo')   
+        form = UserProfileForm(request.POST, instance=profile)
+        if form.is_valid():    
+            form.save()
+            return redirect('menu')   
     else:
-        form = UserAddressForm(instance=request.user)
+        form = UserProfileForm(instance=profile)
         args = {'form': form}
         return render(request, "users/billing_info.html", args)
 
