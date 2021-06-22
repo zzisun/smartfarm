@@ -1,4 +1,4 @@
-{% extends 'base_back.html' %}
+{% extends 'base_back_noti.html' %}
 {% load static %}
 {% load humanize %}
 {% block content %}
@@ -6,14 +6,14 @@
     <div class="menu_wrap bp40 footer_on">
         <h2 class="menu_tit">My Account</h2>
         <ul class="account_tab clear">
-            <li>
-                <a href="javascript:;">Profile</a>
+            <li class=>
+                <a href="{% url 'editProfile' %}">Profile</a>
             </li>
             <li>
-                <a href="javascript:;">Billing info</a>
+                <a href="{% url 'billingInfo' %}">Billing info</a>
             </li>
             <li class="on">
-                <a href="javascript:;">Order history</a>
+                <a href="{% url 'order_list' pk=request.user.pk %}">Order history</a>
             </li>
         </ul>
         <div class="history_box">

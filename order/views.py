@@ -118,7 +118,7 @@ def order_list(request, pk):
             ongoing.append(i)
             fo = False
     context = {'history':history, 'fh':fh,'ongoing':ongoing, 'fo':fo}
-    return render(request, 'account3.html',context)
+    return render(request, 'order_list.html', context)
 
 def cart_list(request, pk):
     user = Users.objects.get(pk=pk)
@@ -136,9 +136,13 @@ def cart_list(request, pk):
 @csrf_exempt
 def modify_cart(request,pk):
     cart = Cart.objects.get(pk=pk)
-    cart.quantity = int(request.POST.get('quantity'))
-    cart.amount = cart.product.price * cart.quantity
-    cart.save()
+
+    if(int(request.POST.get('quantity')) > 0) :
+        cart.quantity = int(request.POST.get('quantity'))
+        cart.amount = cart.product.price * cart.quantity
+        cart.save()
+    else:
+        cart.delete()
     user = Users.objects.get(email=request.user.email)
 
     return redirect('cartlist',user.pk)

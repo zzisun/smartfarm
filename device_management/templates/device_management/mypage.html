@@ -92,8 +92,7 @@
                         <div class="graph_wrap">
                             <h4 class="txt_12 txt_black33 txt_medium bm7">Progress</h4>
                             <div class="bar_box">
-
-                                <div class="bar" id = "progress_bar" ></div>
+                                <div class="bar" style="width:{{ farm_param.progress_date }}%"></div>
                             </div>
                             <p class="tx_c txt_12 txt_gray88 tm8">{{ farm_param.progress_date }} days to harvest !</p>
 
@@ -117,8 +116,7 @@
                         <div class="graph_wrap">
                             <h4 class="txt_12 txt_black33 txt_medium bm7">LIGHT</h4>
                             <div class="bar_box">
-
-                                <div class="bar bg_yellow" ></div>
+                                <div class="bar bg_yellow" style="width:{{ farm_param.light_hr }}%"></div>
                             </div>
                             <p class="tx_c txt_12 txt_gray88 tm8">{{ farm_param.light_hr }} hr more</p>
 
@@ -128,30 +126,30 @@
                         <h4 class="txt_12 txt_black33 txt_medium bm10">Nutrient Level</h4>
                         <ul class="level_ul clear">
                             <li class="fl">
-                                <h5 class="bold txt_gray88 txt_12">95%</h5>
+                                <h5 class="bold txt_gray88 txt_12">{{ farm_param.nutrientA }}%</h5>
                                 <div class="bar_box">
-                                    <div class="bar" style="height: 95%"></div>
+                                    <div class="bar" style="height: {{ farm_param.nutrientA }}%"></div>
                                 </div>
                                 <p class="txt_gray88">A</p>
                             </li>
                             <li class="fl">
-                                <h5 class="bold txt_gray88 txt_12">85%</h5>
+                                <h5 class="bold txt_gray88 txt_12">{{ farm_param.nutrientB }}%</h5>
                                 <div class="bar_box">
-                                    <div class="bar" style="height: 85%"></div>
+                                    <div class="bar" style="height: {{ farm_param.nutrientB }}%"></div>
                                 </div>
                                 <p class="txt_gray88">B</p>
                             </li>
                             <li class="fl">
-                                <h5 class="bold txt_gray88 txt_12">35%</h5>
+                                <h5 class="bold txt_gray88 txt_12">{{ farm_param.nutrientC }}%</h5>
                                 <div class="bar_box">
-                                    <div class="bar" style="height: 35%;"></div>
+                                    <div class="bar" style="height: {{ farm_param.nutrientC }}%;"></div>
                                 </div>
                                 <p class="txt_gray88">C</p>
                             </li>
                             <li class="fl">
-                                <h5 class="bold txt_gray88 txt_12">35%</h5>
+                                <h5 class="bold txt_gray88 txt_12">{{ farm_param.nutrientD }}%</h5>
                                 <div class="bar_box">
-                                    <div class="bar" style="height: 35%;"></div>
+                                    <div class="bar" style="height: {{ farm_param.nutrientD }}%;"></div>
                                 </div>
                                 <p class="txt_gray88">D</p>
                             </li>
