@@ -19,3 +19,5 @@ sqlparse==0.4.1
 tweepy==3.10.0
 urllib3==1.26.5
 django-allauth==0.44.0
+xlrd == 2.0.1
+openpyxl == 3.0.7

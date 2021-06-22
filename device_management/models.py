@@ -49,29 +49,7 @@ def plant_info_pre_save(sender, instance, **kwargs):
         print("Farm_Info does not Exist error, when create Plant_Info")
 '''
 
-class Growth_Params(models.Model):
-    device_info = models.ForeignKey(Device_Info, on_delete=CASCADE, related_name='params')
-    germination_time = models.IntegerField()
-    seeding_ec = models.FloatField()
-    ec = models.FloatField()
-    progress_date = models.IntegerField() #it means duration, in html, show not only duration, but also d-day
-    temparature = models.IntegerField()
-    ph = models.FloatField()
-    humidity = models.FloatField()
-    date = models.DateField() #very important, to draw time-cordinate graph
-    plant_info = models.ForeignKey(Plant_Info, on_delete=CASCADE)
-    nutrientA = models.FloatField()
-    nutrientB = models.FloatField()
-    nutrientC = models.FloatField()
-    nutrientD = models.FloatField()
-    light_hr = models.IntegerField() # light hour
-    light_lux = models.IntegerField()
-    do = models.FloatField()
-    co2 = models.IntegerField()
 
-
-    def __str__(self):
-        return f"{self.ph} {self.humidity} {self.ec}"
 
 class mock_params(models.Model):
     serial = models.CharField(max_length = 15)
@@ -121,5 +99,49 @@ class mock_interface(models.Model):
     co2_gen = models.IntegerField()
     air_pump = models.IntegerField()
 
+class Growth_Params(models.Model):
+    device_info = models.ForeignKey(Device_Info, on_delete=CASCADE, related_name='params')
+    germination_time = models.IntegerField()
+    seeding_ec = models.FloatField()
+    ec = models.FloatField()
+    progress_date = models.IntegerField() #it means duration, in html, show not only duration, but also d-day
+    temparature = models.IntegerField()
+    ph = models.FloatField()
+    humidity = models.FloatField()
+    date = models.DateField() #very important, to draw time-cordinate graph
+    plant_info = models.ForeignKey(Plant_Info, on_delete=CASCADE)
+    nutrientA = models.FloatField()
+    nutrientB = models.FloatField()
+    nutrientC = models.FloatField()
+    nutrientD = models.FloatField()
+    light_hr = models.IntegerField() # light hour
+    light_lux = models.IntegerField()
+    do = models.FloatField()
+    co2 = models.IntegerField()
+
+
+    def __str__(self):
+        return f"{self.ph} {self.humidity} {self.ec}"
+
 
 ## add default status data for each crops later......
+class Default_Status(models.Model):
+    crop_name = models.CharField()
+    germination_time_max = models.IntegerField()
+    germination_time_min = models.IntegerField()
+    seeding_ec_default = models.FloatField()
+    temp_max = models.IntegerField()
+    temp_min = models.IntegerField()
+    ph_max = models.FloatField()
+    ph_min = models.FloatField()
+    humidity_max = models.FloatField()
+    humidity_min = models.FloatField
+    light_hr_max = models.IntegerField()
+    light_hr_min = models.IntegerField()
+    ec_max = models.FloatField()
+    ec_min = models.FloatField()
+    harvest_time = models.IntegerField() #means 'N days'
+    do_max = models.FloatField()
+    do_min = models.FloatField()
+    co2_max = models.IntegerField()
+    co2_min = models.IntegerField()
