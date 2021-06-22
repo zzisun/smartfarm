@@ -30,7 +30,7 @@ class UserManager(BaseUserManager):
 class Users(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    mobile_number = models.CharField(verbose_name='mobile number', max_length=12, blank=True)
+    mobile_number = models.CharField(verbose_name='mobile number', max_length=20, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -42,18 +42,17 @@ class Users(AbstractUser):
 
 from django.db.models.signals import post_save
 
-
 class UserProfile(models.Model):
     user = models.OneToOneField(Users, on_delete=models.CASCADE)
     billing_address = models.CharField(max_length=100, default='')
     shipping_address = models.CharField(max_length=100, default='')
-    image = models.ImageField(upload_to='profile_image', blank=True)
+    # image = models.ImageField(upload_to='profile_image', blank=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
-def create_profile(sender, **kwargs):
-    if kwargs['created']:
-        user_profile = UserProfile.objects.create(user=kwargs['instance'])
+# def create_profile(sender, **kwargs):
+#     if kwargs['created']:
+#         user_profile = UserProfile.objects.create(user=kwargs['instance'])
 
-post_save.connect(create_profile, sender=Users)
+# post_save.connect(create_profile, sender=Users)

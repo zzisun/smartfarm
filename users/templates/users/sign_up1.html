@@ -11,32 +11,24 @@
                 <li>
                     <p class="input_tit">First name</p>
                     <div class="input_box">
-                        <!-- <input type="text" placeholder="First name" class="form-control" name="first_name" id="first_name"
-                        value="{{ form.first_name.value|default_if_none:'' }}"> -->
                         {{form.first_name}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Last name</p>
                     <div class="input_box">
-                        <!-- <input type="text" placeholder="Last name" class="form-control" name="last_name" id="last_name"
-                        value="{{ form.last_name.value|default_if_none:'' }}"> -->
                         {{form.last_name}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Mobile number</p>
                     <div class="input_box">
-                        <!-- <input type="text" placeholder="Mobile number" class="form-control" name="mobile_number" id="mobile_number"
-                        value="{{ form.mobile_number.value|default_if_none:'' }}" > -->
                         {{form.mobile_number}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Email address</p>
                     <div class="input_box">
-                        <!-- <input type="text" placeholder="Email address" class="form-control" name="email" id="email"
-                        value="{{ form.email.value|default_if_none:'' }}"> -->
                         {{form.email}}
                     </div>
                 </li>
@@ -82,8 +74,8 @@
     </div>
     <script>
         var form_fields = document.getElementsByTagName('input')
-		form_fields[1].placeholder='First Name..';
-		form_fields[2].placeholder='Last Name..';
+		form_fields[1].placeholder='First Name...';
+		form_fields[2].placeholder='Last Name...';
 		form_fields[3].placeholder='Mobile Number...';
         form_fields[4].placeholder='Email...';  
 		form_fields[5].placeholder='Enter password...';

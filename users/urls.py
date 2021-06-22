@@ -15,7 +15,6 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('mypage/', views.mypage, name='mypage'),
 
-    # path('profile/', views.viewProfile, name='profile'),
     path('profile/', views.editProfile, name='profile'),
     path('billingInfo/', views.billingInfo, name='billingInfo'),
      

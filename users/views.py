@@ -92,14 +92,25 @@ def editProfile(request):
         form = EditProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('menu')   
+            return redirect('profile')   
     else:
         form = EditProfileForm(instance=request.user)
         args = {'form': form}
         return render(request, "users/edit_profile.html", args)
 
+@login_required(login_url='login')
 def billingInfo(request):
-    return render(request, "users/billing_info.html")
+    if request.method == 'POST':
+        form = UserAddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+            return redirect('billingInfo')   
+    else:
+        form = UserAddressForm(instance=request.user)
+        args = {'form': form}
+        return render(request, "users/billing_info.html", args)
 
 @api_view(['GET'])
 def userAPI(request):

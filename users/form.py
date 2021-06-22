@@ -1,5 +1,5 @@
-from users.models import Users
-from django.contrib.auth import authenticate, get_user_model
+from users.models import *
+from django.contrib.auth import authenticate
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.db import models
@@ -51,5 +51,14 @@ class EditProfileForm(UserChangeForm):
             'first_name', 
             'last_name',
             'email', 
-            'mobile_number'
-            ]
+            'mobile_number',
+            'password'
+        ]
+
+class UserProfileForm(forms.ModelForm):
+    class Meta: 
+        model = UserProfile
+        fields = [
+            'billing_address',
+            'shipping_address',
+        ]
