@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
-from users.views import send_email, userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEndpoint
+from users.views import userAPI, TwitterAuthRedirectEndpoint, TwitterCallbackEndpoint
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -15,10 +15,10 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('mypage/', views.mypage, name='mypage'),
 
-    path('editProfile/', views.editProfile, name='editProfile'),
-    path('billingInfo/', views.billingInfo, name='billingInfo'),
+    path('profile/', views.edit_profile, name='profile'),
+    path('billingInfo/', views.billing_info, name='billingInfo'),
+    path('change_password/',views.change_password, name='change_password'),
      
-
     path('reset_password/',
      auth_views.PasswordResetView.as_view(template_name="users/password_reset.html"),
      name="reset_password"),
@@ -35,7 +35,4 @@ urlpatterns = [
     path('userlist/',userAPI),
     path("auth/twitter/redirect/", TwitterAuthRedirectEndpoint.as_view(), name="twitter-login-redirect"),
     path("callback/twitter/", TwitterCallbackEndpoint.as_view(), name="twitter-login-callback"),
-
-    #testcode
-    path('send_email/', views.send_email, name='send_email')
 ]

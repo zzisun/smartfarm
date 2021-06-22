@@ -1,4 +1,4 @@
-{% extends 'base_back_noti.html' %}
+{% extends 'base_back.html' %}
 {% load static %}
 {% load humanize %}
 {% block content %}
@@ -9,51 +9,44 @@
         <h2 class="menu_tit">My Account</h2>
         <ul class="account_tab clear">
             <li>
-                <a href="{% url 'editProfile' %}">Profile</a>
+                <a href="{% url 'profile' %}">Profile</a>
             </li>
             <li class="on">
                 <a href="{% url 'billingInfo' %}">Billing info</a>
             </li>
-            <li>
-                <a href={% url 'order_list' pk=request.user.pk %}>Order history</a>
+            <li class>
+                <a href="{% url 'order_list' pk=request.user.pk %}">Order history</a>
             </li>
         </ul>
-        <form action="">
+        <form action="" method="POST">
+            {% csrf_token %}
             <ul class="form_ul">
                 <li>
-                    <p class="input_tit">First name</p>
-                    <div class="input_box">
-                        <input type="text" placeholder="">
-                    </div>
+                    <p class="input_tit">First name</p>               
+                    <p>{{ user.first_name }}</p>
                 </li>
                 <li>
                     <p class="input_tit">Last name</p>
-                    <div class="input_box">
-                        <input type="text" placeholder="">
-                    </div>
+                    <p>{{ user.last_name }}</p>
                 </li>
                 <li>
                     <p class="input_tit">Mobile number</p>
-                    <div class="input_box">
-                        <input type="text" placeholder="">
-                    </div>
+                    <p>{{ user.mobile_number }}</p>
                 </li>
                 <li>
                     <p class="input_tit">Email address</p>
-                    <div class="input_box">
-                        <input type="text" placeholder="">
-                    </div>
+                    <p>{{ user.email }}</p>
                 </li>
                 <li>
                     <p class="input_tit">Billing Address</p>
                     <div class="input_box">
-                        <input type="text" placeholder="">
+                        {{form.billing_address}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Shipping Address</p>
                     <div class="input_box">
-                        <input type="text" placeholder="">
+                        {{form.shipping_address}}
                     </div>
                 </li>
             </ul>
@@ -61,7 +54,7 @@
                 <img src="{% static 'images/ic_card.png' %}" alt="card icon" class="rm10">
                 <span>Add payment method</span>
             </a>
-            <a href="javascript:;" class="btn tm10">Save</a>
+            <button class="btn tm10">Save</button>
         </form>
     </div>
 </body>

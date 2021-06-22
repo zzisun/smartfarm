@@ -1,4 +1,4 @@
-{% extends 'base_back_noti.html' %}
+{% extends 'base_back.html' %}
 {% load static %}
 {% load humanize %}
 {% block content %}
@@ -7,16 +7,17 @@
         <h2 class="menu_tit">My Account</h2>
         <ul class="account_tab clear">
             <li class="on">
-                <a href="{% url 'editProfile' %}">Profile</a>
+                <a href="{% url 'profile' %}">Profile</a>
             </li>
             <li>
                 <a href="{% url 'billingInfo' %}">Billing info</a>
             </li>
-            <li>
-                <a href={% url 'order_list' pk=request.user.pk %}>Order history</a>
+            <li class>
+                <a href="{% url 'order_list' pk=request.user.pk %}">Order history</a>
             </li>
         </ul>
-        <form action="">
+        <form action="" method="POST">
+            {% csrf_token %}
             <div class="profile_box">
                 <button type="button" class="camera_btn"><img src="{% static 'images/ic_camera.png' %}" alt="camera icon"></button>
                 <input type="file" id="file_up" class="dn appearance" accept="">
@@ -31,35 +32,32 @@
                 <li>
                     <p class="input_tit">First name</p>
                     <div class="input_box">
-                        <input type="text" placeholder="">
+                        {{form.first_name}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Last name</p>
                     <div class="input_box">
-                        <input type="text" placeholder="">
+                        {{form.last_name}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Mobile number</p>
                     <div class="input_box">
-                        <input type="text" placeholder="">
+                        {{form.mobile_number}}
                     </div>
                 </li>
                 <li>
                     <p class="input_tit">Email address</p>
                     <div class="input_box">
-                        <input type="text" placeholder="">
-                    </div>
-                </li>
-                <li>
-                    <p class="input_tit">Password</p>
-                    <div class="input_box">
-                        <input type="password" placeholder="">
+                        {{form.email}}
                     </div>
                 </li>
             </ul>
-            <a href="javascript:;" class="btn tm30">Save</a>
+            <br>
+                <p class="Roboto txt_gray_aa txt_12">Do you want to change password?</p>
+                <a href="/change_password" class="Roboto txt_medium txt_black33 txt_14">Click here</a>
+            <button class="btn tm30">Save</button>
         </form>
     </div>
 </body>

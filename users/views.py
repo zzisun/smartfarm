@@ -12,11 +12,13 @@ from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes
 from .serializers import UserSerializer
-from django.contrib.auth.models import User
+
 from django.forms import inlineformset_factory
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail.message import EmailMessage
 
@@ -33,7 +35,6 @@ def home(request):
     return render(request, "users/sign_in1.html")
 def menu(request):
     return render(request, "users/menu.html")
-
 def verifyAccount(request):
     return render(request, "users/sign_up2.html")
 def success(request):
@@ -48,7 +49,6 @@ def registerPage(request):
 			form = CreateUserForm(request.POST)
 			if form.is_valid():
 				form.save()
-
 				return redirect('verify')
 		context = {'form':form}
 		return render(request, 'users/sign_up1.html', context)
@@ -77,24 +77,51 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def mypage(request):
-    current_user = request.user
-    messages.info(request, 'user: '+current_user.email)
     return redirect('device_management:mypage')
 
 @login_required(login_url='login')
-def editProfile(request):
-    #  if request.method == 'POST':
-    #      form = ChangeUserForm(request.POST, instance=request.user)
-    #      if form.is_valid():
-    #          form.save()
-    #          return redirect("users/edit_profile.html", request.user)
-    #  else:
- 	#     form = ChangeUserForm(instance = request.user)
- 	    # return render(request, "users/edit_profile.html", {'form':form})
-    return render(request, "users/edit_profile.html")
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')   
+    else:
+        form = EditProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request, "users/edit_profile.html", args)
 
-def billingInfo(request):
-     return render(request, "users/billing_info.html")
+@login_required(login_url='login')
+def billing_info(request):
+    try:
+        profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        profile = UserProfile(user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=profile)
+        if form.is_valid():    
+            form.save()
+            return redirect('billingInfo')   
+    else:
+        form = UserProfileForm(instance=profile)
+        args = {'form': form}
+        return render(request, "users/billing_info.html", args)
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('profile')
+        else:
+            return redirect('change_password')
+    else:
+        form = PasswordChangeForm(user=request.user)
+        args = {'form': form}
+        return render(request, 'users/change_password.html', args)
 
 @api_view(['GET'])
 def userAPI(request):
@@ -164,10 +191,3 @@ class TwitterCallbackEndpoint(APIView):
                 "<html><body>Something went wrong.Try again. redirect problem</body></html>", status=403
             )
 
-# testcode
-def send_email(request):
-    subject = "message"
-    to = ["kimjisun2020@gmail.com"]
-    from_email = DEFAULT_FROM_EMAIL
-    message = "hi"
-    EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
