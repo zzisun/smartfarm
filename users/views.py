@@ -109,7 +109,7 @@ def billingInfo(request):
         form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():    
             form.save()
-            return redirect('menu')   
+            return redirect('billingInfo')   
     else:
         form = UserProfileForm(instance=profile)
         args = {'form': form}
