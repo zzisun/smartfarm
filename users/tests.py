@@ -12,10 +12,10 @@ class AuthTestCase(TestCase):
     def testLogin(self):
         self.client.login(username='test@dom.com', password='pass')
 
-# class emailTestCase(TestCase):
-#     def setUp(self) -> None:
-#         self.user = Users.objects.create_user('test@dom.com')
-#         self.user.save()
+class emailTestCase(TestCase):
+    def setUp(self) -> None:
+        self.user = Users.objects.create_user('test@dom.com')
+        self.user.save()
     
-#     def testLogin(self):
-#         self.client.login(username='test@dom.com', password='pass')
+    def testLogin(self):
+        self.client.login(username='test@dom.com', password='pass')

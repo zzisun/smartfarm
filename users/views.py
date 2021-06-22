@@ -12,11 +12,13 @@ from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes
 from .serializers import UserSerializer
-from django.contrib.auth.models import User
+
 from django.forms import inlineformset_factory
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail.message import EmailMessage
 
@@ -33,7 +35,6 @@ def home(request):
     return render(request, "users/sign_in1.html")
 def menu(request):
     return render(request, "users/menu.html")
-
 def verifyAccount(request):
     return render(request, "users/sign_up2.html")
 def success(request):
@@ -77,17 +78,10 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def mypage(request):
-    # current_user = request.user
-    # messages.info(request, 'user: '+current_user.email)
     return redirect('device_management:mypage')
 
 @login_required(login_url='login')
-def viewProfile(request):
-    args = {'user': request.user}
-    return render(request, 'users/profile.html', args)
-
-@login_required(login_url='login')
-def editProfile(request):
+def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -99,7 +93,7 @@ def editProfile(request):
         return render(request, "users/edit_profile.html", args)
 
 @login_required(login_url='login')
-def billingInfo(request):
+def billing_info(request):
     try:
         profile = request.user.userprofile
     except UserProfile.DoesNotExist:
@@ -114,6 +108,22 @@ def billingInfo(request):
         form = UserProfileForm(instance=profile)
         args = {'form': form}
         return render(request, "users/billing_info.html", args)
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('profile')
+        else:
+            return redirect('change_password')
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+        args = {'form': form}
+        return render(request, 'users/change_password.html', args)
 
 @api_view(['GET'])
 def userAPI(request):

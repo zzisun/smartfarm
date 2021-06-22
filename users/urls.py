@@ -15,8 +15,9 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('mypage/', views.mypage, name='mypage'),
 
-    path('profile/', views.editProfile, name='profile'),
-    path('billingInfo/', views.billingInfo, name='billingInfo'),
+    path('profile/', views.edit_profile, name='profile'),
+    path('billingInfo/', views.billing_info, name='billingInfo'),
+    path('change_password/',views.change_password, name='change_password'),
      
     path('reset_password/',
      auth_views.PasswordResetView.as_view(template_name="users/password_reset.html"),
