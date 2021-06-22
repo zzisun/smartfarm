@@ -140,7 +140,7 @@ class Default_Status(models.Model):
     light_hr_min = models.IntegerField()
     ec_max = models.FloatField()
     ec_min = models.FloatField()
-    harvest_time = models.IntegerField() #means 'N days'
+    harvesting_time = models.IntegerField() #means 'N days'
     do_max = models.FloatField()
     do_min = models.FloatField()
     co2_max = models.IntegerField()
