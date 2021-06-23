@@ -116,7 +116,8 @@ class Growth_Params(models.Model):
     nutrientD = models.FloatField()
     light_hr = models.IntegerField() # light hour
     light_lux = models.IntegerField()
-    do = models.FloatField()
+    #do = models.FloatField()
+    do = models.IntegerField()
     co2 = models.IntegerField()
 
 
@@ -129,7 +130,7 @@ class Default_Status(models.Model):
     crop_name = models.CharField()
     germination_time_max = models.IntegerField()
     germination_time_min = models.IntegerField()
-    seeding_ec_default = models.FloatField()
+    seeding_ec = models.FloatField()
     temp_max = models.IntegerField()
     temp_min = models.IntegerField()
     ph_max = models.FloatField()
@@ -141,7 +142,7 @@ class Default_Status(models.Model):
     ec_max = models.FloatField()
     ec_min = models.FloatField()
     harvesting_time = models.IntegerField() #means 'N days'
-    do_max = models.FloatField()
-    do_min = models.FloatField()
+    do_max = models.IntegerField()
+    do_min = models.IntegerField()
     co2_max = models.IntegerField()
     co2_min = models.IntegerField()
