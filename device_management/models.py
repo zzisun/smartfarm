@@ -117,7 +117,7 @@ class Growth_Params(models.Model):
     light_hr = models.IntegerField() # light hour
     light_lux = models.IntegerField()
     #do = models.FloatField()
-    do = models.IntegerField()
+    do = models.IntegerField() #D.O. type changed to integer!!
     co2 = models.IntegerField()
 
 
@@ -136,7 +136,7 @@ class Default_Status(models.Model):
     ph_max = models.FloatField()
     ph_min = models.FloatField()
     humidity_max = models.FloatField()
-    humidity_min = models.FloatField
+    humidity_min = models.FloatField()
     light_hr_max = models.IntegerField()
     light_hr_min = models.IntegerField()
     ec_max = models.FloatField()

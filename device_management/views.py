@@ -423,6 +423,11 @@ class compare_currentState_with_default(APIView):
         latest_status = Growth_Params.objects.filter(device_info = device_info).filter(plant_info = plant_info).order_by('-date')[0]
         print(latest_status.date)
 
+        this_crop_name = Plant_Info.objects.get(id = plant_info).crop_name
+        print("crop name is : "+ this_crop_name)
+        default_status = Default_Status.objects.get(crop_name = this_crop_name)
+        
+        '''
         if latest_status.temparature < default_temp["min"]:
             diff_temp = latest_status.temparature - default_temp["min"]
         elif latest_status.temparature > default_temp["max"]:
@@ -457,6 +462,42 @@ class compare_currentState_with_default(APIView):
             diff_light_hr = latest_status.light_hr - default_light_hr["min"]
         elif latest_status.light_hr > default_light_hr["max"]:
             diff_light_hr = latest_status.light_hr - default_light_hr['max']
+        '''
+
+        if latest_status.temparature < default_status.temp_min:
+            diff_temp = latest_status.temparature - default_status.temp_min
+        elif latest_status.temparature > default_status.temp_max:
+            diff_temp = latest_status.temparature - default_status.temp_max
+        
+        if latest_status.ph < default_status.ph_min:
+            diff_ph = latest_status.ph - default_status.ph_min
+        elif latest_status.ph > default_status.ph_max:
+            diff_ph = latest_status.ph - default_status.ph_max
+
+        if latest_status.ec < default_status.ec_min:
+            diff_ec = latest_status.ec - default_status.ec_min
+        elif latest_status.ec > default_status.ec_max:
+            diff_ec = latest_status.ec - default_status.ec_max
+
+        if latest_status.humidity < default_status.humidity_min:
+            diff_humidity = latest_status.humidity - default_status.humidity_min
+        elif latest_status.humidity > default_status.humidity_max:
+            diff_humidity = latest_status.humidity - default_status.humidity_max
+
+        if latest_status.do < default_status.do_min:
+            diff_do = latest_status.do - default_status.do_min
+        elif latest_status.do > default_status.do_max:
+            diff_do = latest_status.do - default_status.do_max
+
+        if latest_status.co2 < default_status.co2_min:
+            diff_co2 = latest_status.co2 - default_status.co2_min
+        elif latest_status.co2 > default_status.co2_max:
+            diff_co2 = latest_status.co2 - default_status.co2_max
+
+        if latest_status.light_hr < default_status.light_hr_min:
+            diff_light_hr = latest_status.light_hr - default_status.light_hr_min
+        elif latest_status.light_hr > default_status.light_hr_max:
+            diff_light_hr = latest_status.light_hr - default_status.light_hr_max
 
         context = {
             'diff_light_hr' : diff_light_hr,
