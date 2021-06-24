@@ -247,7 +247,7 @@ class create_farm_info(APIView):
             serializer.save()
 
             farm_info = serializer.data["id"]
-            #farm_info_name = Farm_Info.objects.get(farm_name = farm_info).farm_name
+            
             context = {'farm_info':farm_info}
             return render(request, 'device_management/device6.html',context = context)
 
