@@ -102,10 +102,12 @@
                     </ul>
                 </div>
                 <div class="tm47">
-                    <h2 class="title  bold">Light<img src={% static "images/img_sun.png" %} alt="sun image" class="lm3"></h2>
+                    <h2 class="title  bold">Light Hour<img src={% static "images/img_sun.png" %} alt="sun image" class="lm3"></h2>
                     <div class="graph_box tm17">
-                        <div class="graph"></div>
-                        <p class="tx_r  tm9 txt_black33">Total = 300 hr</p>
+                        <div class="graph" style="height: 250px;">
+                            <canvas id="chart_LIGHT_HR" class="graph" width="100%" height="100%"></canvas>
+                        </div>
+                        <!--<p class="tx_r  tm9 txt_black33">Total = 300 hr</p> -->
                     </div>
                 </div>
             </div>
@@ -116,9 +118,13 @@
                 let ctx_ec = document.getElementById('chart_EC').getContext('2d');
                 let ctx_temp = document.getElementById('chart_TEMP').getContext('2d');
                 let ctx_nut = document.getElementById('chart_NUT').getContext('2d');
+                let ctx_light_hr = document.getElementById('chart_LIGHT_HR').getContext('2d');
 
                 let status_json_list = JSON.parse("{{status|escapejs}}");
+                let default_status_json = JSON.parse("{{default_status|escapejs}}")
+
                 console.log(status_json_list[0]["model"]);
+                console.log(default_status_json[0]);
                 let status_list = [];
                 
                 
@@ -130,12 +136,24 @@
                 let data_nutB = [];
                 let data_nutC = [];
                 let data_nutD = [];
+                let data_light_hr = [];
+
+                let default_data_ph_max = [];
+                let default_data_ph_min = [];
+                let default_data_ec_max = [];
+                let default_data_ec_min = [];
+                let default_data_temp_max = [];
+                let default_data_temp_min = [];
+                //no default nutrient data..
+                let default_data_light_hr_max = [];
+                let default_data_light_hr_min = [];
 
                 for (let i=0; i<status_json_list.length; i++){
                     
                     console.log(status_json_list[i]);
                     status_list.push(status_json_list[i]['fields']);
                     chart_coord_x.push(status_json_list[i]['fields']['date']);
+
                     data_ph.push(status_json_list[i]['fields']['ph']);
                     data_ec.push(status_json_list[i]['fields']['ec']);
                     data_temp.push(status_json_list[i]['fields']['temparature']);
@@ -143,11 +161,48 @@
                     data_nutB.push(status_json_list[i]['fields']['nutrientB']);
                     data_nutC.push(status_json_list[i]['fields']['nutrientC']);
                     data_nutD.push(status_json_list[i]['fields']['nutrientD']);
+                    data_light_hr.push(status_json_list[i]['fields']['light_hr']);
+
+
+                    //because serialize QuerySet object, it returns JSON Iterable (list-like) instance
+                    default_data_ph_max.push(default_status_json[0]['fields']['ph_max']);
+                    default_data_ph_min.push(default_status_json[0]['fields']['ph_min']);
+                    default_data_ec_max.push(default_status_json[0]['fields']['ec_max']);
+                    default_data_ec_min.push(default_status_json[0]['fields']['ec_min']);
+                    default_data_temp_max.push(default_status_json[0]['fields']['temp_max']);
+                    default_data_temp_min.push(default_status_json[0]['fields']['temp_min']);
+                    default_data_light_hr_max.push(default_status_json[0]['fields']['light_hr_max']);
+                    default_data_light_hr_min.push(default_status_json[0]['fields']['light_hr_min']);
+
+
+/**
+                    default_data_ph_max.push(default_status_json['ph_max']);
+                    default_data_ph_min.push(default_status_json['ph_min']);
+                    default_data_ec_max.push(default_status_json['ec_max']);
+                    default_data_ec_min.push(default_status_json['ec_min']);
+                    default_data_temp_max.push(default_status_json['temp_max']);
+                    default_data_temp_min.push(default_status_json['temp_min']);
+                    default_data_light_hr_max.push(default_status_json['light_hr_max']);
+                    default_data_light_hr_min.push(default_status_json['light_hr_min']);  
+*/
+
                 }
 
+
+
                 let ph_color = 'rgb(255,0,51)'
+                let ph_max_color = 'rgb(255,0,11, 0.4)'
+                let ph_min_color = 'rgb(255,0,101, 0.4)'
                 let ec_color = 'rgb(102, 52, 255)';
-                let temp_color = 'rgb(255,255,0)';
+                let ec_max_color = 'rgb(72, 52, 255, 0.4)';
+                let ec_min_color = 'rgb(152, 52, 255, 0.4)';
+                let temp_color = 'rgb(255,255,0.1, 0.9)';
+                let temp_max_color = 'rgb(235,205,0, 0.7)';
+                let temp_min_color = 'rgb(235,255,102, 0.7)';
+                let light_color = 'rgba(255, 235, 126, 0.6)';
+                let light_max_color = 'rgba(255, 205, 86, 0.2)';
+                let light_min_color = 'rgba(255, 155, 36, 0.2)';
+
 
                 var chart_ph = new Chart(ctx_ph,{
                     type : 'line',
@@ -160,6 +215,22 @@
                             borderColor : ph_color,
                             lineTension : 0.1, 
                             data : data_ph,
+                        },
+                        {
+                            label : "PH_MAX",
+                            backgroundColor:ph_max_color,
+                            fill : false, 
+                            borderColor : ph_max_color,
+                            lineTension : 0.1, 
+                            data : default_data_ph_max,
+                        },
+                        {
+                            label : "PH_MIN",
+                            backgroundColor:ph_min_color,
+                            fill : false, 
+                            borderColor : ph_min_color,
+                            lineTension : 0.1, 
+                            data : default_data_ph_min,
                         }]
                     },
                     options : {
@@ -179,6 +250,22 @@
                             borderColor : ec_color,
                             lineTension : 0.1, 
                             data : data_ec,
+                        },
+                        {
+                            label : "EC_MAX",
+                            backgroundColor:ec_max_color,
+                            fill : false, 
+                            borderColor : ec_max_color,
+                            lineTension : 0.1, 
+                            data : default_data_ec_max,
+                        },
+                        {
+                            label : "EC_MIN",
+                            backgroundColor:ec_min_color,
+                            fill : false, 
+                            borderColor : ec_min_color,
+                            lineTension : 0.1, 
+                            data : default_data_ec_min,
                         }]
                     },
                     options : {
@@ -196,6 +283,22 @@
                             borderColor : temp_color,
                             lineTension : 0.1, 
                             data : data_temp,
+                        },
+                        {
+                            label : "TEMP_MAX",
+                            backgroundColor:temp_max_color,
+                            fill : false, 
+                            borderColor : temp_max_color,
+                            lineTension : 0.1, 
+                            data : default_data_temp_max,
+                        },
+                        {
+                            label : "TEMP_MIN",
+                            backgroundColor:temp_min_color,
+                            fill : false, 
+                            borderColor : temp_min_color,
+                            lineTension : 0.1, 
+                            data : default_data_temp_min,
                         }]
                     },
                     options : {
@@ -245,7 +348,37 @@
                     },
                     
                 });
-
+                var chart_light_hr = new Chart(ctx_light_hr,{
+                    type : 'bar',
+                    data : {
+                        labels : chart_coord_x,
+                        datasets:[ 
+                        {
+                            label : "LIGHT_HR_MAX",
+                            backgroundColor:light_max_color,
+                            borderColor :'rgb(255, 205, 86)',
+                            data : default_data_light_hr_max,
+                            borderWidth: 1
+                        }, 
+                        {
+                            label : "LIGHT_HR",
+                            backgroundColor:light_color,
+                            borderColor :'rgba(255, 235, 126, 0.9)',
+                            data : data_light_hr,
+                            borderWidth: 1
+                        },
+                        {
+                            label : "LIGHT_HR_MIN",
+                            backgroundColor:light_min_color,
+                            borderColor :'rgb(255, 205, 86)',
+                            data : default_data_light_hr_min,
+                            borderWidth: 1
+                        }]
+                    },
+                    options : {
+                        maintainAspectRatio : false
+                    }
+                });
             </script>
             <button type="button" onclick="location.href='/twitter/post?farmid={{ farm_info.id }}'" class="share_btn">
                 <img src={% static "images/ic_sharing.png" %} alt="sharing icon" class="fl">

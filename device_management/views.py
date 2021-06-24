@@ -156,16 +156,21 @@ def history_detail(request, device_serial, farm_id, plant_id):
         device_serial = request.GET['device_info']
     ''' 
     
+    # Not Model object, Response(recent 10 status values) from ClassView
     status = get_mock_plant_status.get(get_mock_plant_status, request, device_serial, plant_id)
-    #print(status.data)
+
     farm_info = Farm_Info.objects.get(pk=farm_id)
     plant_info = Plant_Info.objects.get(pk = plant_id)
     device_info = Device_Info.objects.get(pk = device_serial)
 
+    #Add Default Status data, for serialize function it should use QuerySet Object, Not Model Class object...
+    default_status = Default_Status.objects.filter(crop_name = plant_info.crop_name)
+    print(type(default_status))
+    #for serialize function it should use QuerySet Object, Not Model Class object...
+    default_status_serialized = serializers.serialize('json', default_status)
+
     return render(request, 'device_management/history_detail.html', {"status":status.data, "device_info":device_info,\
-        "farm_info":farm_info, "plant_info":plant_info })
-
-
+        "farm_info":farm_info, "plant_info":plant_info, "default_status":default_status_serialized })
 
 class crop_info_registeration(APIView):
     def post(self, request):
@@ -511,8 +516,16 @@ class compare_currentState_with_default(APIView):
         return Response(context, status=200)
 
     
-
+# should change name....
 class Store_Default_Status(APIView):
+    def get(self, request, crop_name):
+        default_status = Default_Status.objects.get(crop_name = crop_name)
+        default_status_serialized = serializers.serialize('json', default_status)
+        if default_status_serialized:
+            return Response(default_status_serialized, status=200)
+        else:
+            return Response(default_status_serialized, status=400)
+
     def put(self, request):
         print(request.data)
         serializer = Default_Status_Serializer(data = request.data)
