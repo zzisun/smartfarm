@@ -7,17 +7,17 @@ from django.core import serializers
 from rest_framework.serializers import Serializer
 # Create your views here.
 
-from .models import Device_Info, Farm_Info, Growth_Params, Plant_Info, mock_params, Device_Interface 
+from .models import Default_Status, Device_Info, Farm_Info, Growth_Params, Plant_Info, mock_params, Device_Interface 
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import GET_MOCK_Interface, POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info, Serial_Interface
+from .serializers import Default_Status_Serializer, GET_MOCK_Interface, POST_Growth_Param_Serializer, POST_Mock, POST_Farm_Info, POST_Plant_Info, Serial_Interface
 from .forms import Farm_Info_Form,Growth_Params_Form
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .status_default import Status_Default
-
+#from .handling_excel import Default_Status_Handler
 
 
 def index(request):
@@ -468,3 +468,15 @@ class compare_currentState_with_default(APIView):
             'diff_ph' : round(diff_ph,1)
         }
         return Response(context, status=200)
+
+    
+
+class Store_Default_Status(APIView):
+    def put(self, request):
+        print(request.data)
+        serializer = Default_Status_Serializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
+        

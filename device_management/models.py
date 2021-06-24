@@ -127,10 +127,10 @@ class Growth_Params(models.Model):
 
 ## add default status data for each crops later......
 class Default_Status(models.Model):
-    crop_name = models.CharField()
+    crop_name = models.CharField(max_length=20)
     germination_time_max = models.IntegerField()
     germination_time_min = models.IntegerField()
-    seeding_ec = models.FloatField()
+    seedling_ec = models.FloatField()
     temp_max = models.IntegerField()
     temp_min = models.IntegerField()
     ph_max = models.FloatField()

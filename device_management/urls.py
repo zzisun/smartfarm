@@ -47,4 +47,5 @@ urlpatterns = [
     path('send_action', views.GET_Interface_To_Device_Manual.as_view(), name="send_action"),
     path('catch_flying_status', views.get_mock_plant_status.as_view(), name="catch_flying_status"),
     path('compare', views.compare_currentState_with_default.as_view(), name="compare"),
+    path('store_default_status',views.Store_Default_Status.as_view(), name="store_default_status"),
 ]

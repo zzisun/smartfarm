@@ -2,8 +2,12 @@ from typing import OrderedDict
 import pandas as pd
 import re
 from collections import defaultdict
+import json
+import requests
 
 default_status_excel = "../Plant_Status_fixed.xlsx"
+url = "http://127.0.0.1:8000/device_management/store_default_status"
+
 '''
 df = pd.DataFrame({'c0':[0,1,2],'c1':[1,2,3],'c2':[4,5,6],'c3':[7,8,9]})
 df.to_csv("test.csv", index=False)
@@ -18,7 +22,7 @@ class Default_Status_Handler():
     
     default_status = default_status.fillna(0)
     status_columns = default_status.columns
-    print(status_columns)
+    #print(status_columns)
 
     
     def parse_Status(self):
@@ -62,8 +66,8 @@ class Default_Status_Handler():
                 else:
                     arr_max.append(minmaxvalue[0])
                 
-                print(column_name)
-                print(minmaxvalue)
+                #print(column_name)
+                #print(minmaxvalue)
             
             if (column_name == "Harvesting_time" or column_name == "Seedling_EC"):
                 self.default_status.insert(loc=0, column = column_name.lower(), value=arr_min)
@@ -77,19 +81,46 @@ class Default_Status_Handler():
         self.default_status.insert(loc = 0, column = "crop_name", value=self.default_status["Plant_name"])
         self.default_status = self.default_status.drop(columns = "Plant_name")
 
-        print("Parsed default_status values")
-        print(self.default_status)
+        #print("Parsed default_status values")
+        #print(self.default_status)
         return self.default_status
 
     def make_model_similar_dicts(self, default_status):
-        default_status_dict_list = [](defaultdict(list))
-        #for idx, row in default_status.iterrows():
-        #    for column_name in 
-
-
-
+        default_status_dict_list = []
+        for idx,row in default_status.iterrows():
+            status_dict = defaultdict()
+            status_dict["crop_name"] = row["crop_name"]
+            status_dict["co2_min"] = row["co2_min"]
+            status_dict["co2_max"] = row["co2_max"]
+            status_dict["do_min"] = row["do_min"]
+            status_dict["do_max"] = row["do_max"]
+            status_dict["humidity_min"] = row["humidity_min"]
+            status_dict["humidity_max"] = row["humidity_max"]
+            status_dict["harvesting_time"] = row["harvesting_time"]
+            status_dict["ec_min"] = row["ec_min"]
+            status_dict["ec_max"] = row["ec_max"]
+            status_dict["ph_min"] = row["ph_min"]
+            status_dict["ph_max"] = row["ph_max"]
+            status_dict["temp_min"] = row["temp_min"]
+            status_dict["temp_max"] = row["temp_max"]
+            status_dict["light_hr_min"] = row["light_hr_min"]
+            status_dict["light_hr_max"] = row["light_hr_max"]
+            status_dict["seedling_ec"] = row["seedling_ec"]
+            status_dict["germination_time_min"] = row["germination_time_min"]
+            status_dict["germination_time_max"] = row["germination_time_max"]
+            
+            #print("Dict -------------------------------------------------------------------")
+            #print((status_dict))
+            default_status_dict_list.append(status_dict)   
+        #print("Result Dict List-------------------------------------------------------------------")     
+        #print(default_status_dict_list)
+        return default_status_dict_list
 
 
 # text1 = re.split('-|,|to| to | - ', "5 to 10")
 handler = Default_Status_Handler()
-handler.make_model_similar_dicts(handler.parse_Status())
+send_default_stat = handler.make_model_similar_dicts(handler.parse_Status())
+
+for default_stat in send_default_stat:
+    res = requests.put(url, headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'}, data=json.dumps(default_stat))
+    print(res.json())
