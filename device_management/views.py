@@ -29,10 +29,11 @@ def control(request):
 def mypage(request):
     user = request.user
     try:
+        #Bug occurred : When use Device more than 2 devices...
         device_info = Device_Info.objects.filter(device_user=user)[0]
     except:
         return redirect('device_management:device1')
-    print(device_info)
+    print(device_info.device_serial)
     farm_list = Farm_Info.objects.filter(device_info=device_info)
     print(farm_list)
     farm_dict = {}
@@ -50,7 +51,7 @@ def mypage(request):
     2.자바스크립트로 따로 데이터를 빼서 계산한 뒤 동적으로 DOM에 할당한다.
     1.의 경우 이미 farm_dict[farm] = grow_param()으로 엮여있고 여기에 grow_param + left time 형태로 정보를 넘겨주어야 함
     2.의 경우, {{for}}를 이용해 DOM을 django template에서 자동생성하므로 모든 DOM을 JS로 동적생성시키는 방식으로 바꿔야 함.
-    
+
     '''
 
     for farm in farm_list:
