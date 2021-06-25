@@ -50,9 +50,9 @@ class Default_Status_Handler():
                             minmaxvalue[1] = float(minmaxvalue[1])
                 
                 elif (column_name == "Harvesting_time"):
-                    minmaxvalue[0] == int(minmaxvalue[0])
+                    minmaxvalue[0] = int(minmaxvalue[0]) * 7
                     if len(minmaxvalue) > 1:
-                        minmaxvalue[1] == int(minmaxvalue[0])
+                        minmaxvalue[1] = int(minmaxvalue[0]) * 7
                 
                 else:
                     minmaxvalue[0] = int(minmaxvalue[0])
@@ -122,5 +122,5 @@ handler = Default_Status_Handler()
 send_default_stat = handler.make_model_similar_dicts(handler.parse_Status())
 
 for default_stat in send_default_stat:
-    res = requests.put(url, headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'}, data=json.dumps(default_stat))
+    res = requests.patch(url, headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'}, data=json.dumps(default_stat))
     print(res.json())

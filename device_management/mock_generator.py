@@ -15,17 +15,17 @@ url = "http://127.0.0.1:8000/device_management/create_plant_params"
 
 
 for i in range(num):
-    stand_date = datetime(2021,2,1)
+    stand_date = datetime(2021,3,11)
     dates.append(((stand_date + timedelta(i)).strftime("%Y-%m-%d")))
 
 for i in range(num):
     file_data = OrderedDict()
     file_data['device_info'] = device_serial
     file_data['germination_time'] = 10 + randint(-10, 10)
-    file_data['seeding_ec'] = round(uniform(0.1, 2.0), 1)
-    file_data['ec'] = round(uniform(0.1, 2.0), 1)
-    file_data['ph'] = round(5 + uniform(-3.9, 3.9), 1)
-    file_data['temparature'] = 50 + randint(-30, 30)
+    file_data['seeding_ec'] = round(uniform(0.1, 1.5), 1)
+    file_data['ec'] = round(uniform(0.1, 1.5), 1)
+    file_data['ph'] = round(6.5 + uniform(-1.9, 1.9), 1)
+    file_data['temparature'] = 60 + randint(-15, 15)
     file_data['humidity'] = 70 + round(uniform(-10, 10), 1)
     file_data['date'] = dates[i]
     file_data['plant_info'] = plant_info_id
@@ -45,5 +45,8 @@ for i in range(num):
 print(json.dumps(datas, ensure_ascii=False, indent="\t"))
 
 for i in range(num):
-    res = requests.post(url, headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'}, data=json.dumps(datas[i]))
+    res = requests.post(\
+        url,\
+        headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'}, \
+        data=json.dumps(datas[i]))
     print(res.json())

@@ -36,9 +36,27 @@ def mypage(request):
     farm_list = Farm_Info.objects.filter(device_info=device_info)
     print(farm_list)
     farm_dict = {}
+
+    '''to handle Left date and Left light_hr for each plant, send default status data to mypage.html -> later... 
+    default_status_dict = {}
+    default_status_querySet = Default_Status.objects.all()
+    for df_stat in default_status_querySet:
+    
+    현재,  mypage.html에서 form을 iterate하면서 ui를 만드는데, 이게 farm, growth param을 여러 개 던져서 굴리면서 만들어짐.
+    각각의 growth param에서의 left time값과 default로 정해진 harvesttime, light_hr과 각각 차이를 구해서 각각의 farm마다 전해주어야 하는데
+    문제는, 이미 각 farm마다 grow_param을 종속 시켜서 던져주고 있는 상황, 클래스를 새로 생성해서 던져주는 것이 아니라면..
+    html의 {{}}내에선 []를 통한 인덱싱도 안되고 내부에서 사칙연산도 불가능. 오직 .를 이용하여 클래스 멤버만 접근이 가능하므로 
+    1.이미 계산된 값을 같이 엮어서 던져주거나
+    2.자바스크립트로 따로 데이터를 빼서 계산한 뒤 동적으로 DOM에 할당한다.
+    1.의 경우 이미 farm_dict[farm] = grow_param()으로 엮여있고 여기에 grow_param + left time 형태로 정보를 넘겨주어야 함
+    2.의 경우, {{for}}를 이용해 DOM을 django template에서 자동생성하므로 모든 DOM을 JS로 동적생성시키는 방식으로 바꿔야 함.
+    
+    '''
+
     for farm in farm_list:
         plant = Plant_Info.objects.get(farm_info=farm)
         grow_param = Growth_Params.objects.filter(plant_info=plant)
+
         if grow_param:
             farm_dict[farm] = grow_param[len(grow_param)-1]#not allow negative indexing
         else:
@@ -113,6 +131,9 @@ def status(request, pk):
     farm = Farm_Info.objects.get(id=pk)
     plant = Plant_Info.objects.get(farm_info=farm)
     grow_param = Growth_Params.objects.filter(plant_info=plant)
+    default_status = Default_Status.objects.get(crop_name = plant.crop_name)
+    harvest_time = default_status.harvesting_time
+    
 
     if request.method == 'POST':
         form = Growth_Params_Form(request.POST)
@@ -138,13 +159,15 @@ def status(request, pk):
         #)
     if grow_param:
         grow_param = grow_param[len(grow_param) - 1]
+        rest_days = harvest_time - grow_param.progress_date
     else:
         grow_param = None
-
+        rest_days = -1
     return render(request, 'device_management/status.html', {'farm':farm,
                                                              'plant':plant,
                                                              'grow_param': grow_param,
-                                                             'device_info': device_info})
+                                                             'device_info': device_info, 
+                                                             'rest_days':rest_days})
 
 def mypage_status(request):
     return render(request, 'device_management/mypage.html')
@@ -433,42 +456,11 @@ class compare_currentState_with_default(APIView):
         default_status = Default_Status.objects.get(crop_name = this_crop_name)
         
         '''
-        if latest_status.temparature < default_temp["min"]:
-            diff_temp = latest_status.temparature - default_temp["min"]
-        elif latest_status.temparature > default_temp["max"]:
-            diff_temp = latest_status.temparature - default_temp['max']
-        
-        if latest_status.ph < default_ph["min"]:
-            diff_ph = latest_status.ph - default_ph["min"]
-        elif latest_status.ph > default_ph["max"]:
-            diff_ph = latest_status.ph - default_ph['max']
+        Becareful when you compare seedling_ec,  
+        in growth_param column name is "seeding_ec",
+        in default_Status name is different, "seedling_ec"
 
-        if latest_status.ec < default_ec["min"]:
-            diff_ec = latest_status.ec - default_ec["min"]
-        elif latest_status.ec > default_ec["max"]:
-            diff_ec = latest_status.ec - default_ec['max']
-
-        if latest_status.humidity < default_humidity["min"]:
-            diff_humidity = latest_status.humidity - default_humidity["min"]
-        elif latest_status.humidity > default_humidity["max"]:
-            diff_humidity = latest_status.humidity - default_humidity['max']
-
-        if latest_status.do < default_do["min"]:
-            diff_do = latest_status.do - default_do["min"]
-        elif latest_status.do > default_do["max"]:
-            diff_do = latest_status.do - default_do['max']
-
-        if latest_status.co2 < default_co2["min"]:
-            diff_co2 = latest_status.co2 - default_co2["min"]
-        elif latest_status.co2 > default_co2["max"]:
-            diff_co2 = latest_status.co2 - default_co2['max']
-
-        if latest_status.light_hr < default_light_hr["min"]:
-            diff_light_hr = latest_status.light_hr - default_light_hr["min"]
-        elif latest_status.light_hr > default_light_hr["max"]:
-            diff_light_hr = latest_status.light_hr - default_light_hr['max']
         '''
-
         if latest_status.temparature < default_status.temp_min:
             diff_temp = latest_status.temparature - default_status.temp_min
         elif latest_status.temparature > default_status.temp_max:
@@ -533,4 +525,12 @@ class Store_Default_Status(APIView):
             serializer.save()
             return Response(serializer.data, status=200)
         return Response(serializer.errors, status=400)
-        
+
+    def patch(self, request):
+        print(request.data)
+        serializer = Default_Status_Serializer(data = request.data)
+        prev_df_status = Default_Status.objects.get(crop_name = request.data['crop_name'])
+        if serializer.is_valid():
+            serializer.update(prev_df_status, serializer.data)
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)

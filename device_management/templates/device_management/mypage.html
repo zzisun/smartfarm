@@ -94,7 +94,7 @@
                             <div class="bar_box">
                                 <div class="bar" style="width:{{ farm_param.progress_date }}%"></div>
                             </div>
-                            <p class="tx_c txt_12 txt_gray88 tm8">{{ farm_param.progress_date }} days to harvest !</p>
+                            <p class="tx_c txt_12 txt_gray88 tm8">{{ farm_param.progress_date }} days passed !</p>
 
                         </div>
                         <ul class="air_ul">
@@ -118,7 +118,7 @@
                             <div class="bar_box">
                                 <div class="bar bg_yellow" style="width:{{ farm_param.light_hr }}%"></div>
                             </div>
-                            <p class="tx_c txt_12 txt_gray88 tm8">{{ farm_param.light_hr }} hr more</p>
+                            <p class="tx_c txt_12 txt_gray88 tm8">{{ farm_param.light_hr }} hour lighted</p>
 
                         </div>
                     </li>
@@ -171,7 +171,8 @@
 </body>
 <script type="text/javascript">
     let light_bar = document.getElementsByClassName("bg_yellow")[0];
-    let farm_param = "{{farm_param | escapejs}}";
+    let farm_list = "{{farm_list | escapejs}}";
+
     let light_length = farm_param.light_hr;
     let progress_length = farm_param.progress_date;
     progress_bar.style.width = light_length;
