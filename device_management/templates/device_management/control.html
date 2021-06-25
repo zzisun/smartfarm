@@ -326,9 +326,9 @@
                 //console.log(i);
                 manual_buttons[i].addEventListener('click',async function(){
                     //for server
-                    //let test_url = "http://158.247.227.73:8000/device_management/send_action";
+                    let test_url = "http://158.247.227.73:8000/device_management/send_action";
                     //for local test
-                    let test_url = "http://127.0.0.1:8000/device_management/send_action";
+                    //let test_url = "http://127.0.0.1:8000/device_management/send_action";
                     
                     let url = device_ip_addr;
 
@@ -401,9 +401,9 @@
                 automode_buttons[i].addEventListener('click',async function(){
 
                     //for server
-                    //let control_url = "http://158.247.227.73:8000/device_management/send_action";
+                    let control_url = "http://158.247.227.73:8000/device_management/send_action";
                     //for local test
-                    let control_url = "http://127.0.0.1:8000/device_management/send_action";
+                    //let control_url = "http://127.0.0.1:8000/device_management/send_action";
 
                     let url = device_ip_addr;
                     if (automode_buttons[i].id == 'ferti_toggle'){
@@ -430,8 +430,8 @@
                     console.debug(comments);
                     alert(JSON.stringify(comments));
 
-                    //let compare_url = "http://158.247.227.73:8000/device_management/compare";
-                    let compare_url = "http://127.0.0.1:8000/device_management/compare";
+                    let compare_url = "http://158.247.227.73:8000/device_management/compare";
+                    //let compare_url = "http://127.0.0.1:8000/device_management/compare";
                     
                     device_info = {{device_serial | escapejs}};
                     plant_id = {{plant_id | escapejs}};

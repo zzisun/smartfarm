@@ -119,10 +119,19 @@ class Default_Status_Handler():
 
 # text1 = re.split('-|,|to| to | - ', "5 to 10")
 
-url = input("Type correct url to store Excel status data")
+url = input("Type correct url to store Excel status data :\n")
+method = input("Create or Update :\n").lower()
+
 handler = Default_Status_Handler()
 send_default_stat = handler.make_model_similar_dicts(handler.parse_Status())
 
 for default_stat in send_default_stat:
-    res = requests.patch(url, headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'}, data=json.dumps(default_stat))
+    if method == "create":
+        res = requests.put(url, \
+            headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'},\
+            data=json.dumps(default_stat))
+    elif method == "update":
+        res = requests.patch(url, \
+            headers = {'accept' : 'application/json','content-type' : 'application/json;charset=UTF-8'},\
+            data=json.dumps(default_stat))
     print(res.json())
