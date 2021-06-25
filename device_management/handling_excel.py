@@ -1,4 +1,3 @@
-from typing import OrderedDict
 import pandas as pd
 import re
 from collections import defaultdict
@@ -19,7 +18,8 @@ print(df1)
 class Default_Status_Handler():
     default_status = pd.read_excel(default_status_excel, sheet_name="Plant data", usecols="A:C,E:L",index_col=None, dtype={"Light (hr)":str})
     #default_status = pd.read_csv(default_status_excel, usecols=['Plant Name','PH', 'EC'])
-    
+
+    ''' because of REGEX down there, it occurs bug when changing NAN values to MINUS(-) values....'''
     default_status = default_status.fillna(0)
     status_columns = default_status.columns
     #print(status_columns)
@@ -36,7 +36,7 @@ class Default_Status_Handler():
                 
                 #minmaxvalue = re.sub(" ", "", str(values))
 
-                ''' because of this REGEX, i could not change NAN values to MINUS(-) values....'''
+                ''' because of this REGEX, it occurs bug when changing NAN values to MINUS(-) values....'''
                 minmaxvalue = re.split('to|,| to | - |-|–| – |\s',str(values))
                 
                 '''seperate min, max values'''
