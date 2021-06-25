@@ -118,6 +118,8 @@ class Default_Status_Handler():
 
 
 # text1 = re.split('-|,|to| to | - ', "5 to 10")
+
+url = input("Type correct url to store Excel status data")
 handler = Default_Status_Handler()
 send_default_stat = handler.make_model_similar_dicts(handler.parse_Status())
 
