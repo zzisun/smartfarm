@@ -1,6 +1,24 @@
 {% extends 'base_back.html' %}
 {% load static %}
 {% block content %}
+
+<script type="text/javascript">
+    window.onload = function(){
+        let reg_button = document.getElementById("device_register");
+        reg_button.addEventListener('click', function(){
+            let ip_addr = document.getElementsByName("ip_address")[0].value;
+            let ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            console.log(ipformat.test(ip_addr))
+            if (!ipformat.test(ip_addr)){
+                alert("Wrong Format for IP Address!!");
+            }
+            else{
+                document.getElementsByTagName("form")[0].submit();
+            }
+        });
+    }
+</script>
+
 <body>
     <div class="device_wrap footer_on tp140 re_tp10">
         <form action={% url 'device_management:device' %}>
@@ -23,10 +41,12 @@
                     <input type="hidden" name="modelno" value="SMG001">
                     <input type="hidden" name="detail" value="SmartGrow">
                 </ul>
-                <button class="btn txt_14 tm50">Connect</button>
+                
             </div>
         </form>
+        <button class="btn txt_14 tm50" id="device_register">Connect</button>
     </div>
     <!-- //device -->
 </body>
 {% endblock %}
+
