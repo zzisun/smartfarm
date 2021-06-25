@@ -4,15 +4,25 @@
 
 <script type="text/javascript">
     window.onload = function(){
+
+        let ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        let serialformat = /^([0-9]){15}$/;
         let reg_button = document.getElementById("device_register");
         reg_button.addEventListener('click', function(){
             let ip_addr = document.getElementsByName("ip_address")[0].value;
-            let ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-            console.log(ipformat.test(ip_addr))
+            let serialnumber = document.getElementsByName("device_serial")[0].value;
+
+
+            console.log(ipformat.test(ip_addr));
+            console.log(serialformat.test(serialnumber));
             if (!ipformat.test(ip_addr)){
                 alert("Wrong Format for IP Address!!");
             }
-            else{
+            if (!serialformat.test(serialnumber)){
+                alert("SerialNumber must be 15 digits!!");
+            }
+
+            if(ipformat.test(ip_addr) && serialformat.test(serialnumber)){
                 document.getElementsByTagName("form")[0].submit();
             }
         });
