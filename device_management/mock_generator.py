@@ -8,14 +8,16 @@ dates = []
 num = 10
 
 
-device_serial = int(input())
-plant_info_id = int(input())
+url = input("url : ")
+device_serial = int(input("device_serial : "))
+plant_info_id = int(input("plant_info_id : "))
 #url = "http://158.247.227.73:8000/device_management/create_plant_params"
-url = "http://127.0.0.1:8000/device_management/create_plant_params"
-
+#url = "http://127.0.0.1:8000/device_management/create_plant_params"
+date_entry = input('Enter a date in YYYY-MM-DD format')
+year, month, day = map(int, date_entry.split('-'))
+stand_date = datetime(year, month, day)
 
 for i in range(num):
-    stand_date = datetime(2021,3,11)
     dates.append(((stand_date + timedelta(i)).strftime("%Y-%m-%d")))
 
 for i in range(num):
